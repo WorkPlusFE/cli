@@ -2,7 +2,7 @@
   "name": "workplus-cli",
   "version": "0.0.1",
   "description": "A simple CLI for scaffolding WorkPlus light app project! ",
-  "main": "index.js",
+  "main": "lib/index.js",
   "preferGlobal": true,
   "bin": {
     "workplus": "bin/workplus"
@@ -29,11 +29,13 @@
   "homepage": "https://github.com/WorkPlusFE/WorkPlus-cli#readme",
   "dependencies": {
     "async": "^2.0.0-rc.2",
-    "chalk": "^1.1.1",
+    "colors": "^1.1.2",
     "commander": "^2.9.0",
     "consolidate": "^0.14.0",
     "download-git-repo": "^0.1.1",
+    "figlet": "^1.1.2",
     "handlebars": "^4.0.5",
+    "http-server": "^0.9.0",
     "inquirer": "^0.12.0",
     "metalsmith": "^2.1.0",
     "minimatch": "^3.0.0",

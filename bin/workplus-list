@@ -1,5 +1,39 @@
 #!/usr/bin/env node
 
-for (var i = 0; i < 10; i++) {
-  console.log(i);
-}
+var request = require('request');
+var colors = require('colors');
+
+/**
+ * Padding.
+ */
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+/**
+ * List repos.
+ */
+
+request({
+  url: 'https://api.github.com/users/workplus-template/repos',
+  headers: {
+    'User-Agent': 'workplus-cli'
+  }
+}, function (err, res, body) {
+  if (err) console.log(err)
+  var requestBody = JSON.parse(body)
+  if (Array.isArray(requestBody)) {
+    console.log('  Available official templates:')
+    console.log()
+    requestBody.forEach(function (repo) {
+      console.log(
+        '  ' + ★.yellow +
+        '  ' + repo.name.blue +
+        ' - ' + repo.description)
+    })
+  } else {
+    console.error(requestBody.message)
+  }
+})

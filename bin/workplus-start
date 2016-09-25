@@ -1,1 +1,87 @@
 #!/usr/bin/env node
+
+/**
+* prev: params parse
+*
+*
+* 1: download-git-repo
+* 2: generate
+* 3: mata.JSON
+*/
+
+const path = require('path');
+const program = require('commander');
+const download = require('download-git-repo');
+const ora = require('ora');
+const inquirer = require('inquirer');
+const exists = require('fs').existsSync;
+const colors = require('colors');
+
+/**
+ * Padding.
+ */
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+/**
+* Usage
+*/
+program.usage('<template-name> [project-name]')
+
+/**
+* Help
+*/
+program.on('--help', function(){
+  console.log('  Examples:');
+  console.log('');
+  console.log('    # create a new project with an official template'.gray);
+  console.log('    $ workplus start demo7 my-project');
+  console.log('');
+});
+
+/**
+ * Agrs params
+ */
+
+program.parse(process.argv);
+let args = program.args;
+
+if (args.length < 1) {
+  return program.help();
+}
+
+let template = args[0];
+let pathName = args[1];
+let inPlace = !pathName || pathName === '.'
+let destination = path.resolve(pathName || '.');
+
+if (exists(destination)) {
+  inquirer.prompt([{
+    type: 'confirm',
+    message: inPlace
+      ? 'Generate project in current directory?'
+      : 'Target directory exists. Continue?',
+    name: 'ok'
+  }], function (answers) {
+    if (answers.ok) {
+      run()
+    }
+  })
+} else {
+  run()
+}
+
+function run () {
+  console.log('');
+
+  const spinner = ora(`downloading ${template}`).start();
+  download(`workplus-template/${template}`, destination, function(err) {
+    if (err) return console.log(err);
+    spinner.stop();
+    console.log('ok');
+
+  });
+}

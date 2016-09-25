@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 
 let program = require('commander');
-let logo = require('../lib/logo.js');
+let figlet = require('figlet');
 
-console.log(logo);
+if (process.argv.length < 3) {
+  console.log('');
+  console.log(figlet.textSync("workplus"));
+  console.log(' ===========================================');
+}
 
 program
   .version(require('../package').version)
   .usage('<command> [options]')
-  .command('start [options] <PATH> [template]', 'generate a new project from a template')
+  .command('start <template> [project]', 'generate a new project from a template')
   .command('list', 'list available official templates')
   .command('server', 'http-server like, a local static server')
   .parse(process.argv);
