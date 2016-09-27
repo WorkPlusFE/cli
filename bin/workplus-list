@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-var request = require('request');
-var colors = require('colors');
+const request = require('request');
+const colors = require('colors');
+const ora = require('ora');
 
 /**
  * Padding.
@@ -16,12 +17,14 @@ process.on('exit', function () {
  * List repos.
  */
 
+const spinner = ora(` Please wait...`).start();
 request({
   url: 'https://api.github.com/users/workplus-template/repos',
   headers: {
     'User-Agent': 'workplus-cli'
   }
 }, function (err, res, body) {
+  spinner.stop();
   if (err) console.log(err)
   var requestBody = JSON.parse(body)
   if (Array.isArray(requestBody)) {
@@ -29,7 +32,7 @@ request({
     console.log()
     requestBody.forEach(function (repo) {
       console.log(
-        '  ' + ★.yellow +
+        '  ' + ('★').yellow +
         '  ' + repo.name.blue +
         ' - ' + repo.description)
     })

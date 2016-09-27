@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
 /**
+* todos: check destination is empty
+*/
+
+/**
 * prev: params parse
-*
-*
-* 1: download-git-repo
-* 2: generate
-* 3: mata.JSON
 */
 
 const path = require('path');
@@ -16,6 +15,9 @@ const ora = require('ora');
 const inquirer = require('inquirer');
 const exists = require('fs').existsSync;
 const colors = require('colors');
+const uid = require('uid');
+const generate = require('../lib/generate.js');
+const remove = require('rimraf').sync;
 
 /**
  * Padding.
@@ -65,7 +67,7 @@ if (exists(destination)) {
       ? 'Generate project in current directory?'
       : 'Target directory exists. Continue?',
     name: 'ok'
-  }], function (answers) {
+  }], (answers) => {
     if (answers.ok) {
       run()
     }
@@ -75,13 +77,25 @@ if (exists(destination)) {
 }
 
 function run () {
-  console.log('');
-
   const spinner = ora(`downloading ${template}`).start();
-  download(`workplus-template/${template}`, destination, function(err) {
+
+  let tmp = '/tmp/template' + uid(); // unique backup
+
+  download(`workplus-template/${template}`, tmp, (err) => {
     if (err) return console.log(err);
     spinner.stop();
-    console.log('ok');
+    console.log(`  Download ${template} successful`);
+    console.log('');
+    console.log('  Begin generate project');
+    console.log('');
+    process.on('exit', () => {
+      remove(tmp); //remove backup files
+    });
 
+    generate(path.join(tmp, 'template'), destination, (err) => {
+      if (err) console.log(err);
+      console.log('');
+      console.log('  Generate successful');
+    });
   });
 }
