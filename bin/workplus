@@ -2,11 +2,12 @@
 
 let program = require('commander');
 let figlet = require('figlet');
+let colors = require('colors');
 
 if (process.argv.length < 3) {
   console.log('');
-  console.log(figlet.textSync("workplus"));
-  console.log(' ===========================================');
+  console.log(figlet.textSync("workplus").white);
+  console.log(' ==========================================='.white);
 }
 
 program
@@ -14,5 +15,5 @@ program
   .usage('<command> [options]')
   .command('start <template> [project]', 'generate a new project from a template')
   .command('list', 'list available official templates')
-  .command('server', 'http-server like, a local static server')
+  .command('server', 'http-server like, start a local static server')
   .parse(process.argv);

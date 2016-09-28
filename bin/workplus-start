@@ -1,10 +1,6 @@
 #!/usr/bin/env node
 
 /**
-* todos: check destination is empty
-*/
-
-/**
 * prev: params parse
 */
 
@@ -57,8 +53,9 @@ if (args.length < 1) {
 
 let template = args[0];
 let pathName = args[1];
-let inPlace = !pathName || pathName === '.'
+let inPlace = !pathName || pathName === '.';
 let destination = path.resolve(pathName || '.');
+let name = !pathName ? template : pathName;
 
 if (exists(destination)) {
   inquirer.prompt([{
@@ -86,14 +83,12 @@ function run () {
     if (err) return console.log(err);
     spinner.text = `Download ${template} successful`;
     spinner.succeed();
-    console.log('');
-    console.log('  Begin generate project');
-    console.log('');
+    console.log('\n  #Begin generate project \n'.gray);
     process.on('exit', () => {
       remove(tmp); //remove backup files
     });
 
-    generate(tmp, destination, (err) => {
+    generate(name, tmp, destination, (err) => {
       if (err) console.log(err);
       console.log('');
     });
