@@ -69,6 +69,7 @@ if (exists(destination)) {
     name: 'ok'
   }], (answers) => {
     if (answers.ok) {
+      console.log('');
       run()
     }
   })
@@ -77,14 +78,14 @@ if (exists(destination)) {
 }
 
 function run () {
-  const spinner = ora(`downloading ${template}`).start();
+  const spinner = ora(`Downloading ${template}`);
 
   let tmp = '/tmp/template' + uid(); // unique backup
-
+  spinner.start();
   download(`workplus-template/${template}`, tmp, (err) => {
     if (err) return console.log(err);
-    spinner.stop();
-    console.log(`  Download ${template} successful`);
+    spinner.text = `Download ${template} successful`;
+    spinner.succeed();
     console.log('');
     console.log('  Begin generate project');
     console.log('');
@@ -92,10 +93,9 @@ function run () {
       remove(tmp); //remove backup files
     });
 
-    generate(path.join(tmp, 'template'), destination, (err) => {
+    generate(tmp, destination, (err) => {
       if (err) console.log(err);
       console.log('');
-      console.log('  Generate successful');
     });
   });
 }
