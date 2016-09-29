@@ -12,7 +12,6 @@
     "commander": "^2.9.0",
     "consolidate": "^0.14.0",
     "download-git-repo": "^0.1.1",
-    "handlebars": "^4.0.5",
     "http-server": "^0.9.0",
     "inquirer": "^0.12.0",
     "metalsmith": "^2.1.0",
@@ -24,6 +23,7 @@
     "rimraf": "^2.5.0",
     "semver": "^5.1.0",
     "uid": "0.0.2",
+    "underscore": "^1.8.3",
     "validate-npm-package-name": "^2.2.2"
   },
   "devDependencies": {
