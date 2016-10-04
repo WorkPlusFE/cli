@@ -58,7 +58,7 @@ Available Options:
 * -a Address to use (defaults to 0.0.0.0)
 * -P or --proxy Proxies all requests which can't be resolved locally to the given url. e.g.: -P http://someurl.com
 
-### Template
+### Writing Custom Template
 
 A template repo must have a `template` directory that holds the template files, and may have a metadata file for the template which can be a `template.json` file.
 
