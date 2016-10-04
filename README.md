@@ -1,8 +1,12 @@
 #workplus cli
 
+[![npm](https://img.shields.io/npm/v/workplus-cli.svg?maxAge=2592000?style=flat-square)]()
+
 > A simple CLI for scaffolding WorkPlus projects.
 
 ### Installation
+
+Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x preferred) and Git.
 
 ```bash
 [sudo] npm install -g workplus-cli
@@ -10,7 +14,7 @@
 
 ### Usage
 
-#### 1.Create a new project
+#### 1. Create a new project
 
 ```bash
 $ workplus start <template-name> <project-name>
@@ -24,7 +28,7 @@ $ workplus start webpack-framework7 my-project
 
 The above command pulls the template from [workplus-templates/webpack-framework7](https://github.com/workplus-templates/webpack-framework7), prompts for some information, and generates the project at ./my-project/.
 
-#### 2.Search templates
+#### 2. Templates list
 
 ```bash
 $ workplus list
@@ -34,13 +38,13 @@ All official project templates are repos in the [workplus-templates organization
 
 Current available templates include:
 
-* [demo7](https://github.com/workplus-templates/demo7) A starter project for using Framework7 with Webpack via Babel!
-* [webpack-framework7](https://github.com/workplus-templates/webpack-framework7) 一个快速制作demo的framework7项目
+* [demo7](https://github.com/workplus-templates/demo7) A framework7 project use for creating prototype demo rapidly.
+* [webpack-framework7](https://github.com/workplus-templates/webpack-framework7) A starter project for using Framework7 with Webpack via Babel!
 * [webpack-vue](https://github.com/workplus-templates/webpack-vue) Webpack VueJs template.
 * [gulp-angular](https://github.com/workplus-templates/gulp-angular) Angular starter project using gulp.
 
 
-#### 3.Start a 'http-server' local static server
+#### 3. Start a 'http-server' local static server
 
 ```bash
 $ workplus server
@@ -71,7 +75,6 @@ A template repo must have a `template` directory that holds the template files, 
 * description: default value of the project description. It use for prompt process.
 * bash: log starter message after project generated.
 * readme: log documentation link after project generated.
-
 
 All files inside `template` will be rendered using `underscore`, with the prompt results as the data.
 
