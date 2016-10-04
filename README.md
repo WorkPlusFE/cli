@@ -10,7 +10,7 @@
 
 ### Usage
 
-Create a new project:
+#### Create a new project:
 
 ```bash
 $ workplus start <template-name> <project-name>
@@ -22,14 +22,15 @@ Example:
 $ workplus start demo7 my-project
 ```
 
-Search available official templates:
+The above command pulls the template from workplus-templates/demo7, prompts for some information, and generates the project at ./my-project/.
+
+#### Search available official templates:
 
 ```bash
 $ workplus list
 ```
 
-Start a 'http-server' local static server:
-
+#### Start a 'http-server' local static server:
 
 ```bash
 $ workplus server
