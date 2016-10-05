@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/workplus-cli.svg?maxAge=2592000?style=flat-square)]()
 
-> A simple CLI for scaffolding WorkPlus projects.
+> A simple CLI for scaffolding starter projects.
 
 ### Installation
 
