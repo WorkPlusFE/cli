@@ -83,6 +83,14 @@ Example:
 ```html
 <title><%= name %></title>
 ```
+### Development
+
+```bash
+npm install
+bin/workplus start <template-name> [project-name]
+bin/workplus list
+bin/workplus server
+```
 
 ### License
 
