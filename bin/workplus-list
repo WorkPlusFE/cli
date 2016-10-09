@@ -19,7 +19,7 @@ process.on('exit', function () {
 
 const spinner = ora(` Please wait...`).start();
 request({
-  url: 'https://api.github.com/users/workplus-template/repos',
+  url: 'https://api.github.com/users/workplus-templates/repos',
   headers: {
     'User-Agent': 'workplus-cli'
   }

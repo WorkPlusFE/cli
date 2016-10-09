@@ -5,7 +5,6 @@ let figlet = require('figlet');
 let colors = require('colors');
 
 if (process.argv.length < 3) {
-  console.log('');
   console.log(figlet.textSync("workplus").white);
   console.log(' ==========================================='.white);
 }
