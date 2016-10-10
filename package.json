@@ -1,10 +1,10 @@
 {
   "name": "workplus-cli",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A simple CLI for scaffolding workplus projects.",
   "main": "index.js",
-  "directories": {
-    "test": "test"
+  "bin": {
+    "workplus": "bin/workplus"
   },
   "preferGlobal": true,
   "dependencies": {
@@ -55,5 +55,8 @@
   "bugs": {
     "url": "https://github.com/WorkPlusFE/WorkPlus-cli/issues"
   },
-  "homepage": "https://github.com/WorkPlusFE/WorkPlus-cli#readme"
+  "homepage": "https://github.com/WorkPlusFE/WorkPlus-cli#readme",
+  "engines": {
+    "node": ">=6.0.0"
+  }
 }
