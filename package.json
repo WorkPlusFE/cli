@@ -1,6 +1,6 @@
 {
   "name": "workplus-cli",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A simple CLI for scaffolding workplus projects.",
   "main": "index.js",
   "directories": {
