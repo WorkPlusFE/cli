@@ -79,7 +79,7 @@ function run () {
 
   let tmp = '/tmp/template' + uid(); // unique backup
   spinner.start();
-  download(`workplus-template/${template}`, tmp, (err) => {
+  download(`workplus-templates/${template}`, tmp, (err) => {
     if (err) return console.log(err);
     spinner.text = `Download ${template} successful`;
     spinner.succeed();
