@@ -1,4 +1,4 @@
-#workplus cli
+# workplus cli
 
 [![npm](https://img.shields.io/npm/v/workplus-cli.svg?maxAge=2592000?style=flat-square)]()
 
