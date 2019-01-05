@@ -18,6 +18,10 @@ Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x preferred) and Git.
 
 ```bash
 $ workplus start <template-name> <project-name>
+
+// Or
+
+$ wp start <template-name> <project-name>
 ```
 
 Example:
@@ -31,23 +35,23 @@ The above command pulls the template from [workplus-templates/webpack-framework7
 #### 2. Templates list
 
 ```bash
-$ workplus list
+$ workplus list // Or "wp list"
 ```
 
 All official project templates are repos in the [workplus-templates organization](https://github.com/workplus-templates). When a new template is added to the organization, you will be able to run workplus start <template-name> <project-name> to use that template. You can also run workplus list to see all available official templates.
 
 Current available templates include:
 
-* [demo7](https://github.com/workplus-templates/demo7) A framework7 project use for creating prototype demo rapidly.
-* [webpack-framework7](https://github.com/workplus-templates/webpack-framework7) A starter project for using Framework7 with Webpack via Babel!
-* [webpack-vue](https://github.com/workplus-templates/webpack-vue) Webpack VueJs template.
-* [gulp-angular](https://github.com/workplus-templates/gulp-angular) Angular starter project using gulp.
+* [f7-vue](https://github.com/workplus-templates/f7-vue) Framework7 Vue Webpack starter app template.
+* [rollup-starter](https://github.com/workplus-templates/rollup-starter) Sample project for packages built using rollup.!
+* [single-page](https://github.com/workplus-templates/single-page) Single-page starter project, include webpack, less, babel.
+* [multiple-pages](https://github.com/workplus-templates/multiple-pages) Multiple pages starter project.
 
 
 #### 3. Start a 'http-server' local static server
 
 ```bash
-$ workplus server
+$ workplus server // Or "wp server"
 ```
 
 workplus server base on 'http-server', [http-server](https://github.com/indexzero/http-server) is a simple, zero-configuration command-line http server. It is powerful enough for production usage, but it's simple and hackable enough to be used for testing, local development, and learning.

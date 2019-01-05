@@ -1,11 +1,11 @@
 {
   "name": "workplus-cli",
-  "version": "0.10.0",
+  "version": "0.10.2",
   "description": "A simple CLI for scaffolding workplus projects.",
   "main": "index.js",
   "bin": {
     "workplus": "bin/workplus",
-    "wp": "bin/workplus"
+    "wp": "bin/wp"
   },
   "preferGlobal": true,
   "dependencies": {
