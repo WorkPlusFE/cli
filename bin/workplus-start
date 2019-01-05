@@ -75,22 +75,30 @@ if (exists(destination)) {
 }
 
 function run () {
-  const spinner = ora(`Downloading ${template}`);
-
-  let tmp = '/tmp/template' + uid(); // unique backup
-  spinner.start();
-  download(`workplus-templates/${template}`, tmp, (err) => {
-    if (err) return console.log(err);
-    spinner.text = `Download ${template} successful`;
-    spinner.succeed();
+  if (exists(template)) {
     console.log('\n  #Begin generate project \n'.gray);
-    process.on('exit', () => {
-      remove(tmp); //remove backup files
-    });
-
-    generate(name, tmp, destination, (err) => {
+    generate(name, template, destination, (err) => {
       if (err) console.log(err);
       console.log('');
     });
-  });
+  } else {
+    const spinner = ora(`Downloading ${template}`);
+
+    let tmp = '/tmp/template' + uid(); // unique backup
+    spinner.start();
+    download(`workplus-templates/${template}`, tmp, (err) => {
+      if (err) return console.log(err);
+      spinner.text = `Download ${template} successful`;
+      spinner.succeed();
+      console.log('\n  #Begin generate project \n'.gray);
+      process.on('exit', () => {
+        remove(tmp); //remove backup files
+      });
+
+      generate(name, tmp, destination, (err) => {
+        if (err) console.log(err);
+        console.log('');
+      });
+    });
+  }  
 }
