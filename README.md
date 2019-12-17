@@ -1,6 +1,4 @@
-# w6s cli
-
-[![npm](https://img.shields.io/npm/v/@w6s/cli.svg?maxAge=2592000?style=flat-square)]()
+# w6s cli [![npm version](https://badge.fury.io/js/%40w6s%2Fcli.svg)](https://badge.fury.io/js/%40w6s%2Fcli)
 
 > A CLI for scaffolding starter projects.
 
@@ -25,7 +23,7 @@ $ w6s clone <template-name> <project-name>
 Example:
 
 ```bash
-$ workplus clone webpack-framework7 my-project
+$ w6s clone webpack-framework7 my-project
 ```
 
 The above command pulls the template from [workplus-templates/webpack-framework7](https://github.com/workplus-templates/webpack-framework7), prompts for some information, and generates the project at ./my-project/.
