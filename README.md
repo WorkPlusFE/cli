@@ -1,15 +1,17 @@
-# workplus cli
+# w6s cli
 
-[![npm](https://img.shields.io/npm/v/workplus-cli.svg?maxAge=2592000?style=flat-square)]()
+[![npm](https://img.shields.io/npm/v/@w6s/cli.svg?maxAge=2592000?style=flat-square)]()
 
-> A simple CLI for scaffolding starter projects.
+> A CLI for scaffolding starter projects.
+
+[Check here for older versions](https://github.com/WorkPlusFE/w6s-cli/tree/v0.10.2)
 
 ### Installation
 
 Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x preferred) and Git.
 
 ```bash
-[sudo] npm install -g workplus-cli
+[sudo] npm install -g @w6s/cli
 ```
 
 ### Usage
@@ -17,17 +19,13 @@ Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x preferred) and Git.
 #### 1. Create a new project
 
 ```bash
-$ workplus start <template-name> <project-name>
-
-// Or
-
-$ wp start <template-name> <project-name>
+$ w6s clone <template-name> <project-name>
 ```
 
 Example:
 
 ```bash
-$ workplus start webpack-framework7 my-project
+$ workplus clone webpack-framework7 my-project
 ```
 
 The above command pulls the template from [workplus-templates/webpack-framework7](https://github.com/workplus-templates/webpack-framework7), prompts for some information, and generates the project at ./my-project/.
@@ -35,7 +33,7 @@ The above command pulls the template from [workplus-templates/webpack-framework7
 #### 2. Templates list
 
 ```bash
-$ workplus list // Or "wp list"
+$ w6s list
 ```
 
 All official project templates are repos in the [workplus-templates organization](https://github.com/workplus-templates). When a new template is added to the organization, you will be able to run workplus start <template-name> <project-name> to use that template. You can also run workplus list to see all available official templates.
@@ -51,10 +49,10 @@ Current available templates include:
 #### 3. Start a 'http-server' local static server
 
 ```bash
-$ workplus server // Or "wp server"
+$ w6s server
 ```
 
-workplus server base on 'http-server', [http-server](https://github.com/indexzero/http-server) is a simple, zero-configuration command-line http server. It is powerful enough for production usage, but it's simple and hackable enough to be used for testing, local development, and learning.
+w6s server base on 'http-server', [http-server](https://github.com/indexzero/http-server) is a simple, zero-configuration command-line http server. It is powerful enough for production usage, but it's simple and hackable enough to be used for testing, local development, and learning.
 
 Available Options:
 
@@ -91,9 +89,9 @@ Example:
 
 ```bash
 npm install
-bin/workplus start <template-name> [project-name]
-bin/workplus list
-bin/workplus server
+bin/w6s clone <template-name> [project-name]
+bin/w6s list
+bin/w6s server
 ```
 
 ### License

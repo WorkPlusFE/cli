@@ -1,13 +1,15 @@
 {
-  "name": "workplus-cli",
-  "version": "0.10.2",
-  "description": "A simple CLI for scaffolding workplus projects.",
+  "name": "@w6s/cli",
+  "version": "1.0.0",
+  "description": "A CLI for scaffolding workplus projects.",
   "main": "index.js",
   "bin": {
-    "workplus": "bin/workplus",
-    "wp": "bin/wp"
+    "w6s": "bin/w6s"
   },
   "preferGlobal": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "async": "^2.0.0-rc.2",
     "colors": "^1.1.2",
@@ -44,19 +46,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WorkPlusFE/WorkPlus-cli.git"
+    "url": "git+https://github.com/WorkPlusFE/w6s-cli.git"
   },
   "keywords": [
     "cli",
     "workplus-cli",
-    "workplus"
+    "w6s-cli",
+    "workplus",
+    "w6s"
   ],
-  "author": "Hejx",
+  "author": "WorkPlusFE",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/WorkPlusFE/WorkPlus-cli/issues"
+    "url": "https://github.com/WorkPlusFE/w6s-cli/issues"
   },
-  "homepage": "https://github.com/WorkPlusFE/WorkPlus-cli#readme",
+  "homepage": "https://github.com/WorkPlusFE/w6s-cli#readme",
   "engines": {
     "node": ">=6.0.0"
   }

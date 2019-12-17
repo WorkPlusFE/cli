@@ -36,7 +36,7 @@ program.on('--help', function(){
   console.log('  Examples:');
   console.log('');
   console.log('    # create a new project with an official template'.gray);
-  console.log('    $ workplus start demo7 my-project');
+  console.log('    $ w6s clone demo7 my-project');
   console.log('');
 });
 
