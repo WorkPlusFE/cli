@@ -2,11 +2,9 @@
 
 > A CLI for scaffolding starter projects.
 
-[Check here for older versions](https://github.com/WorkPlusFE/w6s-cli/tree/v0.10.2)
-
 ### Installation
 
-Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x preferred) and Git.
+Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x preferred) and npm.
 
 ```bash
 [sudo] npm install -g @w6s/cli
@@ -34,7 +32,7 @@ The above command pulls the template from [workplus-templates/webpack-framework7
 $ w6s list
 ```
 
-All official project templates are repos in the [workplus-templates organization](https://github.com/workplus-templates). When a new template is added to the organization, you will be able to run workplus start <template-name> <project-name> to use that template. You can also run workplus list to see all available official templates.
+All official project templates are repos in the [workplus-templates organization](https://github.com/workplus-templates). When a new template is added to the organization, you will be able to run `w6s clone  <template-name> <project-name>` to use that template. You can also run `w6s list` to see all available official templates.
 
 Current available templates include:
 
