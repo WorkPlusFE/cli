@@ -12,6 +12,7 @@ if (process.argv.length < 3) {
 program
   .version(require('../package').version)
   .usage('<command> [options]')
+  .command('init', 'initialize project')
   .command('clone <template> [project]', 'generate a new project from a template')
   .command('list', 'list available official templates')
   .command('server', 'http-server like, start a local static server')

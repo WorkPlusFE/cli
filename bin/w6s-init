@@ -1,0 +1,63 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const request = require('request');
+const colors = require('colors');
+const ora = require('ora');
+const prompt = require('../lib/prompt');
+const clone = require('../lib/clone');
+
+/**
+ * Padding.
+ */
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+/**
+ * List repos.
+ */
+
+const spinner = ora(` Fetching, please wait...`).start();
+request({
+  url: 'https://api.github.com/users/workplus-templates/repos',
+  headers: {
+    'User-Agent': 'workplus-cli'
+  }
+}, function (err, res, body) {
+  spinner.stop();
+  if (err) console.log(err)
+  var requestBody = JSON.parse(body)
+  if (Array.isArray(requestBody)) {
+    const recommend = [];
+    const available = [];
+
+    const isRecommendTemplate = function(repo) {
+      return repo.description.toLowerCase().trim().indexOf('[recommend]') === 0;
+    };
+
+    requestBody.forEach(function (repo) {
+      if (isRecommendTemplate(repo)) {
+        repo.description = repo.description.replace('[Recommend]', '');
+        repo._name = repo.name;
+        repo.name = repo.name.green + repo.description.gray;
+        recommend.push(repo);
+      }
+    });
+
+    const message = 'Please select a template ';
+    prompt(message, recommend)
+      .then(function(answer) {
+        console.log();
+        
+        const selected = recommend.filter(function(choice) { return choice.name === answer; })[0];
+        if (selected) {
+          clone(selected._name, selected._name, path.resolve('./'), true);
+        }
+      });
+  } else {
+    console.error(requestBody.message)
+  }
+})

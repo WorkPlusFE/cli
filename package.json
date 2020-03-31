@@ -18,7 +18,7 @@
     "download-git-repo": "^0.1.1",
     "figlet": "^1.2.0",
     "http-server": "^0.9.0",
-    "inquirer": "^0.12.0",
+    "inquirer": "^7.1.0",
     "metalsmith": "^2.1.0",
     "ora": "^0.3.0",
     "portfinder": "^1.0.7",
