@@ -1,0 +1,20 @@
+{
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "version": "2.0.0",
+  "packages": [
+    "packages/@w6s/*"
+  ],
+  "changelog": {
+    "repo": "WorkPlusFE/w6s-cli",
+    "labels": {
+      "PR: New Feature": ":rocket: New Features",
+      "PR: Breaking Change": ":boom: Breaking Changes",
+      "PR: Bug Fix": ":bug: Bug Fix",
+      "PR: Documentation": ":memo: Documentation",
+      "PR: Internal": ":house: Internal",
+      "PR: Underlying Tools": ":hammer: Underlying Tools"
+    },
+    "cacheDir": ".changelog"
+  }
+}

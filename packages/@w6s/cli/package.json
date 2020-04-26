@@ -1,0 +1,7 @@
+{
+  "name": "@w6s/cli",
+  "version": "2.0.0",
+  "description": "@w6s/cli",
+  "main": "index.js",
+  "license": "MIT"
+}
