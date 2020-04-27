@@ -3,5 +3,29 @@
   "version": "2.0.0",
   "description": "@w6s/cli",
   "main": "index.js",
-  "license": "MIT"
+  "bin": {
+    "w6s": "bin/w6s"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "async": "^3.2.0",
+    "colors": "^1.4.0",
+    "commander": "^5.1.0",
+    "consolidate": "^0.15.1",
+    "download-git-repo": "^3.0.2",
+    "figlet": "^1.4.0",
+    "http-server": "^0.12.1",
+    "inquirer": "^7.1.0",
+    "metalsmith": "^2.3.0",
+    "ora": "^4.0.4",
+    "portfinder": "^1.0.25",
+    "read-metadata": "^1.0.0",
+    "request": "^2.88.2",
+    "rimraf": "^3.0.2",
+    "uid": "^1.0.0",
+    "validate-npm-package-name": "^3.0.0"
+  }
 }

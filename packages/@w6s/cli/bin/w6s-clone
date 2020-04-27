@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
-/**
-* prev: params parse
-*/
+require('colors');
 
 const path = require('path');
 const program = require('commander');
+
 const clone = require('../lib/clone');
 
 /**
@@ -13,7 +12,7 @@ const clone = require('../lib/clone');
  */
 
 console.log()
-process.on('exit', function () {
+process.on('exit', () => {
   console.log()
 })
 
@@ -25,7 +24,7 @@ program.usage('<template-name> [project-name]')
 /**
 * Help
 */
-program.on('--help', function(){
+program.on('--help', () => {
   console.log('  Examples:');
   console.log('');
   console.log('    # create a new project with an official template'.gray);
@@ -38,16 +37,16 @@ program.on('--help', function(){
  */
 
 program.parse(process.argv);
-let args = program.args;
+const { args } = program;
 
 if (args.length < 1) {
-  return program.help();
+  program.help();
+} else {
+  const template = args[0];
+  const pathName = args[1];
+  const inPlace = !pathName || pathName === '.';
+  const destination = path.resolve(pathName || '.');
+  const name = !pathName ? template : pathName;
+
+  clone(name, template, destination, inPlace);  
 }
-
-let template = args[0];
-let pathName = args[1];
-let inPlace = !pathName || pathName === '.';
-let destination = path.resolve(pathName || '.');
-let name = !pathName ? template : pathName;
-
-clone(name, template, destination, inPlace);

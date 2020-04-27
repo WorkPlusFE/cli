@@ -3,7 +3,6 @@
 const program = require('commander');
 const httpServer = require("http-server");
 const portfinder = require('portfinder');
-const colors = require('colors');
 const os = require('os');
 
 program
@@ -14,26 +13,24 @@ program
   .parse(process.argv);
 
 
-let ifaces = os.networkInterfaces();
+const ifaces = os.networkInterfaces();
 
-let port = program.port || parseInt(process.env.PORT, 10),
-    host = program.address || '0.0.0.0',
-    proxy = program.proxy,
-    root = process.cwd(),
-    logger;
+const port = program.port || parseInt(process.env.PORT, 10);
+const host = program.address || '0.0.0.0';
+const {proxy} = program;
+const root = process.cwd();
 
-logger = {
+const logger = {
   info: console.log,
-  request: function (req, res, error) {
-    var date = new Date().toUTCString();
+  request(req, res, error) {
+    const date = new Date().toUTCString();
     if (error) {
       logger.info(
         '[%s] "%s %s" Error (%s): "%s"',
         date, req.method.red, req.url.red,
         error.status.toString().red, error.message.red
       );
-    }
-    else {
+    } else {
       logger.info(
         '[%s] "%s %s" "%s"',
         date, req.method.cyan, req.url.cyan,
@@ -43,9 +40,46 @@ logger = {
   }
 };
 
+function listen(port) {
+  const options = {
+    root,
+    logFn: logger.request,
+    proxy
+  };
+
+  const server = httpServer.createServer(options);
+  server.listen(port, host, () => {
+    const canonicalHost = host === '0.0.0.0' ? '127.0.0.1' : host;
+    const protocol = 'http://';
+
+    logger.info(['Starting up http-server, serving '.yellow,
+      server.root.cyan,
+      '\nAvailable on:'.yellow
+    ].join(''));
+
+    if (program.address && host !== '0.0.0.0') {
+      logger.info((`  ${  protocol  }${canonicalHost  }:${  port.toString()}`).green);
+    } else {
+      Object.keys(ifaces).forEach((dev) => {
+        ifaces[dev].forEach((details) => {
+          if (details.family === 'IPv4') {
+            logger.info((`  ${  protocol  }${details.address  }:${  port.toString()}`).green);
+          }
+        });
+      });
+    }
+
+    if (typeof proxy === 'string') {
+      logger.info(`Unhandled requests will be served from: ${  proxy}`);
+    }
+
+    logger.info('Hit CTRL-C to stop the server');
+  });
+}
+
 if (!port) {
   portfinder.basePort = 8080;
-  portfinder.getPort(function (err, port) {
+  portfinder.getPort((err, port) => {
     if (err) { throw err; }
     listen(port);
   });
@@ -54,58 +88,22 @@ else {
   listen(port);
 }
 
-function listen(port) {
-  var options = {
-    root: root,
-    logFn: logger.request,
-    proxy: proxy
-  };
-
-  var server = httpServer.createServer(options);
-  server.listen(port, host, function () {
-    var canonicalHost = host === '0.0.0.0' ? '127.0.0.1' : host,
-        protocol = 'http://';
-
-    logger.info(['Starting up http-server, serving '.yellow,
-      server.root.cyan,
-      '\nAvailable on:'.yellow
-    ].join(''));
-
-    if (program.address && host !== '0.0.0.0') {
-      logger.info(('  ' + protocol + canonicalHost + ':' + port.toString()).green);
-    } else {
-      Object.keys(ifaces).forEach(function (dev) {
-        ifaces[dev].forEach(function (details) {
-          if (details.family === 'IPv4') {
-            logger.info(('  ' + protocol + details.address + ':' + port.toString()).green);
-          }
-        });
-      });
-    }
-
-    if (typeof proxy === 'string') {
-      logger.info('Unhandled requests will be served from: ' + proxy);
-    }
-
-    logger.info('Hit CTRL-C to stop the server');
-  });
-}
-
 if (process.platform === 'win32') {
+  /* eslint  global-require:0 */
   require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
-  }).on('SIGINT', function () {
+  }).on('SIGINT', () => {
     process.emit('SIGINT');
   });
 }
 
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
   logger.info('http-server stopped.'.red);
   process.exit();
 });
 
-process.on('SIGTERM', function () {
+process.on('SIGTERM', () => {
   logger.info('http-server stopped.'.red);
   process.exit();
 });

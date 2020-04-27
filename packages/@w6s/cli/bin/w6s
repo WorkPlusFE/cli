@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-let program = require('commander');
-let figlet = require('figlet');
-let colors = require('colors');
+require('colors');
+
+const program = require('commander');
+const figlet = require('figlet');
 
 if (process.argv.length < 3) {
   console.log(figlet.textSync("workplus").white);

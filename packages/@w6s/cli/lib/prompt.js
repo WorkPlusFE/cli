@@ -9,9 +9,7 @@ function consolePrompt(message, choices) {
   };
   return inquirer
     .prompt([ question ])
-    .then(function (answers) {
-      return answers.answer;
-    });
+    .then(({ answer }) => answer);
 };
 
 module.exports = consolePrompt;

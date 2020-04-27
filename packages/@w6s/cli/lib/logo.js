@@ -1,6 +1,6 @@
 // workplus logo
 
-let workplus = [
+const workplus = [
     '                                                     ',
     '                        __           __              ',
     '  .--.--.--.-----.----.|  |--.-----.|  |.--.--.-----.',

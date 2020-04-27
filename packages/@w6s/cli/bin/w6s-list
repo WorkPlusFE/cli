@@ -1,44 +1,40 @@
 #!/usr/bin/env node
 
+require('colors');
+
 const request = require('request');
-const colors = require('colors');
 const ora = require('ora');
 
 /**
  * Padding.
  */
-
-console.log()
-process.on('exit', function () {
-  console.log()
-})
+console.log();
+process.on('exit', () => {
+  console.log();
+});
 
 /**
  * List repos.
  */
-
 const spinner = ora(` Please wait...`).start();
 request({
   url: 'https://api.github.com/users/workplus-templates/repos',
   headers: {
-    'User-Agent': 'workplus-cli'
-  }
-}, function (err, res, body) {
+    'User-Agent': 'workplus-cli',
+  },
+}, (err, res, body) => {
   spinner.stop();
-  if (err) console.log(err)
-  var requestBody = JSON.parse(body)
+  if (err) console.log(err);
+  const requestBody = JSON.parse(body);
   if (Array.isArray(requestBody)) {
     const recommend = [];
     const available = [];
+    const isRecommendTemplate = ({ description }) => description.toLowerCase().trim().indexOf('[recommend]') === 0;
 
-    const isRecommendTemplate = function(repo) {
-      return repo.description.toLowerCase().trim().indexOf('[recommend]') === 0;
-    };
-
-    requestBody.forEach(function (repo) {
+    requestBody.forEach((repo) => {
       if (isRecommendTemplate(repo)) {
-        repo.description = repo.description.replace('[Recommend]', '');
-        recommend.push(repo);
+        const { description } = repo;
+        recommend.push({ ...repo, description: description.replace('[Recommend]', '') });
       } else {
         available.push(repo);
       }
@@ -47,11 +43,11 @@ request({
     if (recommend.length > 0) {
       console.log('  Recommend Templates:')
       console.log()
-      recommend.forEach(function (repo) {
+      recommend.forEach((repo) => {
         console.log(
-          '  ' + ('★').yellow +
-          '  ' + repo.name.blue +
-          ' - ' + repo.description)
+          `  ${  ('★').yellow 
+          }  ${  repo.name.blue 
+          } - ${  repo.description}`)
       });
       console.log();
     }
@@ -59,14 +55,13 @@ request({
     if (available.length > 0) {
       console.log('  Available Templates:')
       console.log()
-      available.forEach(function (repo) {
+      available.forEach((repo) => {
         console.log(
-          '  ' + ('★').green +
-          '  ' + repo.name.blue +
-          ' - ' + repo.description)
+          `  ${  ('★').green 
+          }  ${  repo.name.blue 
+          } - ${  repo.description}`)
       })
     }
-
   } else {
     console.error(requestBody.message)
   }
