@@ -3,62 +3,119 @@
 require('colors');
 
 const path = require('path');
-const request = require('request');
-const ora = require('ora');
+const program = require('commander');
+const inquirer = require('inquirer');
+const validateName = require('validate-npm-package-name')
+const { checkNodeVersion, hasYarn, logger } = require('@w6s/cli-shared-utils');
 
+const { engines } = require('../package.json');
 const prompt = require('../lib/prompt');
 const clone = require('../lib/clone');
+const { logCompleteMsg } = require('../lib/logCompleteMsg');
+const { executeCommand } = require('../lib/executeCommand');
 
-/**
- * Padding.
- */
+// check node version
+checkNodeVersion(engines.node);
 
 console.log();
 process.on('exit', () => {
   console.log();
 });
 
-/**
- * List repos.
- */
+program.usage('<app-name>');
+program.on('--help', () => {
+  console.log('  Examples:');
+  console.log('');
+  console.log('    # create a new project with w6s-cli'.gray);
+  console.log('    $ w6s init project1');
+  console.log('');
+});
 
-const spinner = ora(` Fetching, please wait...`).start();
-request({
-  url: 'https://api.github.com/users/workplus-templates/repos',
-  headers: {
-    'User-Agent': 'workplus-cli',
+program.parse(process.argv);
+const { args } = program;
+
+if (args.length < 1) {
+  program.help();
+  process.exit(1);
+}
+
+if (args.length > 1) {
+  logger.info('You provided more than one argument. The first one will be used as the app\'s name, the rest are ignored. \n'.gray);
+}
+
+const appName = args[0];
+const destination = path.resolve(appName);
+
+const its = validateName(appName);
+if (!its.validForNewPackages) {
+  logger.error(`Invalid project name: "${appName}"`);
+  process.exit(1);
+}
+
+const context = process.cwd();
+const templatePath = path.resolve(context, '../templates');
+const adminTpl = path.join(templatePath, '/admin');
+const h5Tpl = path.join(templatePath, '/H5');
+
+// todo: 改成自动获取文件夹的方式
+const tmeplatePrompt = [
+  {
+    name: 'Admin'.green + ' 适用于管理后台类项目'.gray,
+    id: 'admin',
+    path: adminTpl,
   },
-}, (err, res, body) => {
-  spinner.stop();
-  if (err) console.log(err)
-  const requestBody = JSON.parse(body)
-  if (Array.isArray(requestBody)) {
-    const recommend = [];
-    const isRecommendTemplate = ({ description }) => description.toLowerCase().trim().indexOf('[recommend]') === 0;
+  {
+    name: 'H5'.green + ' 适用于移动端H5项目（轻应用）'.gray,
+    id: 'h5',
+    path: h5Tpl,
+  },
+];
 
-    requestBody.forEach((repo) => {
-      if (isRecommendTemplate(repo)) {
-        const { description, name } = repo;
-        const fixDescription = description.replace('[Recommend]', '');
-        const templates = {
-          originalName: name,
-          name: repo.name.green + fixDescription.gray,
-        };
-        recommend.push(templates);
+const getSelectedTplByAnswer = answer => tmeplatePrompt.find(tpl => tpl.name === answer);
+const autoInstallDev = (hasYarn) => {
+  const bin = hasYarn ? 'yarn' : 'npm';
+  const args = hasYarn ? [] : ['install', '--loglevel', 'error'];
+  return executeCommand(bin, args, destination);
+};
+const startServer = (hasYarn) => {
+  const bin = hasYarn ? 'yarn' : 'npm';
+  const args = hasYarn ? ['serve'] : ['run serve'];
+  return executeCommand(bin, args, destination);
+};
+
+const message = 'Please select the type of project to create ';
+prompt(message, tmeplatePrompt)
+  .then((answer) => {
+    const selected = getSelectedTplByAnswer(answer);
+    return selected;
+  })
+  .then((selected) => {
+    return clone(appName, selected.path, destination, true);
+  })
+  .then((opt) => {
+    const isYarn = hasYarn();
+    if (!isYarn) {
+      logger.info('We recommend you to use "Yarn", more info https://github.com/yarnpkg/yarn \n'.green);
+    }
+
+    return inquirer.prompt([{
+      message: 'Install dependencies and start the project?',
+      type: 'confirm',
+      name: 'ok'
+    }]).then(async (answers) => {
+      if (answers.ok) {
+        console.log('');
+        logger.info(`Will use ${ isYarn ? 'Yarn'.green : 'NPM'.green } to install dependencies. \n`);
+        await autoInstallDev(isYarn);
+        console.log('');
+        logger.info(`Run "${ isYarn ? 'yarn serve' : 'npm run serve' }"\n`);
+        await startServer(isYarn);
+      } else {
+        logCompleteMsg(opt);
       }
     });
-
-    const message = 'Please select a template ';
-    prompt(message, recommend)
-      .then((answer) => {
-        console.log();
-        
-        const selected = recommend.filter((choice) => choice.name === answer)[0];
-        if (selected) {
-          clone(selected.originalName, selected.originalName, path.resolve('./'), true);
-        }
-      });
-  } else {
-    console.error(requestBody.message);
-  }
-})
+  })
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });

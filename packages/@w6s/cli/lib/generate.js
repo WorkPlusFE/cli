@@ -1,14 +1,13 @@
 const async = require('async');
 const Metalsmith = require('metalsmith');
 const inquirer = require('inquirer');
-const {render} = require('consolidate').underscore;
+const { render } = require('consolidate').underscore;
 const path = require('path');
 const metadata = require('read-metadata');
 const exists = require('fs').existsSync;
 const validateName = require('validate-npm-package-name');
 
 const gituser = require('./git-user');
-const logger = require('./logger');
 
 /**
  * Prompt plugin.
@@ -78,7 +77,7 @@ function template(files, metalsmith, done){
         done(err);
       } else {
         /* eslint no-buffer-constructor: 0 */
-        currentFile.contents = new Buffer(res);
+        currentFile.contents = Buffer.from(res);
         done();
       }
     });
@@ -90,13 +89,18 @@ function template(files, metalsmith, done){
 /**
  * Build.
  */
-module.exports = function generate (name, src, dest, done) {
+const generate = (name, src, dest) => new Promise((resolve, reject) => {
   const templateSrc = path.join(src, 'template');
   const json = path.join(src, 'template.json');
   let opts = {};
   if (exists(json)) {
-    opts = metadata.sync(json)
+    opts = metadata.sync(json);
   }
+  // w6s init 
+  if (opts.name === null) {
+    opts.name = name;
+  }
+
   Metalsmith(templateSrc)
     .use(ask(opts))
     .use(template)
@@ -105,10 +109,13 @@ module.exports = function generate (name, src, dest, done) {
     .destination(dest)
     .build((err) => {
       if (err) {
-        done(err)
+        reject(err);
       } else {
-        logger.logCompleteMsg(opts, name);
-        done();
+        console.log('');
+        console.log('  #Generate successful \n'.gray);
+        resolve(opts);
       }
     });
-};
+});
+
+module.exports = generate;

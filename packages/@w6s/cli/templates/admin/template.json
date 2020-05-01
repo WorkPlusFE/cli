@@ -1,0 +1,5 @@
+{
+  "name": null,
+  "description": "A new Admin project",
+  "bash": ["yarn || npm install", "yarn serve || npm run serve"]
+}

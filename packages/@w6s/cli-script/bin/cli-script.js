@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint import/no-extraneous-dependencies:0 */
 const { checkNodeVersion, logger } = require('@w6s/cli-shared-utils');
 const minimist = require('minimist');
 const { engines } = require('../package.json');

@@ -4,8 +4,10 @@ require('colors');
 
 const path = require('path');
 const program = require('commander');
+const { logger } = require('@w6s/cli-shared-utils');
 
 const clone = require('../lib/clone');
+const { logCompleteMsg } = require('../lib/logCompleteMsg');
 
 /**
  * Padding.
@@ -48,5 +50,10 @@ if (args.length < 1) {
   const destination = path.resolve(pathName || '.');
   const name = !pathName ? template : pathName;
 
-  clone(name, template, destination, inPlace);  
+  clone(name, template, destination, inPlace, true)
+    .then(logCompleteMsg)
+    .catch((err) => {
+      logger.error(err);
+      process.exit(1);
+    });
 }

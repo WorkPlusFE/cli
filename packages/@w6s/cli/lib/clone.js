@@ -6,43 +6,50 @@ const exists = require('fs').existsSync;
 const uid = require('uid');
 const inquirer = require('inquirer');
 const remove = require('rimraf').sync;
+const { logger } = require('@w6s/cli-shared-utils');
 
 const generate = require('./generate.js');
 
-function run (name, template, destination) {
+const handleDownloadGitRepo = (source, dest) => new Promise((resolve) => {
+  download(source, dest, (err) => {
+    if (err) {
+      throw new Error(err);
+    }
+    resolve();
+  });
+});
+
+function run(name, template, destination) {
   if (exists(template)) {
     console.log('\n  #Begin generate project \n'.gray);
-    generate(name, template, destination, (err) => {
-      if (err) console.log(err);
-      console.log('');
-    });
-  } else {
-    const spinner = ora(`Downloading ${template}`);
+    return generate(name, template, destination);
+  }
+  console.log('');
+  const spinner = ora(`Downloading "${template}" template...`);
 
-    const tmp = `/tmp/template${uid()}`; // unique backup
-    spinner.start();
-    download(`workplus-templates/${template}`, tmp, (err) => {
-      if (err) {
-        throw new Error(err);
-      }
-      spinner.text = `Download ${template} successful`;
+  const tmp = `/tmp/template${uid()}`; // unique backup
+  spinner.start();
+
+  return handleDownloadGitRepo(`workplus-templates/${template}`, tmp)
+    .then(() => {
+      spinner.text = `Download "${template}" successful`;
       spinner.succeed();
       console.log('\n  #Begin generate project \n'.gray);
       process.on('exit', () => {
         remove(tmp); // remove backup files
       });
+    })
+    .then(() => generate(name, tmp, destination));
 
-      generate(name, tmp, destination, (err) => {
-        if (err) console.log(err);
-        console.log('');
-      });
-    });
-  }  
 };
 
-function clone (name, template, destination, inPlace) {
+const clone = (name, template, destination, inPlace, isW6sClone) => {
   if (exists(destination)) {
-    inquirer.prompt([{
+    if (!isW6sClone) {
+      console.log('');
+    }
+    logger.warn(`Project directory: ${destination}\n`);
+    return inquirer.prompt([{
       type: 'confirm',
       message: inPlace
         ? 'Generate project in current directory?'
@@ -50,13 +57,12 @@ function clone (name, template, destination, inPlace) {
       name: 'ok'
     }]).then((answers) => {
       if (answers.ok) {
-        console.log('');
-        run(name, template, destination);
+        return run(name, template, destination);
       }
+      return process.exit(1);
     });
-  } else {
-    run(name, template, destination);
   }
+  return run(name, template, destination);
 };
 
 module.exports = clone;
