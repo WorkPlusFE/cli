@@ -10,6 +10,7 @@
     "access": "public"
   },
   "license": "MIT",
+  "author": "WorkPlusFE",
   "dependencies": {
     "@w6s/cli-shared-utils": "^2.0.0",
     "async": "^3.2.0",

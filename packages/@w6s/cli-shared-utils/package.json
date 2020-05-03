@@ -6,6 +6,7 @@
   "version": "2.0.0",
   "main": "index.js",
   "license": "MIT",
+  "author": "WorkPlusFE",
   "dependencies": {
     "chalk": "^4.0.0",
     "readline": "^1.3.0",

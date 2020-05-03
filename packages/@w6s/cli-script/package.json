@@ -6,6 +6,7 @@
   "bin": {
     "w6s-cli-script": "bin/cli-script.js"
   },
+  "author": "WorkPlusFE",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
@@ -28,10 +29,5 @@
   },
   "engines": {
     "node": ">=10"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  }
 }

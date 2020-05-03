@@ -7,20 +7,20 @@ class InstallProgress extends EventEmitter {
   constructor () {
     super();
 
-    this.progress = -1;
+    this._progress = -1;
   }
 
   get progress () {
-    return this.progress;
+    return this._progress;
   }
 
   set progress (value) {
-    this.progress = value;
+    this._progress = value;
     this.emit('progress', value);
   }
 
   get enabled () {
-    return this.progress !== -1;
+    return this._progress !== -1;
   }
 
   set enabled (value) {
