@@ -28,6 +28,6 @@ const args = minimist(rawArgv, {
 const command = args._[0];
 
 runService(command, args, rawArgv).catch((err) => {
-  logger.error(err)
-  process.exit(1)
+  logger.error(err);
+  process.exit(1);
 });
