@@ -5,6 +5,7 @@ const { toPlugin, w6sConfigFileExists } = require('./utils');
 const babelPlugin = toPlugin('@vue/cli-plugin-babel');
 const eslintPlugin = toPlugin('@vue/cli-plugin-eslint');
 const typeScriptPlugin = toPlugin('@vue/cli-plugin-typescript');
+const mockPlugin = toPlugin('@w6s/vue-plugin-mock');
 
 const context = process.cwd();
 
@@ -24,6 +25,7 @@ const createService = () => (
       babelPlugin,
       eslintPlugin,
       typeScriptPlugin,
+      mockPlugin,
     ],
   })
 );

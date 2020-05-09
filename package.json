@@ -1,7 +1,8 @@
 {
   "private": true,
   "workspaces": [
-    "packages/@w6s/*"
+    "packages/@w6s/*",
+    "packages/test/*"
   ],
   "scripts": {
     "lint": "eslint --fix packages/**/*.js packages/**/bin/*",
