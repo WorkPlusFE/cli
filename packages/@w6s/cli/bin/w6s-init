@@ -52,7 +52,7 @@ if (!its.validForNewPackages) {
   process.exit(1);
 }
 
-const context = process.cwd();
+const context = path.resolve(__dirname);
 const templatePath = path.resolve(context, '../templates');
 const adminTpl = path.join(templatePath, '/admin');
 const h5Tpl = path.join(templatePath, '/H5');
