@@ -34,7 +34,7 @@ module.exports = (api, options) => {
       if (event === 'add' || event === 'change') {
         try {
           app.use(prefix, mock(api, mockOptions));
-          logger(`\n > Mock Server hot reload success! changed  ${path}`.green, mockOptions.log)
+          logger(`Mock Server hot reload success! changed  ${path}`.green, mockOptions.log)
         } catch (error) {
           console.log(error);
         }

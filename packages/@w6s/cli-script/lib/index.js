@@ -6,6 +6,10 @@ const babelPlugin = toPlugin('@vue/cli-plugin-babel');
 const eslintPlugin = toPlugin('@vue/cli-plugin-eslint');
 const typeScriptPlugin = toPlugin('@vue/cli-plugin-typescript');
 const mockPlugin = toPlugin('@w6s/vue-plugin-mock');
+const vConsolePlugin = toPlugin('@w6s/vue-plugin-vconsole');
+const styleResourcesLoaderPlugin = toPlugin('@w6s/style-resources-loader-plugin');
+const sentryPlugin = toPlugin('@w6s/sentry-plugin');
+const i18nPlugin = toPlugin('vue-cli-plugin-i18n');
 
 const context = process.cwd();
 
@@ -26,6 +30,10 @@ const createService = () => (
       eslintPlugin,
       typeScriptPlugin,
       mockPlugin,
+      styleResourcesLoaderPlugin,
+      i18nPlugin,
+      vConsolePlugin,
+      sentryPlugin,
     ],
   })
 );

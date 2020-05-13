@@ -1,0 +1,12 @@
+{
+  "name": "@w6s/style-resources-loader-plugin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "style-resources-loader": "^1.3.3"
+  }
+}

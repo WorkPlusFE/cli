@@ -8,7 +8,7 @@ module.exports = {
       disable: false,
       log: true,
     }
-  }
+  },
   devServer: {
     port: 8881
   },

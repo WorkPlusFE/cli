@@ -1,0 +1,12 @@
+{
+  "name": "@w6s/vconsole-plugin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "vconsole-webpack-plugin": "^1.5.1"
+  }
+}

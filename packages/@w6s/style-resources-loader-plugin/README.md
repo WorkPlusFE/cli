@@ -1,0 +1,1 @@
+## style-resources-loader-plugin

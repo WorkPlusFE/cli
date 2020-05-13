@@ -4,6 +4,9 @@ const mockjs = require('mockjs');
 const logger = require('./logger');
 
 module.exports = (api, options) => {
+  // es6 polyfill
+  require('@babel/register');
+
   const router = express.Router();
   const { entry, log: logEnable } = options;
   /* eslint import/no-dynamic-require:0  global-require: 0 */

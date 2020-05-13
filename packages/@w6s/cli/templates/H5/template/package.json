@@ -7,9 +7,9 @@
   },
   "private": true,
   "scripts": {
-    "serve": "w6s-cli-service serve",
-    "build": "w6s-cli-service build",
-    "lint": "w6s-cli-service lint"
+    "serve": "w6s-cli-script serve",
+    "build": "w6s-cli-script build",
+    "lint": "w6s-cli-script lint"
   },
   "dependencies": {
     "core-js": "^3.6.4",
@@ -21,5 +21,15 @@
   },
   "devDependencies": {
     "@w6s/cli-script": "^2.0.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "w6s-cli-script lint",
+      "git add"
+    ]
   }
 }
