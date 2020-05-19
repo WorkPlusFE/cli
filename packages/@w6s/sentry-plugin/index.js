@@ -1,19 +1,22 @@
 const SentryPlugin = require('webpack-sentry-plugin');
-const { getGitSha, isLegalOptions } = require('./utils');
+const { getGitSha, isLegalOptions, isProdEnv } = require('./utils');
 
 const defaultPluginOptions = {
   deleteAfterCompile: true,
   suppressConflictError: true,
-  release: getGitSha(),
+  include: '/dist/**/*.js',
 };
 
 module.exports = (api, projectOptions) => {
+  if (!isProdEnv) return;
+
   const receivedOptions = projectOptions.pluginOptions.sentry || {};
   if (!receivedOptions.enable) return;
   if (!isLegalOptions(receivedOptions)) return;
 
   const sentryPluginOptions = {
     ...defaultPluginOptions,
+    release: getGitSha(),
     ...receivedOptions,
   };
 
@@ -21,8 +24,4 @@ module.exports = (api, projectOptions) => {
     webpackConfig.plugin('SentryPlugin')
       .use(SentryPlugin, [sentryPluginOptions]);
   });
-};
-
-module.exports.defaultModes = {
-  build: 'production',
 };

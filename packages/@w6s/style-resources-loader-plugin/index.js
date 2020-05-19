@@ -1,10 +1,12 @@
 const defaultPluginOptions = {
   preProcessor: 'scss',
-  patterns: './styles/*/*.scss',
+  patterns: ['./styles/*/*.scss'],
 };
 
 module.exports = (api, projectOptions) => {
-  const currentPluginOptions = projectOptions.pluginOptions['style-resources-loader'] || {};
+  const currentPluginOptions = projectOptions.pluginOptions.styleResourcesLoader 
+    || projectOptions.pluginOptions['style-resources-loader']
+    || {};
   const pluginOptions = {
     ...defaultPluginOptions,
     ...currentPluginOptions,

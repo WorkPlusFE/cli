@@ -1,7 +1,10 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="logo">
+      <img alt="Vue logo" width="100" src="../assets/logo.png">
+      <h3>Welcome to Your H5 App</h3>
+    </div>
+    <hello-world />
   </div>
 </template>
 
@@ -10,9 +13,18 @@
 import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
-  name: 'Home',
+  name: 'home',
   components: {
     HelloWorld,
   },
 };
 </script>
+
+<style lang="scss">
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+</style>

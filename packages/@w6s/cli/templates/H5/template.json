@@ -1,0 +1,4 @@
+{
+  "description": "A vue2.0 minimal H5 layout template.",
+  "bash": ["yarn || npm install", "yarn || npm run serve", "yarn || npm run build"]
+}

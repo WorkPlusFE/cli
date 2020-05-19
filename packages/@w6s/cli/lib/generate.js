@@ -97,7 +97,7 @@ const generate = (name, src, dest) => new Promise((resolve, reject) => {
     opts = metadata.sync(json);
   }
   // w6s init 
-  if (opts.name === null) {
+  if (!opts.name) {
     opts.name = name;
   }
 

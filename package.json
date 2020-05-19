@@ -1,9 +1,11 @@
 {
   "private": true,
-  "workspaces": [
-    "packages/@w6s/*",
-    "packages/test/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/@w6s/*",
+      "packages/test/*"
+    ]
+  },
   "scripts": {
     "lint": "eslint --fix packages/**/*.js packages/**/bin/*",
     "lint-without-fix": "eslint packages/**/*.js packages/**/bin/*",
