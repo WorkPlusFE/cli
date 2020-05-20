@@ -1,6 +1,4 @@
 {
-  "name": "vue-admin",
   "description": "A vue2.0 minimal layout template，base Element-ui.",
-  "bash": ["yarn || npm install", "yarn || npm run serve", "yarn || npm run build"],
-  "readme": "https://github.com/workplus-templates/vue-admin#readme"
+  "bash": ["yarn || npm install", "yarn || npm run serve", "yarn || npm run build"]
 }
