@@ -12,7 +12,8 @@
     "test": "jest",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "docs:deploy": "./scripts/deploy.sh"
+    "docs:deploy": "./scripts/deploy.sh",
+    "release": "lerna publish --no-commit-hooks"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
