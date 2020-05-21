@@ -3,7 +3,7 @@
   "useWorkspaces": true,
   "version": "independent",
   "packages": [
-    "packages/@w6s/cli-*",
+    "packages/@w6s/cli*",
     "packages/@w6s/*-plugin"
   ],
   "changelog": {
