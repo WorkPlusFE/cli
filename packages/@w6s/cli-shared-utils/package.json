@@ -8,7 +8,6 @@
   "license": "MIT",
   "author": "WorkPlusFE",
   "dependencies": {
-    "@w6s/mock-plugin": "^1.0.2-alpha.0",
     "chalk": "^4.0.0",
     "readline": "^1.3.0",
     "semver": "^7.3.2",
