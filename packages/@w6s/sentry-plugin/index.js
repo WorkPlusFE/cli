@@ -8,7 +8,7 @@ const defaultPluginOptions = {
 };
 
 module.exports = (api, projectOptions) => {
-  if (!isProdEnv) return;
+  if (!isProdEnv()) return;
 
   const receivedOptions = projectOptions.pluginOptions.sentry || {};
   if (!receivedOptions.enable) return;
