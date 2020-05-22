@@ -1,13 +1,13 @@
 {
   "name": "@w6s/sentry-plugin",
-  "version": "1.0.4-alpha.0",
+  "version": "1.0.5-alpha.0",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
   },
   "license": "MIT",
   "dependencies": {
-    "@w6s/cli-shared-utils": "^1.0.4-alpha.0",
+    "@w6s/cli-shared-utils": "^1.0.5-alpha.0",
     "colors": "^1.4.0",
     "execa": "^4.0.1",
     "uuid": "^8.0.0",
