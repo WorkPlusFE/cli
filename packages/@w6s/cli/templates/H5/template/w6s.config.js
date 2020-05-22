@@ -1,6 +1,7 @@
 const sentryConfig = require('./sentry.config');
 
 module.exports = {
+  lintStyleOnBuild: true,
   pluginOptions: {
     mock: {
       entry: 'mock/index.js',
@@ -19,16 +20,13 @@ module.exports = {
     vconsole: {
       enable: process.env.NODE_ENV === 'development',
     },
-    sentry: {
-      enable: true,
-      ...sentryConfig,
-    },
+    sentry: sentryConfig,
     styleResourcesLoader: {
       preProcessor: 'scss',
       patterns: ['./styles/*/*.scss'],
     },
   },
   devServer: {
-    port: 8881,
+    port: 9527,
   },
 };
