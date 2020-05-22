@@ -1,8 +1,11 @@
 {
   "name": "@w6s/stylelint-plugin",
-  "version": "1.0.3-alpha.0",
+  "version": "1.0.4-alpha.0",
   "main": "index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@ascendancyy/vue-cli-plugin-stylelint": "^1.1.2"
   }
