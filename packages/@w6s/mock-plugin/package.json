@@ -1,6 +1,6 @@
 {
   "name": "@w6s/mock-plugin",
-  "version": "1.0.6-alpha.0",
+  "version": "1.0.7-alpha.0",
   "publishConfig": {
     "access": "public"
   },
@@ -11,7 +11,7 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@babel/register": "^7.9.0",
-    "@w6s/cli-shared-utils": "^1.0.6-alpha.0",
+    "@w6s/cli-shared-utils": "^1.0.7-alpha.0",
     "babel-loader": "^8.1.0",
     "body-parser": "^1.19.0",
     "chokidar": "^3.4.0",
