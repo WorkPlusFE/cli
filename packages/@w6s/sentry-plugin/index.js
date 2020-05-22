@@ -5,6 +5,8 @@ const defaultPluginOptions = {
   deleteAfterCompile: true,
   suppressConflictError: true,
   include: '/dist/**/*.js',
+  baseSentryURL: 'https://sentry.workplus.io/api/0',
+  organization: 'sentry',
 };
 
 module.exports = (api, projectOptions) => {

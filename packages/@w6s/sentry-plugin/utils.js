@@ -23,7 +23,7 @@ const getGitSha = () => {
  * 4、release (auto)
  */ 
 const isLegalOptions = (options) => {
-  const requiredOptions = ['organization', 'project', 'apiKey'];
+  const requiredOptions = ['organization', 'project', 'apiKey', 'baseSentryURL'];
   for (let i = 0; i < requiredOptions.length; i += 1) {
     const key = requiredOptions[i];
     if (options[key] === '') {

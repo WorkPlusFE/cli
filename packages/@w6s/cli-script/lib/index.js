@@ -9,6 +9,7 @@ const vConsolePlugin = toPlugin('@w6s/vconsole-plugin');
 const styleResourcesLoaderPlugin = toPlugin('@w6s/style-resources-loader-plugin');
 const sentryPlugin = toPlugin('@w6s/sentry-plugin');
 const mockPlugin = toPlugin('@w6s/mock-plugin');
+const styleLintPlugin = toPlugin('@w6s/stylelint-plugin');
 const i18nPlugin = toPlugin('vue-cli-plugin-i18n');
 
 const context = process.cwd();
@@ -33,6 +34,7 @@ const createService = () => (
       sentryPlugin,
       styleResourcesLoaderPlugin,
       mockPlugin,
+      styleLintPlugin,
       i18nPlugin,
     ],
   })
