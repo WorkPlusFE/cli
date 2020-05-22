@@ -91,6 +91,7 @@ export default class AboutView extends Vue {
   .about {
     padding: 0 15px;
   }
+
   .van-col {
     text-align: center;
   }

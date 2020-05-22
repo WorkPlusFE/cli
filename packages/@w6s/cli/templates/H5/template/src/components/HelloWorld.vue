@@ -38,18 +38,22 @@ export default class HelloWorld extends Vue {
 h3 {
   margin: 40px 0 0;
 }
+
 h4 {
-  text-align: center;
   color: #42b983;
+  text-align: center;
 }
+
 ul {
-  list-style-type: none;
   padding: 0;
+  list-style-type: none;
 }
+
 li {
   display: inline-block;
   margin: 0 10px;
 }
+
 a {
   color: #42b983;
 }

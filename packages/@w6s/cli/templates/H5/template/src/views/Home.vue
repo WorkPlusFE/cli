@@ -23,8 +23,8 @@ export default {
 <style lang="scss">
 .logo {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

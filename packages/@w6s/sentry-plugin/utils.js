@@ -10,7 +10,7 @@ const getGitSha = () => {
     hash = execa.shellSync('git rev-parse HEAD').stdout;
   } catch (err) {
     hash = uuidv4();
-    logger.warn('Have not commit, will use random uuid as release');
+    logger.warn('Have not commit, will use random uuid as release', 'Sentry');
   };
   return hash.substr(0, 7);
 };

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     'GET /api/user': {
         username: 'admin',
         sex: 5,

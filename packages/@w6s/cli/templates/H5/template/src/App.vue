@@ -20,8 +20,8 @@
   text-align: center;
 
   a {
-    font-weight: bold;
     color: #2c3e50;
+    font-weight: bold;
 
     &.router-link-exact-active {
       color: #42b983;
