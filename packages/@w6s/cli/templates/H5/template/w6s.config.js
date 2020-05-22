@@ -1,8 +1,8 @@
 const sentryConfig = require('./sentry.config');
 
 module.exports = {
-  lintStyleOnBuild: true,
   pluginOptions: {
+    lintStyleOnBuild: true,
     mock: {
       entry: 'mock/index.js',
       mockDir: 'mock',
@@ -27,6 +27,6 @@ module.exports = {
     },
   },
   devServer: {
-    port: 9527,
+    port: 8088,
   },
 };

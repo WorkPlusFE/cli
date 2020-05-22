@@ -4,7 +4,7 @@ const { getGitSha, isLegalOptions, isProdEnv } = require('./utils');
 const defaultPluginOptions = {
   deleteAfterCompile: true,
   suppressConflictError: true,
-  include: '/dist/**/*.js',
+  include: /\.js/ig,
   baseSentryURL: 'https://sentry.workplus.io/api/0',
   organization: 'sentry',
 };
