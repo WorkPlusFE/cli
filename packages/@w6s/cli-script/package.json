@@ -23,7 +23,7 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
     "@w6s/cli-shared-utils": "^1.0.8-alpha.0",
-    "@w6s/eslint-config": "^1.1.1",
+    "@w6s/eslint-config": "^1.1.0",
     "@w6s/mock-plugin": "^1.0.8-alpha.0",
     "@w6s/sentry-plugin": "^1.0.10-alpha.0",
     "@w6s/style-resources-loader-plugin": "^1.0.6-alpha.0",
