@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="logo">
-      <img alt="Vue logo" width="100" src="../assets/logo.png">
+      <img alt="Vue logo" width="100" src="../assets/logo.png" />
       <h3>Welcome to Your H5 App</h3>
     </div>
     <hello-world />
@@ -10,10 +10,10 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: 'home',
+  name: "home",
   components: {
     HelloWorld,
   },

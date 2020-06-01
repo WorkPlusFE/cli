@@ -1,15 +1,13 @@
-import {
-  Module, VuexModule, Mutation, Action, getModule,
-} from 'vuex-module-decorators';
-import store from '..';
+import { Module, VuexModule, Mutation, Action, getModule } from "vuex-module-decorators";
+import store from "..";
 
 @Module({
   dynamic: true,
   store,
-  name: 'counter',
+  name: "counter",
 })
 class Counter extends VuexModule {
-  count = 0
+  count = 0;
 
   @Mutation
   increment(delta: number) {
@@ -26,13 +24,13 @@ class Counter extends VuexModule {
   }
 
   // action 'incr' commits mutation 'increment' when done with return value as payload
-  @Action({ commit: 'increment' })
+  @Action({ commit: "increment" })
   incr() {
     return 5;
   }
 
   // action 'decr' commits mutation 'decrement' when done with return value as payload
-  @Action({ commit: 'decrement' })
+  @Action({ commit: "decrement" })
   decr() {
     return 5;
   }

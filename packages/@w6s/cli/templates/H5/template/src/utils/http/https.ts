@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from "axios";
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -10,13 +10,13 @@ service.interceptors.request.use(
   (config) => config,
   (error) => {
     Promise.reject(error);
-  },
+  }
 );
 
 // Response interceptors
 service.interceptors.response.use(
   (response) => response.data,
-  (error) => Promise.reject(error),
+  (error) => Promise.reject(error)
 );
 
 /**
@@ -27,7 +27,7 @@ export function handleData<T extends Common.PlainObject>(params: T): T {
   const data = Object.create(null);
   // 过滤掉空传参 (undefined || '' || null)
   Object.keys(params).forEach((k) => {
-    if (params[k] !== undefined || params[k] !== null || String(params[k]) !== '') {
+    if (params[k] !== undefined || params[k] !== null || String(params[k]) !== "") {
       data[k] = params[k];
     }
   });
@@ -46,10 +46,10 @@ export function handleData<T extends Common.PlainObject>(params: T): T {
 export function apiGet<T>(
   url: string,
   params: Common.PlainObject = {},
-  headers: Common.PlainObject = {},
+  headers: Common.PlainObject = {}
 ): Promise<AxiosResponse<T>> {
   // handleHeader
-  let param = '?';
+  let param = "?";
   Object.keys(handleData(params)).forEach((key) => {
     param += handleData(params)[key];
   });
@@ -72,7 +72,7 @@ export function apiGet<T>(
 export function apiPost<T>(
   url: string,
   params: Common.PlainObject = {},
-  headers: Common.PlainObject = {},
+  headers: Common.PlainObject = {}
 ): Promise<AxiosResponse<T>> {
   const param = handleData(params);
   return service
@@ -94,7 +94,7 @@ export function apiPost<T>(
 export function apiPut<T>(
   url: string,
   params: Common.PlainObject = {},
-  headers: Common.PlainObject = {},
+  headers: Common.PlainObject = {}
 ): Promise<AxiosResponse<T>> {
   const param = handleData(params);
   return service
@@ -116,7 +116,7 @@ export function apiPut<T>(
 export function apiDelete<T>(
   url: string,
   params: Common.PlainObject = {},
-  headers: Common.PlainObject = {},
+  headers: Common.PlainObject = {}
 ): Promise<AxiosResponse<T>> {
   const param = handleData(params);
   return service

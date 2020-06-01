@@ -11,7 +11,11 @@
     <van-cell-group>
       <van-cell title="vue-router" is-link url="https://router.vuejs.org" />
       <van-cell title="vuex" is-link url="https://vuex.vuejs.org" />
-      <van-cell title="vue-devtools" is-link url="https://github.com/vuejs/vue-devtools#vue-devtools" />
+      <van-cell
+        title="vue-devtools"
+        is-link
+        url="https://github.com/vuejs/vue-devtools#vue-devtools"
+      />
       <van-cell title="vue-loader" is-link url="https://vue-loader.vuejs.org" />
       <van-cell title="awesome-vue" is-link url="https://github.com/vuejs/awesome-vue" />
     </van-cell-group>
@@ -19,8 +23,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Cell, CellGroup } from 'vant';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { Cell, CellGroup } from "vant";
 
 @Component({
   components: {

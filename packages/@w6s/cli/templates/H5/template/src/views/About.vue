@@ -20,20 +20,17 @@
     /
     <van-button @click="handleGetUsers" type="info">Get Users</van-button>
     <van-divider>i18n</van-divider>
-    <p>{{ $t('message.title') }}</p>
-    <p>{{ $t('message.description') }}</p>
+    <p>{{ $t("message.title") }}</p>
+    <p>{{ $t("message.description") }}</p>
   </div>
 </template>
 
-
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import {
-  Row, Col, Button, Divider,
-} from 'vant';
-import counter from '../store/modules/Counter';
-import { getLocation, getDeviceInfo } from '../utils/cordova';
-import { getUserDetail, getUsers } from '../api/user';
+import { Component, Vue } from "vue-property-decorator";
+import { Row, Col, Button, Divider } from "vant";
+import counter from "../store/modules/Counter";
+import { getLocation, getDeviceInfo } from "../utils/cordova";
+import { getUserDetail, getUsers } from "../api/user";
 
 @Component({
   computed: {
@@ -51,48 +48,44 @@ import { getUserDetail, getUsers } from '../api/user';
   },
 })
 export default class AboutView extends Vue {
-  private title = 'About Page!'
+  private title = "About Page!";
 
-  private location = ''
+  private location = "";
 
-  private deviceInfo = ''
+  private deviceInfo = "";
 
   handleGetLocation() {
-    getLocation()
-      .then(({ data }) => {
-        alert(JSON.stringify(data));
-      });
+    getLocation().then(({ data }) => {
+      console.log(JSON.stringify(data));
+    });
   }
 
   handleGetDeviceInfo() {
-    getDeviceInfo()
-      .then(({ data }) => {
-        alert(JSON.stringify(data));
-      });
+    getDeviceInfo().then(({ data }) => {
+      console.log(JSON.stringify(data));
+    });
   }
 
   handleGetUserDetail() {
-    getUserDetail()
-      .then((res) => {
-        alert(JSON.stringify(res));
-      });
+    getUserDetail().then((res) => {
+      console.log(JSON.stringify(res));
+    });
   }
 
   handleGetUsers() {
-    getUsers()
-      .then((res) => {
-        alert(JSON.stringify(res));
-      });
+    getUsers().then((res) => {
+      console.log(JSON.stringify(res));
+    });
   }
 }
 </script>
 
 <style lang="scss">
-  .about {
-    padding: 0 15px;
-  }
+.about {
+  padding: 0 15px;
+}
 
-  .van-col {
-    text-align: center;
-  }
+.van-col {
+  text-align: center;
+}
 </style>

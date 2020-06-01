@@ -9,6 +9,7 @@
 </template>
 
 <style lang="scss">
+/* stylelint-disable selector-max-id */
 #app {
   font-family: -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
