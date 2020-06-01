@@ -1,6 +1,6 @@
 {
   "name": "@w6s/cli",
-  "version": "2.0.12-alpha.0",
+  "version": "2.0.13-alpha.0",
   "description": "@w6s/cli",
   "main": "index.js",
   "bin": {
@@ -12,7 +12,7 @@
   "license": "MIT",
   "author": "WorkPlusFE",
   "dependencies": {
-    "@w6s/cli-shared-utils": "^1.0.8-alpha.0",
+    "@w6s/cli-shared-utils": "^1.0.9-alpha.0",
     "async": "^3.2.0",
     "colors": "^1.4.0",
     "commander": "^5.1.0",
