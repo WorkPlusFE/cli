@@ -45,5 +45,8 @@
       "w6s-cli-script lint",
       "git add"
     ]
+  },
+  "engines": {
+    "node": ">=10"
   }
 }

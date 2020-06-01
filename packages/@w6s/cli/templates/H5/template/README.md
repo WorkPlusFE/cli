@@ -1,4 +1,4 @@
-# p2
+# <%= name %>
 
 ## Project setup
 ```
