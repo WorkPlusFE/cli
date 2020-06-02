@@ -2,6 +2,7 @@ const sentryConfig = require('./sentry.config');
 const path = require('path');
 
 module.exports = {
+  transpileDependencies: ['vuex-module-decorators'],
   pluginOptions: {
     mock: {
       entry: 'mock/index.js',
@@ -17,10 +18,7 @@ module.exports = {
       localeDir: 'locales',
       enableInSFC: false,
     },
-    sentry: {
-      enable: true,
-      ...sentryConfig,
-    },
+    sentry: sentryConfig,
     styleResourcesLoader: {
       preProcessor: 'scss',
       patterns: [
@@ -30,6 +28,6 @@ module.exports = {
     },
   },
   devServer: {
-    port: 8881,
+    port: 8089,
   },
 };

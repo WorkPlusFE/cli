@@ -9,8 +9,10 @@
     "serve": "w6s-cli-script serve --open",
     "build": "w6s-cli-script build",
     "lint": "w6s-cli-script lint",
+    "lint:style": "w6s-cli-script lint:style",
     "i18n:report": "w6s-cli-script i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
-    "inspect": "w6s-cli-script inspect"
+    "inspect": "w6s-cli-script inspect",
+    "svg": "vsvg -s ./src/icons/svg -t ./src/icons/components --ext ts --es6"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -22,29 +24,34 @@
     "path-to-regexp": "^6.1.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.11",
-    "vue-class-component": "^7.1.0",
-    "vue-property-decorator": "^8.2.1",
-    "vue-router": "^3.0.6",
     "vue-svgicon": "^3.2.6",
-    "vuex": "^3.1.1",
-    "vuex-class": "^0.3.2",
-    "vuex-module-decorators": "^0.9.9"
+    "vue-class-component": "^7.2.3",
+    "vue-i18n": "^8.17.5",
+    "vue-property-decorator": "^8.4.1",
+    "vue-router": "^3.1.6",
+    "vuex": "^3.1.3",
+    "vuex-module-decorators": "^0.17.0"
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.6",
     "@types/nprogress": "^0.2.0",
     "@types/webpack-env": "^1.15.2",
-    "@w6s/cli-script": "^2.0.0",
-    "babel-core": "^6.26.3"
+    "@w6s/cli-script": "^1.0.0"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
       "w6s-cli-script lint",
+      "w6s-cli-script lint:style",
       "git add"
     ]
+  },
+  "engines": {
+    "node": ">=10"
   }
 }

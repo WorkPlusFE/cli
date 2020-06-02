@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "<%= description %>",
-  "author": {
-    "name": "<%= author %>"
-  },
+  "author": "<%= author %>",
   "scripts": {
     "dev": "w6s-cli-script serve --open",
     "serve": "w6s-cli-script serve --open",
@@ -43,6 +41,7 @@
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
       "w6s-cli-script lint",
+      "w6s-cli-script lint:style",
       "git add"
     ]
   },
