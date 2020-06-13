@@ -17,4 +17,5 @@ program
   .command('clone <template> [project]', 'generate a new project from a template')
   .command('list', 'list available official templates')
   .command('serve', 'http-server like, start a local static server')
+  .command('qrcode', 'draw QRcode in terminal window')
   .parse(process.argv);

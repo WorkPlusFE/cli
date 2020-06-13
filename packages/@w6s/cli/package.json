@@ -24,6 +24,7 @@
     "metalsmith": "^2.3.0",
     "ora": "^4.0.4",
     "portfinder": "^1.0.25",
+    "qrcode": "^1.4.4",
     "read-metadata": "^1.0.0",
     "readline": "^1.3.0",
     "request": "^2.88.2",
