@@ -97,6 +97,11 @@ export default new Router({
       ]
     },
     {
+      path: "/404",
+      component: () => import("@/views/404.vue"),
+      meta: { hidden: true },
+    },
+    {
       path: '*',
       redirect: '/404',
       meta: { hidden: true }
