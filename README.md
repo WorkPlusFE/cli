@@ -1,6 +1,6 @@
 # @w6s/cli 
 
-[![npm version](https://badge.fury.io/js/%40w6s%2Fcli.svg)](https://badge.fury.io/js/%40w6s%2Fcli)
+[![npm version](https://badge.fury.io/js/%40w6s%2Fcli.svg)](https://badge.fury.io/js/%40w6s%2Fcli) [![Build Status](https://travis-ci.org/WorkPlusFE/w6s-cli.svg?branch=master)](https://travis-ci.org/WorkPlusFE/w6s-cli)
 
 A CLI for scaffolding starter projects.
 
@@ -35,6 +35,8 @@ $ w6s init <project-name>
 选择后，将自动创建项目，可选择直接安装依赖并启动。
 
 更多命令，请通过`w6s --help`进行查看。
+
+**若需要通过`w6s clone`创建自定义模版项目，请切到1.2.0分支查看说明。**
 
 ## License
 
