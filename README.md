@@ -4,7 +4,7 @@
 
 A CLI for scaffolding starter projects.
 
-👉[查看 CLI 使用文档](https://open.workplus.io/cli/)
+👉 [查看 CLI 使用文档](https://open.workplus.io/cli/)
 
 ## 安装
 
