@@ -26,6 +26,14 @@ $ w6s init <project-name>
 
 当前支持两种项目模版，`Admin`及`H5`，分别对应管理后台类型项目及轻应用 H5 端项目。
 
+```bash
+? Please select the type of project to create  (Use arrow keys)
+❯ Admin 适用于管理后台类项目 
+  H5 适用于移动端H5项目（轻应用）
+```
+
+选择后，将自动创建项目，可选择直接安装依赖并启动。
+
 更多命令，请通过`w6s --help`进行查看。
 
 ## License
