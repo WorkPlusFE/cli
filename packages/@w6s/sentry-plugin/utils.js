@@ -1,7 +1,7 @@
 require('colors');
 
 const execa = require('execa');
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 const { logger } = require('@w6s/cli-shared-utils');
 
 const getGitSha = () => {
