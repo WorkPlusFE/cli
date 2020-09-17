@@ -13,16 +13,28 @@ const stylelintPlugin = toPlugin('@w6s/stylelint-plugin');
 const i18nPlugin = toPlugin('vue-cli-plugin-i18n');
 
 const context = process.cwd();
-let inlineOptions = {};
+let hasW6sConfigFile = false;
 
 // w6s.config.js
 const configPath = path.resolve(context, 'w6s.config.js');
 if (configPath && w6sConfigFileExists(configPath)) {
   process.env.VUE_CLI_SERVICE_CONFIG_PATH = configPath;
-  inlineOptions = require(configPath);
+  hasW6sConfigFile = true;
 }
 
-const createService = () => {
+const createService = (command) => {
+  let inlineOptions = {};
+
+  if (hasW6sConfigFile) {
+    // 跟vue-cli保持一致，build 与 test 命令默认为 production 的 node 环境，其他均为 development
+    if (command.toLowerCase() === 'build' || command.toLowerCase() === 'test') {
+      process.env.NODE_ENV = 'production';
+    } else {
+      process.env.NODE_ENV = 'development';
+    }
+    inlineOptions = require(configPath);
+  }
+  
   const projectPlugins = getRootProjectPlugins(context) || [];
   const inlinePlugins = [
     babelPlugin,
@@ -50,4 +62,4 @@ const createService = () => {
   });
 };
 
-exports.runService = (command, args, rawArgv) => createService().run(command, args, rawArgv);
+exports.runService = (command, args, rawArgv) => createService(command).run(command, args, rawArgv);
