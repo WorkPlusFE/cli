@@ -16,4 +16,24 @@ program
   .command('init <app-name>', 'create a new project')
   .command('serve', 'http-server like, start a local static server')
   .command('qrcode', 'draw QRcode in terminal window')
-  .parse(process.argv);
+
+program
+  .command('info')
+  .description('print debugging information about your environment')
+  .action((cmd) => {
+    console.log('\n  Environment Info:'.green);
+    require('envinfo').run(
+      {
+        System: ['OS', 'CPU'],
+        Binaries: ['Node', 'Yarn', 'npm'],
+        Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
+      },
+      {
+        showNotFound: true,
+        duplicates: true,
+        fullTree: true
+      }
+    ).then(console.log);
+  });
+
+program.parse(process.argv);
