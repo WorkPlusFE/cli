@@ -6,7 +6,7 @@ const program = require('commander');
 const figlet = require('figlet');
 
 if (process.argv.length < 3) {
-  console.log(figlet.textSync("w666666s").white);
+  console.log(figlet.textSync("@ w6s / cli").white);
   console.log(' =================================================='.white);
 }
 
@@ -14,8 +14,6 @@ program
   .version(require('../package').version)
   .usage('<command> [options]')
   .command('init <app-name>', 'create a new project')
-  .command('clone <template> [project]', 'generate a new project from a template')
-  .command('list', 'list available official templates')
   .command('serve', 'http-server like, start a local static server')
   .command('qrcode', 'draw QRcode in terminal window')
   .parse(process.argv);
