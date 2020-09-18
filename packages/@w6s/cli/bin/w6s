@@ -18,7 +18,7 @@ program
   .command('qrcode', 'draw QRcode in terminal window')
 
 program
-  .command('info')
+  .command('env')
   .description('print debugging information about your environment')
   .action((cmd) => {
     console.log('\n  Environment Info:'.green);
