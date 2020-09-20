@@ -20,16 +20,16 @@ yarn global add @w6s/cli
 ## 创建一个项目
 
 ```bash
-# 进入某个文件路径
+# 进入某个文件路径，若不传入项目名称，将在当前目录创建
 $ w6s init <project-name>
 ```
 
-当前支持两种项目模版，`Admin`及`H5`，分别对应管理后台类型项目及轻应用 H5 端项目。
+当前支持两种项目模版，`Admin`及`H5`，分别对应管理后台类型项目及轻应用 H5 项目。
 
 ```bash
-? Please select the type of project to create  (Use arrow keys)
-❯ Admin 适用于管理后台类项目 
-  H5 适用于移动端H5项目（轻应用）
+? 请选择项目类型  (Use arrow keys)
+❯ 管理后台项目 
+  移动端H5轻应用项目 
 ```
 
 选择后，将自动创建项目，可选择直接安装依赖并启动。
