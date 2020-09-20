@@ -2,7 +2,9 @@
 
 ## 项目创建
 
-### 安装 @w6s/cli <a href="https://www.npmjs.com/package/@w6s/cli"><img alt="npm" src="https://img.shields.io/npm/v/@w6s/cli.svg?style=flat-square"></a> 
+### 安装 @w6s/cli 
+
+<a href="https://www.npmjs.com/package/@w6s/cli"><img alt="npm" src="https://img.shields.io/npm/v/@w6s/cli.svg?style=flat-square"></a> 
 
 环境要求：
 
@@ -25,26 +27,20 @@ npm install -g @w6s/cli
 Usage: w6s <command> [options]
 
 Options:
-  -V, --version               output the version number
-  -h, --help                  display help for command
+  -V, --version    output the version number
+  -h, --help       display help for command
 
 Commands:
-  init <app-name>             create a new project
-  clone <template> [project]  generate a new project from a template
-  list                        list available official templates
-  serve                       http-server like, start a local static server
-  help [command]              display help for command
+  init <app-name>  create a new project
+  serve            http-server like, start a local static server
+  qrcode           draw QRcode in terminal window
+  env              print debugging information about your environment
+  help [command]   display help for command
 ```
 
 ### 通过 w6s init 创建
 
-`w6s-cli`有两种创建初始项目的方法，分别是通过`w6s init app-name`及`ws6 clone template-name`命令。其中，clone 命令是1.0版本的功能，目前还保留了一些优质的项目模版，可以通过`w6s list`进行查看。
-
-**在2.0版本，请使用 init 命令进行项目创建。**
-
 当前`w6s-cli`内置两个项目模版，分别是`admin`和`H5`，如其名，admin 为管理后台类型的前端项目模版，而 H5 就是轻应用的前端项目模版。
-
-> `admin`和`H5`俩模版只在使用 init 命令时可选（后续会补充小程序的项目模版，敬请期待！）
 
 假设当前在文件目录A， 执行以下命令：
 
@@ -57,9 +53,9 @@ w6s init project1
 选择模版后，cli 会自动在 A 目录下创建 project1 文件夹，并把所选的项目模版生成到 project1 文件夹内，在这之前会有一些人机交互，使用者需要输入一些简单的项目信息：
 
 ```bash
-? Project name: project1
-? Project description: A vue2.0 minimal H5 layout template.
-? Author: hejx@foreverht.com 
+? 请输入项目名称 project1
+? 请输入项目描述 project1
+? 请输入项目创建者 hejx
 ```
 
 项目创建完毕后，会询问是否自动安装依赖及启动服务，然后输入`yes/no`即可。cli 会自动判断你的电脑上所安装的`Node.js包管理器`，优先会使用`Yarn`进行依赖的安装。
@@ -74,40 +70,43 @@ cd project1
 yarn
 
 # 安装成功后，启动服务
-yarn dev
+yarn serve # yarn dev 同样可用
 ```
-
-### 通过 w6s clone 创建
-
-clone 方式已经不推荐使用，但如果对其他的项目模版有兴趣的，可以使用 clone 方式进行项目创建。
-
-通过 `w6s list`，可以查看当前所有的项目模版，所有的模版都放置在叫[workplus-templates](https://github.com/workplus-templates)的 Github 组织里，因为是即时查询的，可能会因为网络问题而失败，可以多次尝试或切换网络。
-
-当前所有的模版：
-
-```bash
-* f7-vue - Framework7 Vue Webpack starter app template.
-* multiple-pages - Multiple pages starter project.
-* rollup-starter - Sample project for packages built using rollup.
-* single-page - Single-page starter project, include webpack, less, babel.
-* vue-component - Roll your Vue components with Rollup.
-* webpack-framework7 - A starter project for using Framework7 with Webpack via Babel!
-* webpack-vue - Webpack VueJs template. 
-```
-
-然后选择需要的模版，例如`f7-vue`这个模版，通过`w6s clone f7-vue project2`命令，即可在当前目录创建`project2`文件夹，并将项目生成到文件夹里。
 
 ### 其他功能
 
 #### w6s serve
 
-用于启动一个静态文件服务，详细使用方法，可通过输入`w6s serve --help`进行查看。
+用于启动一个静态文件服务，常用于应用打包后的本地调试。
+
+详细使用方法，可通过输入`w6s serve --help`进行查看。
 
 #### w6s qrcode
 
 用于生成二维码，例如一个应用的访问地址，通过输入`ws6 qrcode <app-url>`，即可在 shell 上生成二维码，方便手机扫码调试。
 
 详细使用方法，可通过输入`w6s qrcode --help`进行查看。
+
+#### w6s env
+
+输出当前设备的一些软件或工具的版本信息，例如：
+
+```bash
+Environment Info:
+
+System:
+  OS: macOS 10.15.4
+  CPU: (4) x64 Intel(R) Core(TM) i5-5257U CPU @ 2.70GHz
+Binaries:
+  Node: 10.16.0 - ~/.nvm/versions/node/v10.16.0/bin/node
+  Yarn: 1.22.4 - ~/.nvm/versions/node/v10.16.0/bin/yarn
+  npm: 6.9.0 - ~/.nvm/versions/node/v10.16.0/bin/npm
+Browsers:
+  Chrome: 85.0.4183.102
+  Edge: Not Found
+  Firefox: 57.0
+  Safari: 13.1
+```
 
 ## 项目介绍
 
