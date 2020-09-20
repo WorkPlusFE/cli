@@ -13,7 +13,8 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "docs:deploy": "./scripts/deploy.sh",
-    "release": "lerna publish --no-commit-hooks --force-publish"
+    "release": "lerna publish --no-commit-hooks",
+    "release:force": "lerna publish --no-commit-hooks --force-publish"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
