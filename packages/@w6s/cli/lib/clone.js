@@ -21,20 +21,20 @@ const handleDownloadGitRepo = (source, dest) => new Promise((resolve) => {
 
 function run(name, template, destination) {
   if (exists(template)) {
-    console.log('\n  #Begin generate project \n'.gray);
+    console.log('\n  # 开始创建项目，请正确填写各项内容 \n'.gray);
     return generate(name, template, destination);
   }
   console.log('');
-  const spinner = ora(`Downloading "${template}" template...`);
+  const spinner = ora(`获取 "${template}" 项目模版...`);
 
   const tmp = `/tmp/template${uid()}`; // unique backup
   spinner.start();
 
   return handleDownloadGitRepo(`workplus-templates/${template}`, tmp)
     .then(() => {
-      spinner.text = `Download "${template}" successful`;
+      spinner.text = `下载 "${template}" 成功`;
       spinner.succeed();
-      console.log('\n  #Begin generate project \n'.gray);
+      console.log('\n  # 开始创建项目 \n'.gray);
       process.on('exit', () => {
         remove(tmp); // remove backup files
       });
@@ -43,26 +43,6 @@ function run(name, template, destination) {
 
 };
 
-const clone = (name, template, destination, inPlace, isW6sClone) => {
-  if (exists(destination)) {
-    if (!isW6sClone) {
-      console.log('');
-    }
-    logger.warn(`Project directory: ${destination}\n`);
-    return inquirer.prompt([{
-      type: 'confirm',
-      message: inPlace
-        ? 'Generate project in current directory?'
-        : 'Target directory exists. Continue?',
-      name: 'ok'
-    }]).then((answers) => {
-      if (answers.ok) {
-        return run(name, template, destination);
-      }
-      return process.exit(1);
-    });
-  }
-  return run(name, template, destination);
-};
+const clone = (name, template, destination) => run(name, template, destination);
 
 module.exports = clone;

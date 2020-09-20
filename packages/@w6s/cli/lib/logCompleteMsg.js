@@ -1,19 +1,19 @@
+const cons = require('consolidate');
+
 require('colors');
 
-const logCompleteMsg = (opts) => {
+const logCompleteMsg = (opts, currentFolder) => {
   if (!opts) return;
 
-  console.log('  To get started: \n'.green);
-  console.log(`      cd ${  opts.name}\n`);
-  if (Array.isArray(opts.bash)) {
-    opts.bash.forEach((item) => {
-      console.log(`      ${  item}` );
-    })
+  console.log('\n  执行以下命令启动项目: \n'.green);
+  if (currentFolder) {
+    console.log(`    cd ${opts.name}\n`);
   }
-  if (opts.readme) {
-    console.log(`\n  Documentation can be found at ${  opts.readme.cyan  }`);
-  }
-  console.log('\n 🖖 Happy coding, Good luck!');
+  console.log(`    yarn && yarn serve`);
+  
+  console.log(`\n  需了解更多，请查看开发文档：`);
+  console.log('  https://open.workplus.io/w6s-cli/'.green);
+  console.log('\n  🖖 Happy coding, Good luck!');
 };
 
 module.exports = {

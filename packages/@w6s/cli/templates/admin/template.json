@@ -1,4 +1,3 @@
 {
-  "description": "A vue2.0 minimal layout template，base Element-ui.",
-  "bash": ["yarn || npm install", "yarn || npm run serve", "yarn || npm run build"]
+  "bash": ["yarn", "yarn serve"]
 }

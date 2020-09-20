@@ -5,7 +5,8 @@ require('colors');
 const path = require('path');
 const program = require('commander');
 const inquirer = require('inquirer');
-const validateName = require('validate-npm-package-name')
+const validateName = require('validate-npm-package-name');
+const { existsSync, readdirSync } = require('fs');
 const { checkNodeVersion, hasYarn, logger } = require('@w6s/cli-shared-utils');
 
 const { engines } = require('../package.json');
@@ -13,6 +14,7 @@ const prompt = require('../lib/prompt');
 const clone = require('../lib/clone');
 const { logCompleteMsg } = require('../lib/logCompleteMsg');
 const { executeCommand } = require('../lib/executeCommand');
+const cons = require('consolidate');
 
 // check node version
 checkNodeVersion(engines.node);
@@ -22,9 +24,9 @@ process.on('exit', () => {
   console.log();
 });
 
-program.usage('<app-name>');
+program.usage('[app-name]');
 program.on('--help', () => {
-  console.log('  Examples:');
+  console.log('  \nExamples:');
   console.log('');
   console.log('    # create a new project with w6s-cli'.gray);
   console.log('    $ w6s init project1');
@@ -34,87 +36,123 @@ program.on('--help', () => {
 program.parse(process.argv);
 const { args } = program;
 
-if (args.length < 1) {
-  program.help();
-  process.exit(1);
-}
-
 if (args.length > 1) {
-  logger.info('You provided more than one argument. The first one will be used as the app\'s name, the rest are ignored. \n'.gray);
+  logger.info('过多的参数，除第一个参数作为项目名称，其他将被忽略 \n'.gray);
 }
 
 const appName = args[0];
-const destination = path.resolve(appName);
-
-const its = validateName(appName);
-if (!its.validForNewPackages) {
-  logger.error(`Invalid project name: "${appName}"`);
-  process.exit(1);
+if (appName) {
+  const its = validateName(appName);
+  if (!its.validForNewPackages) {
+    logger.error(`非法的项目名称"${appName}"，请严格遵循 package.json 中 name 的命名规则！`);
+    process.exit(1);
+  }
 }
 
-const context = path.resolve(__dirname);
-const templatePath = path.resolve(context, '../templates');
-const adminTpl = path.join(templatePath, '/admin');
-const h5Tpl = path.join(templatePath, '/H5');
+// 若未传入项目名称，将使用当前目录进行安装
+const destination = path.resolve(appName || './');
 
-// todo: 改成自动获取文件夹的方式
-const tmeplatePrompt = [
-  {
-    name: 'Admin'.green + ' 适用于管理后台类项目'.gray,
-    id: 'admin',
-    path: adminTpl,
-  },
-  {
-    name: 'H5'.green + ' 适用于移动端H5项目（轻应用）'.gray,
-    id: 'h5',
-    path: h5Tpl,
-  },
-];
+// 检测项目路径
+const checkProjectPath = (destination, appName) => {
+  logger.info(`项目将创建到: ${destination}\n`);
 
-const getSelectedTplByAnswer = answer => tmeplatePrompt.find(tpl => tpl.name === answer);
-const autoInstallDev = (hasYarn) => {
-  const bin = hasYarn ? 'yarn' : 'npm';
-  const args = hasYarn ? [] : ['install', '--loglevel', 'error'];
-  return executeCommand(bin, args, destination);
-};
-const startServer = (hasYarn) => {
-  const bin = hasYarn ? 'yarn' : 'npm';
-  const args = hasYarn ? ['serve'] : ['run serve'];
-  return executeCommand(bin, args, destination);
-};
+  const defaultMessage = '是否创建项目到当前目录？';
+  let message;
+  if (appName) {
+    message = existsSync(destination) ? '目录已存在，是否继续？' : defaultMessage;
+  } else {
+    const dir = readdirSync(destination);
+    message = dir.length > 0 ? '当前目录非空，是否继续？' : defaultMessage;
+  }
 
-const message = 'Please select the type of project to create ';
-prompt(message, tmeplatePrompt)
-  .then((answer) => {
-    const selected = getSelectedTplByAnswer(answer);
-    return selected;
-  })
-  .then((selected) => {
-    return clone(appName, selected.path, destination, true);
-  })
-  .then((opt) => {
-    const isYarn = hasYarn();
-    if (!isYarn) {
-      logger.info('We recommend you to use "Yarn", more info https://github.com/yarnpkg/yarn \n'.green);
+  return inquirer.prompt([{
+    type: 'confirm',
+    message: message,
+    name: 'ok'
+  }]).then((answers) => {
+    if (answers.ok) {
+      return true;
     }
+    return process.exit(1);
+  });
+};
 
-    return inquirer.prompt([{
-      message: 'Install dependencies and start the project?',
-      type: 'confirm',
-      name: 'ok'
-    }]).then(async (answers) => {
-      if (answers.ok) {
-        console.log('');
-        logger.info(`Will use ${ isYarn ? 'Yarn'.green : 'NPM'.green } to install dependencies. \n`);
-        await autoInstallDev(isYarn);
-        console.log('');
-        logger.info(`Run "${ isYarn ? 'yarn serve' : 'npm run serve' }"\n`);
-        await startServer(isYarn);
-      } else {
-        logCompleteMsg(opt);
-      }
+// 获取本地项目模版
+const getTemplate = () => {
+  const context = path.resolve(__dirname);
+  const templatePath = path.resolve(context, '../templates');
+  const adminTpl = path.join(templatePath, '/admin');
+  const h5Tpl = path.join(templatePath, '/H5');
+
+  const message = '请选择项目类型 ';
+  // todo: 改成自动获取文件夹的方式
+  const tmeplatePrompt = [
+    {
+      name: '管理后台项目'.green,
+      id: 'admin',
+      path: adminTpl,
+    },
+    {
+      name: '移动端H5轻应用项目'.green,
+      id: 'h5',
+      path: h5Tpl,
+    },
+  ];
+
+  const getSelectedTplByAnswer = answer => tmeplatePrompt.find(tpl => tpl.name === answer);
+ 
+  return prompt(message, tmeplatePrompt)
+    .then((answer) => {
+      const selected = getSelectedTplByAnswer(answer);
+      return selected;
     });
-  })
+};
+
+// 创建项目
+const createProject = ({ path }) => clone(appName, path, destination);
+
+// 创建完成后的后续动作
+const completed = (opt) => {
+  const isYarn = hasYarn();
+  if (!isYarn) {
+    logger.info('推荐使用 "Yarn", 更多信息请访问 https://github.com/yarnpkg/yarn \n'.green);
+  }
+
+  const autoInstallDev = (hasYarn) => {
+    const bin = hasYarn ? 'yarn' : 'npm';
+    const args = hasYarn ? [] : ['install', '--loglevel', 'error'];
+    return executeCommand(bin, args, destination);
+  };
+
+  const startServer = (hasYarn) => {
+    const bin = hasYarn ? 'yarn' : 'npm';
+    const args = hasYarn ? ['serve'] : ['run serve'];
+    return executeCommand(bin, args, destination);
+  };
+
+  return inquirer.prompt([{
+    message: '是否自动安装依赖并启动服务？',
+    type: 'confirm',
+    name: 'ok'
+  }]).then(async (answers) => {
+    if (answers.ok) {
+      console.log('');
+      logger.info(`将使用 ${ isYarn ? 'Yarn'.green : 'NPM'.green } 安装项目依赖. \n`);
+      await autoInstallDev(isYarn);
+      console.log('');
+      logger.info(`执行 "${ isYarn ? 'yarn serve' : 'npm run serve' }"\n`);
+      await startServer(isYarn);
+    } else {
+      const currentFolder = !!appName;
+      logCompleteMsg(opt, currentFolder);
+    }
+  });
+};
+
+checkProjectPath(destination, appName)
+  .then(getTemplate)
+  .then(createProject)
+  .then(completed)
   .catch((err) => {
     console.error(err);
     process.exit(1);
