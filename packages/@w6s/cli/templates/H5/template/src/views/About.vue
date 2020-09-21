@@ -28,8 +28,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Row, Col, Button, Divider } from "vant";
+import * as w6s from "@w6s/sdk";
+
 import counter from "../store/modules/Counter";
-import { getLocation, getDeviceInfo } from "../utils/cordova";
 import { getUserDetail, getUsers } from "../api/user";
 
 @Component({
@@ -55,14 +56,14 @@ export default class AboutView extends Vue {
   private deviceInfo = "";
 
   handleGetLocation() {
-    getLocation().then(({ data }) => {
-      console.log(JSON.stringify(data));
+    w6s.location.getLocation().then((res) => {
+      console.log(JSON.stringify(res));
     });
   }
 
   handleGetDeviceInfo() {
-    getDeviceInfo().then(({ data }) => {
-      console.log(JSON.stringify(data));
+    w6s.device.getDeviceInfo().then((res) => {
+      console.log(JSON.stringify(res));
     });
   }
 

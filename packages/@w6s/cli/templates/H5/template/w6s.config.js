@@ -1,5 +1,3 @@
-const sentryConfig = require("./sentry.config");
-
 module.exports = {
   parallel: false,
   pluginOptions: {
@@ -21,7 +19,6 @@ module.exports = {
     vconsole: {
       enable: process.env.NODE_ENV === "development",
     },
-    sentry: sentryConfig,
     styleResourcesLoader: {
       preProcessor: "scss",
       patterns: ["./styles/*/*.scss"],

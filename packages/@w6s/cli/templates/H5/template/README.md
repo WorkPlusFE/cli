@@ -1,24 +1,6 @@
 # <%= name %>
 
-## Project setup
-```
-yarn install
-```
+> <%= description %>
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+更多使用说明，请查看[WorkPlusFE 开发手册](https://open.workplus.io/w6s-cli/)。
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
