@@ -1,8 +1,5 @@
 <template>
-  <div
-    :class="classObj"
-    class="app-wrapper"
-  >
+  <div :class="classObj" class="app-wrapper">
     <sidebar class="sidebar-container" />
     <div class="main-container">
       <navbar />
@@ -12,26 +9,26 @@
 </template>
 
 <script lang="ts">
-import { Component } from 'vue-property-decorator';
-import { mixins } from 'vue-class-component';
-import { AppModule } from '@/store/modules/app';
-import { AppMain, Navbar, Sidebar } from './components';
-import ResizeMixin from './mixin/resize';
+import { Component } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+import { AppModule } from "@/store/modules/app";
+import { AppMain, Navbar, Sidebar } from "./components";
+import ResizeMixin from "./mixin/resize";
 
 @Component({
-  name: 'Layout',
+  name: "Layout",
   components: {
     AppMain,
     Navbar,
-    Sidebar
-  }
+    Sidebar,
+  },
 })
 export default class extends mixins(ResizeMixin) {
   get classObj() {
     return {
       hideSidebar: !this.sidebar.opened,
       openSidebar: this.sidebar.opened,
-      withoutAnimation: this.sidebar.withoutAnimation
+      withoutAnimation: this.sidebar.withoutAnimation,
     };
   }
 

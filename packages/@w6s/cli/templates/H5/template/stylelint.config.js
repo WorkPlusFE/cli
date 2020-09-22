@@ -1,3 +1,3 @@
 module.exports = {
-  "extends": ["@w6s/stylelint-config"],
+  extends: ["@w6s/stylelint-config"],
 };

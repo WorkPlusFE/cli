@@ -1,16 +1,14 @@
 <template>
-  <router-link
-    :to="to"
-  >
+  <router-link :to="to">
     <slot />
   </router-link>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
-  name: 'SidebarItemLink'
+  name: "SidebarItemLink",
 })
 export default class extends Vue {
   @Prop({ required: true }) private to!: string;

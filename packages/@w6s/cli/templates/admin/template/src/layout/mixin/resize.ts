@@ -1,10 +1,10 @@
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import { AppModule, DeviceType } from '@/store/modules/app';
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { AppModule, DeviceType } from "@/store/modules/app";
 
 const WIDTH = 992; // refer to Bootstrap's responsive design
 
 @Component({
-  name: 'ResizeMixin'
+  name: "ResizeMixin",
 })
 export default class extends Vue {
   get device() {
@@ -15,7 +15,7 @@ export default class extends Vue {
     return AppModule.sidebar;
   }
 
-  @Watch('$route')
+  @Watch("$route")
   private onRouteChange() {
     if (this.device === DeviceType.Mobile && this.sidebar.opened) {
       AppModule.CloseSideBar(false);
@@ -23,7 +23,7 @@ export default class extends Vue {
   }
 
   beforeMount() {
-    window.addEventListener('resize', this.resizeHandler);
+    window.addEventListener("resize", this.resizeHandler);
   }
 
   mounted() {
@@ -35,7 +35,7 @@ export default class extends Vue {
   }
 
   beforeDestroy() {
-    window.removeEventListener('resize', this.resizeHandler);
+    window.removeEventListener("resize", this.resizeHandler);
   }
 
   private isMobile() {
