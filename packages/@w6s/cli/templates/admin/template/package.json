@@ -15,8 +15,6 @@
     "svg": "vsvg -s ./src/icons/svg -t ./src/icons/components --ext ts --es6"
   },
   "dependencies": {
-    "@sentry/browser": "^5.15.5",
-    "@sentry/integrations": "^5.15.5",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "element-ui": "^2.9.2",

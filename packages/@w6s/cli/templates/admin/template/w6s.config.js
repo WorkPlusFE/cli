@@ -1,4 +1,3 @@
-const sentryConfig = require('./sentry.config');
 const path = require('path');
 
 module.exports = {
@@ -18,7 +17,6 @@ module.exports = {
       localeDir: 'locales',
       enableInSFC: false,
     },
-    sentry: sentryConfig,
     styleResourcesLoader: {
       preProcessor: 'scss',
       patterns: [
