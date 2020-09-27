@@ -6,6 +6,7 @@ Vue.use(Router);
 
 /*
   redirect:                      if set to 'noredirect', no redirect action will be trigger when clicking the breadcrumb
+  alwaysShow:                    if ture, it will always show the root menu 
   meta: {
     title: 'title'               the name showed in subMenu and breadcrumb (recommend set)
     icon: 'svg-name'             the icon showed in the sidebar
