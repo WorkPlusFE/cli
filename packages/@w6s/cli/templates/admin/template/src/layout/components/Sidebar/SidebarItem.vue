@@ -7,7 +7,7 @@
       { 'first-level': isFirstLevel },
     ]"
   >
-    <template v-if="theOnlyOneChild && !theOnlyOneChild.children">
+    <template v-if="theOnlyOneChild && !theOnlyOneChild.children && !item.alwaysShow">
       <sidebar-item-link v-if="theOnlyOneChild.meta" :to="resolvePath(theOnlyOneChild.path)">
         <el-menu-item
           :index="resolvePath(theOnlyOneChild.path)"
