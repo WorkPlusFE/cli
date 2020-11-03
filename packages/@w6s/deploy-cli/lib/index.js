@@ -3,6 +3,7 @@ const { NodeSSH } = require("node-ssh");
 const ora = require("ora");
 const chalk = require("chalk");
 const inquirer = require("inquirer");
+const { runService } = require("@w6s/cli-script/lib");
 
 const projectPath = process.cwd();
 const configFilePath = `${projectPath}/deploy.config.js`;
@@ -62,10 +63,12 @@ async function putDirectory(envName) {
   }
 }
 
-function deploy(envName) {
+async function deploy(envName) {
   const exitConfigFile = checkConfigFile();
   if (exitConfigFile) {
     checkConfigFile();
+    await runService("build");
+    console.log("打包成功！");
     putDirectory(envName);
   } else {
     console.log(chalk.red("配置文件deploy.config.js不存在！"));
