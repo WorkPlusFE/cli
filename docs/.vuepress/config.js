@@ -2,7 +2,7 @@ module.exports = {
   title: 'WorkPlusFE 开发手册',
   base: '/w6s-cli/',
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }]
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
   themeConfig: {
     sidebar: 'auto',
