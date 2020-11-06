@@ -1,6 +1,8 @@
 # Sentry
 
-![sentry](/sentry-bg.jpg)
+<p>
+  <img :src="$withBase('/sentry-bg.jpg')" alt="sentry">
+</p>
 
 ## 什么是 Sentry
 
