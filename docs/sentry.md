@@ -1,4 +1,4 @@
-# 对接 Sentry
+# Sentry
 
 ![sentry](/sentry-bg.jpg)
 

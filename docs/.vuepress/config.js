@@ -9,14 +9,14 @@ module.exports = {
     displayAllHeaders: true,
     nav: [
       { text: '快速开始', link: '/' },
-      { text: '对接 Sentry', link: '/sentry' },
-      { text: '项目发布', link: '/deploy' },
+      { text: '使用 Sentry', link: '/sentry' },
+      // { text: '项目发布', link: '/deploy' },
       { text: '工具/库', link: '/packages' },
-      { text: '开放平台', link: 'https://open.workplus.io/v4/' },
+      { text: '常见问题', link: '/qa' },
       {
         text: '其他',
         items: [
-          { text: '常见问题', link: '/qa' },
+          { text: '开放平台', link: 'https://open.workplus.io/v4/' },
           { text: 'Cordova 文档', link: 'https://open.workplus.io/cordova/' },
           { text: 'GitHub', link: 'https://github.com/WorkPlusFE/cli' },
         ]

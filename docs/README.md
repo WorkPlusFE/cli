@@ -292,6 +292,8 @@ module.exports = {
 };
 ```
 
+想了解更多关于 Sentry 的知识，请访问 [使用 Sentry](/sentry.html)。
+
 ### i18n
 
 该插件使用的是一个叫[vue-cli-plugin-i18n](https://github.com/kazupon/vue-cli-plugin-i18n)的第三方 vue-cli 插件，该插件会注册一个名为`i18n:report`的`command`命令，该命令的主要作用就是检测当前的国际化配置中，哪些属性有遗漏或未被使用。有利于检测国际化配置的完整性，避免不必要的低级错误。
