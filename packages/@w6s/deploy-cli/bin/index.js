@@ -1,16 +1,24 @@
 #!/usr/bin/env node
 
-// const program = require("commander");
+const program = require("commander");
 const Deploy = require("../lib/deploy");
+const packageInfo = require("../package.json");
+
 const deploy = new Deploy();
 
-// program
-//   .command("init")
-//   .description("init deploy config file.")
-//   .action(() => {
-//     console.log("init");
-//   });
+program.version(packageInfo.version);
 
-// program.parse(process.argv);
+program
+  .command("init")
+  .description("初始化配置文件")
+  .action(() => {
+    deploy.initConfigFile();
+  });
 
-deploy.start("dev");
+program
+  .command("deploy")
+  .option("--mode <mode>", "mode为要部署环境名")
+  .description("执行部署操作")
+  .action(option => deploy.start(option.mode));
+
+program.parse(program.argv);
