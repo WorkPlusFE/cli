@@ -5,6 +5,8 @@ const fs = require("fs");
 const execa = require("execa");
 const { NodeSSH } = require("node-ssh");
 const inquirer = require("inquirer");
+const ora = require("ora");
+const { successLog, errorLog } = require("./log");
 const templateConfig = require("../template/deploy.config");
 
 class Deploy {
@@ -21,20 +23,17 @@ class Deploy {
 
   // 检查是否存在配置文件
   checkConfigFile() {
-    if (fs.existsSync(this.configPath)) {
-      return true;
-    }
-    return false;
+    return fs.existsSync(this.configPath);
   }
 
   // 初始化配置文件
   initConfigFile() {
     if (this.checkConfigFile()) {
-      console.log(`已存在配置文件，无需重复生成...`);
+      errorLog(`deploy.config.js 配置文件已存在.`);
       process.exit(1);
     }
     fs.writeFileSync(this.configPath, this.templateConfig);
-    console.log(`已生成deploy.config.js配置文件...`);
+    successLog(`初始化deploy.config.js配置文件成功.`);
   }
 
   // 检查要部署的环境的配置参数
@@ -42,14 +41,14 @@ class Deploy {
     this.config = require(this.configPath);
     const currentMode = this.config[mode];
     if (!currentMode) {
-      console.log("当前部署环境名字未配置...");
+      errorLog(`未能找到部署环境 ${mode} 的配置信息，请检查配置文件.`);
       process.exit(1);
     }
     const keys = Object.keys(currentMode);
     keys.forEach(key => {
       if (key === "password") return;
       if (!currentMode[key]) {
-        console.log(`${key} 配置不正确...`);
+        errorLog(`${key} 配置不正确.`);
         process.exit(1);
       }
     });
@@ -58,11 +57,12 @@ class Deploy {
   // 打包项目
   async buildSource(mode) {
     try {
-      console.log("开始打包....");
+      const spinner = ora("正在打包项目...").start();
       await execa.command(this.config[mode].buildCommand);
-      console.log("打包完成...");
+      spinner.stop();
+      successLog(`打包完成.`);
     } catch (error) {
-      console.log(error.message);
+      errorLog(error.message);
       process.exit(1);
     }
   }
@@ -86,7 +86,7 @@ class Deploy {
         password = res.password;
       }
 
-      console.log("正在连接远程服务器...");
+      let spinner = ora(`正在连接远程服务器${host}...`).start();
 
       await ssh.connect({
         privateKey,
@@ -96,27 +96,29 @@ class Deploy {
         username,
         password
       });
-
-      console.log("连接成功，正在上传文件...");
+      spinner.stop();
+      successLog("连接成功.");
 
       const options = {
         recursive: true,
         concurrency: 10,
         tick(localPath, remotePath, error) {
           if (error) {
-            console.log(`上传 ${localPath} 失败.`);
+            errorLog(`上传 ${localPath} 失败.`);
             process.exit(1);
           } else {
-            console.log(`正在上传文件：${localPath}`);
+            spinner.text = `正在上传文件：${localPath}`;
           }
         }
       };
 
+      spinner = ora("正在上传文件...").start();
       await ssh.putDirectory(`${this.cwd}/${distPath}/`, uploadPath, options);
-      console.log("上传完成！");
+      spinner.stop();
+      successLog("部署完成.");
       ssh.dispose();
     } catch (error) {
-      console.log("未能连接上服务器...");
+      errorLog(error.message);
       process.exit(1);
     }
   }
@@ -124,7 +126,7 @@ class Deploy {
   // 走你
   async start(mode) {
     if (!this.checkConfigFile()) {
-      console.log("未找到配置文件deploy.config.js...");
+      errorLog("未找到配置文件deploy.config.js.");
       process.exit(1);
     }
     this.checkModeConfig(mode);
