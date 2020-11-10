@@ -144,6 +144,12 @@ Sentry.captureEvent({
 
 该功能是通过[@sentry/webpack-plugin](https://github.com/getsentry/sentry-webpack-plugin)实现，其他非 w6s-cli 创建的项目，可以直接使用该插件来实现 sourceMap 文件上传，但请注意，**请不要把 sourceMap 文件发布到生产环境**。
 
+### @w6s/sentry-plugin
 
+`@w6s/sentry-plugin`是一个基于[webpack-sentry-plugin](https://github.com/40thieves/webpack-sentry-plugin) 做的上层封装插件，使用起来更加方便，只需简单配置即可。
 
+只要是基于`w6s-cli`或`vue-cli`创建的项目，均支持使用。使用说明请查看[默认插件-sentry](/#sentry)
 
+::: tip 关于 @w6s/sentry-plugin 的配置
+`@w6s/sentry-plugin`的配置非常少，那是因为该插件完全是按照团队 sentry 服务进行了默认配置，而需要配置的，仅是跟项目关联的项目名称`project`和项目对应的`apiKey`。
+:::
