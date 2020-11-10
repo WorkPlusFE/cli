@@ -1,0 +1,20 @@
+{
+  "name": "@w6s/deploy-plugin",
+  "version": "0.0.1",
+  "main": "./bin/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "w6s-deploy-plugin": "./bin/index.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^6.2.0",
+    "execa": "^4.1.0",
+    "inquirer": "^7.3.3",
+    "node-ssh": "^11.1.1",
+    "ora": "^5.1.0"
+  },
+  "license": "MIT"
+}
