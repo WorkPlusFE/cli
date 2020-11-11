@@ -1,12 +1,12 @@
 {
-  "name": "@w6s/deploy-plugin",
+  "name": "@w6s/cli-deploy",
   "version": "0.0.1",
   "main": "./bin/index.js",
   "publishConfig": {
     "access": "public"
   },
   "bin": {
-    "w6s-deploy-plugin": "./bin/index.js"
+    "w6s-cli-deploy": "./bin/index.js"
   },
   "dependencies": {
     "chalk": "^4.1.0",
