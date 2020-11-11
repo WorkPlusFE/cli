@@ -148,7 +148,39 @@ Sentry.captureEvent({
 
 `@w6s/sentry-plugin`是一个基于[webpack-sentry-plugin](https://github.com/40thieves/webpack-sentry-plugin) 做的上层封装插件，使用起来更加方便，只需简单配置即可。
 
-只要是基于`w6s-cli`或`vue-cli`创建的项目，均支持使用。使用说明请查看[默认插件-sentry](/#sentry)
+创建`sentry.config.js`文件，使用该插件前，需要在 sentry 上创建项目并获取`apiKey`。
+
+```js
+// sentry.config.js
+module.exports = {
+  enable: false,
+  project: 'your-project-name',
+  apiKey: 'sentry-auth-token',
+};
+```
+
+字段解析：
+
+* `enable`: 是否开启 Sentry 上传功能；
+* `project`: 在 Sentry 上创建的项目的名称；
+* `apiKey`: 在 Sentry 上创建的项目的 apiKey，可以在设置中找到。
+
+只要是基于`w6s-cli`或`vue-cli`创建的项目，均支持使用。在配置文件的`pluginOptions`属性中添加配置即可。
+
+```js
+// w6s.config.js
+const sentry = require('./sentry.config.js');
+
+module.exports = {
+  // ...
+  pluginOptions: {
+    // 添加 sentry 配置
+    sentry,
+    // 其他插件配置
+    // ....
+  },
+};
+```
 
 ::: tip 关于 @w6s/sentry-plugin 的配置
 `@w6s/sentry-plugin`的配置非常少，那是因为该插件完全是按照团队 sentry 服务进行了默认配置，而需要配置的，仅是跟项目关联的项目名称`project`和项目对应的`apiKey`。
