@@ -52,7 +52,7 @@
     "lerna": "^3.20.2",
     "lerna-changelog": "^1.0.1",
     "lint-staged": "^10.1.7",
-    "vuepress": "^1.5.4",
+    "vuepress": "^1.7.1",
     "yorkie": "^2.0.0"
   },
   "preferGlobal": true,

@@ -2,9 +2,11 @@
 
 ## 项目创建
 
-### 安装 @w6s/cli 
+通过使用团队内部` @w6s/cli`工具，进行快速项目初始架构创建。
 
 <a href="https://www.npmjs.com/package/@w6s/cli"><img alt="npm" src="https://img.shields.io/npm/v/@w6s/cli.svg?style=flat-square"></a> 
+
+### 安装
 
 环境要求：
 
@@ -33,7 +35,9 @@ Options:
 Commands:
   init <app-name>  create a new project
   serve            http-server like, start a local static server
+  deploy           push static resources to the server
   qrcode           draw QRcode in terminal window
+  mirror           set NPM mirrors to Taobao sources, such as electron, node-sass
   env              print debugging information about your environment
   help [command]   display help for command
 ```
@@ -80,6 +84,14 @@ yarn serve # yarn dev 同样可用
 用于启动一个静态文件服务，常用于应用打包后的本地调试。
 
 详细使用方法，可通过输入`w6s serve --help`进行查看。
+
+#### w6s deoply
+
+wip.
+
+#### w6s mirror
+
+wip.
 
 #### w6s qrcode
 
@@ -277,20 +289,13 @@ API 的模拟，默认放置在`/mock/index.js`里，`@w6s/mock-plugin`会监听
 
 当前该插件默认在 H5 项目模版启用。
 
-### sentry
+### Sentry
 
-sentry 是一个实时的事件日志记录和聚合平台。当前我们也私有化部署了一套，可以通过[https://sentry.workplus.io/sentry/](https://sentry.workplus.io/sentry/)访问。
+Sentry 是一个实时的事件日志记录和聚合平台。当前我们也私有化部署了一套，可以通过[https://sentry.workplus.io/sentry/](https://sentry.workplus.io/sentry/)访问。
 
-而该插件的功能由`@w6s/sentry-plugin`插件提供，主要是用于在项目打包后，上传前端资源文件，例如 js 的`sourcemap`文件。配置在`sentry.config.js`文件中，使用该插件前，需要在 sentry 上创建项目并获取`apiKey`。
+而该插件的功能由`@w6s/sentry-plugin`插件提供，主要是用于在项目打包后，上传前端资源文件，例如 js 的`sourcemap`文件。
 
-```js
-module.exports = {
-  // Sentry options are required
-  enable: false,
-  project: 'your-project-name',
-  apiKey: 'sentry-auth-token',
-};
-```
+想了解更多使用 Sentry 的知识，请访问 [使用 Sentry](/sentry.html)。
 
 ### i18n
 
