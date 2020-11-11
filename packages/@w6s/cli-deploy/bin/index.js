@@ -16,9 +16,8 @@ program
   });
 
 program
-  .command("deploy")
-  .option("--mode <mode>", "mode为部署环境名字")
+  .command("deploy <mode>")
   .description("执行部署操作")
-  .action(option => deploy.start(option.mode));
+  .action((mode) => deploy.start(mode));
 
 program.parse(program.argv);

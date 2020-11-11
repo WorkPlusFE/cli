@@ -45,7 +45,7 @@ class Deploy {
       process.exit(1);
     }
     const keys = Object.keys(currentMode);
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (key === "password") return;
       if (!currentMode[key]) {
         errorLog(`${key} 配置不正确.`);
@@ -54,11 +54,23 @@ class Deploy {
     });
   }
 
+  // 判断配置项的优先级
+  getSelectiveSetup(mode, setup) {
+    const commonSetup = this.config[setup];
+    const modeSetup = this.config[mode][setup];
+    if (!commonSetup && !modeSetup) {
+      errorLog(`${setup}配置不正确.`);
+      process.exit(1);
+    }
+    return modeSetup || commonSetup;
+  }
+
   // 打包项目
   async buildSource(mode) {
     try {
+      const buildCommand = this.getSelectiveSetup(mode, "buildCommand");
       const spinner = ora("正在打包项目...").start();
-      await execa.command(this.config[mode].buildCommand);
+      await execa.command(buildCommand);
       spinner.stop();
       successLog(`打包完成.`);
     } catch (error) {
@@ -71,8 +83,10 @@ class Deploy {
   async uploadDirectory(mode) {
     try {
       const ssh = new NodeSSH();
-      const { privateKey, passphrase } = this.config;
-      const { host, port, username, distPath, uploadPath } = this.config[mode];
+      const privateKey = this.getSelectiveSetup(mode, "privateKey");
+      const passphrase = this.getSelectiveSetup(mode, "passphrase");
+      const distPath = this.getSelectiveSetup(mode, "distPath");
+      const { host, port, username, uploadPath } = this.config[mode];
       let { password } = this.config[mode];
 
       if (!password) {
@@ -80,8 +94,8 @@ class Deploy {
           {
             type: "password",
             message: "请输入服务器密码:",
-            name: "password"
-          }
+            name: "password",
+          },
         ]);
         password = res.password;
       }
@@ -94,7 +108,7 @@ class Deploy {
         host,
         port,
         username,
-        password
+        password,
       });
       spinner.stop();
       successLog("连接成功.");
@@ -109,7 +123,7 @@ class Deploy {
           } else {
             spinner.text = `正在上传文件：${localPath}`;
           }
-        }
+        },
       };
 
       spinner = ora("正在上传文件...").start();
