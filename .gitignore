@@ -39,3 +39,5 @@ jspm_packages
 demos
 
 packages/test/**
+
+dist
