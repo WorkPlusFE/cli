@@ -1,14 +1,15 @@
 module.exports = {
-  title: 'WorkPlusFE 开发手册',
+  title: 'FED',
   base: '/dev/',
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
   themeConfig: {
     sidebar: 'auto',
+    logo: './logo.png',
     displayAllHeaders: true,
     nav: [
-      { text: '快速开始', link: '/' },
+      { text: '项目创建', link: '/' },
       { text: 'w6s-cli', link: '/cli' },
       { text: '使用 Sentry', link: '/sentry' },
       { text: '项目发布', link: '/deploy' },
@@ -24,7 +25,7 @@ module.exports = {
       },
     ],
     lastUpdated: '最后更新时间',
-    search: true,
+    search: false,
 
     docsRepo: 'WorkPlusFE/cli',
     docsDir: 'docs',

@@ -1,10 +1,16 @@
 # 项目发布
 
-部署是项目开发几乎必不可少的一环，为了简化部署项目的操作以此提高开发的效率，w6s 手脚架根据常见的部署场景集成自动化部署的功能，仅需稍作配置即可通过一“键”部署。
+项目发布是项目开发过程中，必不可少的一环。为了简化前端项目资源的部署步骤，避免繁琐的 shell 脚本编写及人为操作，`w6s-cli`根据常见的部署场景，提供了自动化部署的功能，支持开发、测试、生产多环境配置，一键即可自动完成部署。
+
+[仓库地址](https://github.com/WorkPlusFE/cli/tree/master/packages/%40w6s/cli-deploy)
 
 ## 如何使用
 
+要使用发布功能，可以单独安装`@w6s/cli-deploy`，或者使用`w6s-cli`提供的`deploy`命令。
+
 ### 安装
+
+安装`@w6s/cli-deploy`：
 
 ```bash
 yarn global add @w6s/cli-deploy
@@ -12,90 +18,84 @@ yarn global add @w6s/cli-deploy
 npm install -g @w6s/cli-deploy
 ```
 
-### 初始化部署配置文件
+### 初始化配置文件
+
+安装成功后，执行以下命令:
 
 ```bash
-w6s-cli-deploy init
+w6s-cli-deploy init --env test
 ```
 
-执行初始化命令后会在根目录生成一个 deploy.config.js 配置文件，具体配置内容和说明如下：
+如上，`init`命令接受一个 env 的参数，可以传入一个环境名称，默认为 test。
+
+执行初始化命令后，会在当前目录生成`deploy.config.js`配置文件，具体配置内容和说明如下：
 
 ```js
 module.exports = {
-  // 本地私钥地址，非必填
-  privateKey: "",
-  // 私钥的密码，非必填
-  passphrase: "",
-  // 打包命令
-  buildCommand: "npm run build",
-  // 打包出来的目录名
-  distPath: "dist",
-
-  // 环境配置相关信息，以下是配置的开发环境的示例例子
-  dev: {
-    // 服务器地址，如192.168.0.1
-    host: "192.168.0.1",
-    // ssh的端口，一般默认22
-    port: "22",
-    // 用户名，如root
-    username: "root",
-    // 服务器密码，非必填，执行部署命令可以手动输入以确保信息安全
-    password: "",
-    // 要部署到服务器的路径
-    uploadPath: "/home/workplus",
+  envConfig: {
+    // 名为 test 的环境配置
+    test: {
+      host: "192.168.0.1",
+      port: 22,
+      username: "root",
+      // password 感觉可以去掉
+      password: "123456",
+      distPath: "./dist",
+      uploadPath: "/home/workplus",
+      privateKey: "",
+       // passphrase 感觉可以去掉
+      passphrase: "",
+      preCommand: "npm run build",
+    },
   },
 };
 ```
 
-### 多环境支持
+所有的环境配置，都应添加到`envConfig`中，你可以根据实际情况，添加多个不同的环境配置。
 
-```js
-module.exports = {
-  privateKey: "",
-  passphrase: "",
-  buildCommand: "npm run build",
-  distPath: "dist",
+以下为一个环境中可配置的所有字段的说明：
 
-  dev: {
-    //...
-  }
-  // 新增一个部署环境，名为test
-  test: {
-    host: "192.168.0.1",
-    port: "22",
-    username: "root",
-    password: "",
-    uploadPath: "/home/workplus",
-  },
-};
-```
+* `host`
 
-### 定制化支持
+服务器地址，如 192.168.0.1
 
-```js
-module.exports = {
-  privateKey: "",
-  passphrase: "",
-  buildCommand: "npm run build",
-  distPath: "dist",
-  // 定制化部署环境custom
-  custom: {
-    host: "192.168.0.1",
-    port: "22",
-    username: "root",
-    password: "",
-    uploadPath: "/home/workplus",
-    // 以下四个配置项在环境内声明时都会覆盖外层同名配置
-    privateKey: "",
-    passphrase: "",
-    buildCommand: "npm run build",
-    distPath: "dist",
-  },
-};
-```
+* `port` 
 
-### 执行自动化部署
+ssh 的端口，一般默认 22
+
+* `username` 
+
+用户名，如 root
+
+* `password`
+
+服务器密码，非必须，执行部署命令可以手动输入以确保信息安全
+
+* `uploadPath` 
+
+要部署到服务器的目录路径，应为绝对路径
+
+* `privateKey`
+
+本地私钥地址，应为绝对路径，非必填；若有值，将会带密钥的方式进行 ssh 链接，否则使用账号密码的方式
+
+* `passphrase` 
+
+对应私钥的密码，非必须，可为空
+
+* `preCommand` 
+
+发布前需执行的命令，非必须
+
+* `distPath`
+
+本地待上传的文件目录
+
+
+### 自动化部署
+
+`@w6s/cli-deploy`支持多环境发布，使用`deploy`命令，传入 env 环境名字，一键自动发布。
 
 ```sh
-w6s-cli-deploy deploy <部署环境的名字>
+w6s-cli-deploy deploy --env <环境名称>
 ```
