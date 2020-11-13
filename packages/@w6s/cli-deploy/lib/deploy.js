@@ -37,17 +37,17 @@ class Deploy {
   }
 
   // 检查要部署的环境的配置参数
-  checkModeConfig(mode) {
+  checkEnvConfig(env) {
     this.config = require(this.configPath);
-    const currentMode = this.config[mode];
-    if (!currentMode) {
-      errorLog(`未能找到部署环境 ${mode} 的配置信息，请检查配置文件.`);
+    const currentEnv = this.config[env];
+    if (!currentEnv) {
+      errorLog(`未能找到部署环境 ${env} 的配置信息，请检查配置文件.`);
       process.exit(1);
     }
-    const keys = Object.keys(currentMode);
+    const keys = Object.keys(currentEnv);
     keys.forEach((key) => {
       if (key === "password") return;
-      if (!currentMode[key]) {
+      if (!currentEnv[key]) {
         errorLog(`${key} 配置不正确.`);
         process.exit(1);
       }
@@ -55,20 +55,20 @@ class Deploy {
   }
 
   // 判断配置项的优先级
-  getSelectiveSetup(mode, setup) {
+  getSelectiveSetup(env, setup) {
     const commonSetup = this.config[setup];
-    const modeSetup = this.config[mode][setup];
-    if (!commonSetup && !modeSetup) {
+    const envSetup = this.config[env][setup];
+    if (!commonSetup && !envSetup) {
       errorLog(`${setup}配置不正确.`);
       process.exit(1);
     }
-    return modeSetup || commonSetup;
+    return envSetup || commonSetup;
   }
 
   // 打包项目
-  async buildSource(mode) {
+  async buildSource(env) {
     try {
-      const buildCommand = this.getSelectiveSetup(mode, "buildCommand");
+      const buildCommand = this.getSelectiveSetup(env, "buildCommand");
       const spinner = ora("正在打包项目...").start();
       await execa.command(buildCommand);
       spinner.stop();
@@ -80,14 +80,14 @@ class Deploy {
   }
 
   // 上传打包的项目
-  async uploadDirectory(mode) {
+  async uploadDirectory(env) {
     try {
       const ssh = new NodeSSH();
-      const privateKey = this.getSelectiveSetup(mode, "privateKey");
-      const passphrase = this.getSelectiveSetup(mode, "passphrase");
-      const distPath = this.getSelectiveSetup(mode, "distPath");
-      const { host, port, username, uploadPath } = this.config[mode];
-      let { password } = this.config[mode];
+      const privateKey = this.getSelectiveSetup(env, "privateKey");
+      const passphrase = this.getSelectiveSetup(env, "passphrase");
+      const distPath = this.getSelectiveSetup(env, "distPath");
+      const { host, port, username, uploadPath } = this.config[env];
+      let { password } = this.config[env];
 
       if (!password) {
         const res = await inquirer.prompt([
@@ -100,7 +100,7 @@ class Deploy {
         password = res.password;
       }
 
-      let spinner = ora(`正在连接远程服务器${host}...`).start();
+      let spinner = ora(`正在连接远程服务器${host}...\n`).start();
 
       await ssh.connect({
         privateKey,
@@ -138,14 +138,14 @@ class Deploy {
   }
 
   // 走你
-  async start(mode) {
+  async start(env) {
     if (!this.checkConfigFile()) {
       errorLog("未找到配置文件deploy.config.js.");
       process.exit(1);
     }
-    this.checkModeConfig(mode);
-    await this.buildSource(mode);
-    await this.uploadDirectory(mode);
+    this.checkEnvConfig(env);
+    await this.buildSource(env);
+    await this.uploadDirectory(env);
   }
 }
 

@@ -17,5 +17,5 @@ w6s-cli-deploy init
 ### 执行部署操作
 
 ```sh
-w6s-cli-deploy deploy <部署环境的名字>
+w6s-cli-deploy deploy --env <部署环境的名字>
 ```
