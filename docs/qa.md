@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # 常见问题
 
 ## 如何控制 NodeJs 版本

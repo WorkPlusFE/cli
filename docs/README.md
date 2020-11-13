@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # 项目创建
 
 ## w6s-cli
