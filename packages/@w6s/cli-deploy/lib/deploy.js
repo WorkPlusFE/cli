@@ -38,7 +38,7 @@ class Deploy {
 
   // 检查要部署的环境的配置参数
   checkEnvConfig(env) {
-    this.config = require(this.configPath);
+    this.config = require(this.configPath).envConfig;
     const currentEnv = this.config[env];
     if (!currentEnv) {
       errorLog(`未能找到部署环境 ${env} 的配置信息，请检查配置文件.`);
@@ -46,7 +46,7 @@ class Deploy {
     }
     const keys = Object.keys(currentEnv);
     keys.forEach((key) => {
-      if (key === "password") return;
+      if (key === "password" || key === "privateKey" || key === "passphrase") return;
       if (!currentEnv[key]) {
         errorLog(`${key} 配置不正确.`);
         process.exit(1);
@@ -54,23 +54,11 @@ class Deploy {
     });
   }
 
-  // 判断配置项的优先级
-  getSelectiveSetup(env, setup) {
-    const commonSetup = this.config[setup];
-    const envSetup = this.config[env][setup];
-    if (!commonSetup && !envSetup) {
-      errorLog(`${setup}配置不正确.`);
-      process.exit(1);
-    }
-    return envSetup || commonSetup;
-  }
-
   // 打包项目
   async buildSource(env) {
     try {
-      const buildCommand = this.getSelectiveSetup(env, "buildCommand");
       const spinner = ora("正在打包项目...").start();
-      await execa.command(buildCommand);
+      await execa.command(this.config[env].preCommand);
       spinner.stop();
       successLog(`打包完成.`);
     } catch (error) {
@@ -83,10 +71,7 @@ class Deploy {
   async uploadDirectory(env) {
     try {
       const ssh = new NodeSSH();
-      const privateKey = this.getSelectiveSetup(env, "privateKey");
-      const passphrase = this.getSelectiveSetup(env, "passphrase");
-      const distPath = this.getSelectiveSetup(env, "distPath");
-      const { host, port, username, uploadPath } = this.config[env];
+      const { privateKey, passphrase, host, port, username, distPath, uploadPath } = this.config[env];
       let { password } = this.config[env];
 
       if (!password) {
@@ -102,14 +87,12 @@ class Deploy {
 
       let spinner = ora(`正在连接远程服务器${host}...\n`).start();
 
-      await ssh.connect({
-        privateKey,
-        passphrase,
-        host,
-        port,
-        username,
-        password,
-      });
+      if (privateKey) {
+        await ssh.connect({ privateKey, passphrase, host, port, username, password });
+      } else {
+        await ssh.connect({ host, port, username, password });
+      }
+
       spinner.stop();
       successLog("连接成功.");
 
