@@ -23,27 +23,23 @@ npm install -g @w6s/cli-deploy
 安装成功后，执行以下命令:
 
 ```bash
-w6s-cli-deploy init --env test
+w6s-cli-deploy init
 ```
-
-如上，`init`命令接受一个 env 的参数，可以传入一个环境名称，默认为 test。
 
 执行初始化命令后，会在当前目录生成`deploy.config.js`配置文件，具体配置内容和说明如下：
 
 ```js
 module.exports = {
   envConfig: {
-    // 名为 test 的环境配置
-    test: {
+    // 名为 dev 的环境配置
+    dev: {
       host: "192.168.0.1",
       port: 22,
       username: "root",
-      // password 感觉可以去掉
       password: "123456",
-      distPath: "./dist",
+      distPath: "dist",
       uploadPath: "/home/workplus",
       privateKey: "",
-       // passphrase 感觉可以去掉
       passphrase: "",
       preCommand: "npm run build",
     },
@@ -55,42 +51,41 @@ module.exports = {
 
 以下为一个环境中可配置的所有字段的说明：
 
-* `host`
+- `host`
 
 服务器地址，如 192.168.0.1
 
-* `port` 
+- `port`
 
 ssh 的端口，一般默认 22
 
-* `username` 
+- `username`
 
 用户名，如 root
 
-* `password`
+- `password`
 
 服务器密码，非必须，执行部署命令可以手动输入以确保信息安全
 
-* `uploadPath` 
+- `uploadPath`
 
 要部署到服务器的目录路径，应为绝对路径
 
-* `privateKey`
+- `privateKey`
 
 本地私钥地址，应为绝对路径，非必填；若有值，将会带密钥的方式进行 ssh 链接，否则使用账号密码的方式
 
-* `passphrase` 
+- `passphrase`
 
 对应私钥的密码，非必须，可为空
 
-* `preCommand` 
+- `preCommand`
 
 发布前需执行的命令，非必须
 
-* `distPath`
+- `distPath`
 
 本地待上传的文件目录
-
 
 ### 自动化部署
 
