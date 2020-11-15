@@ -4,11 +4,10 @@
 
 [仓库地址](https://github.com/WorkPlusFE/cli/tree/master/packages/%40w6s/cli-deploy)
 
-## 如何使用
+
+## 安装
 
 要使用发布功能，可以单独安装`@w6s/cli-deploy`，或者使用`w6s-cli`提供的`deploy`命令。
-
-### 安装
 
 安装`@w6s/cli-deploy`：
 
@@ -18,7 +17,7 @@ yarn global add @w6s/cli-deploy
 npm install -g @w6s/cli-deploy
 ```
 
-### 初始化配置文件
+## 初始化配置文件
 
 安装成功后，执行以下命令:
 
@@ -87,10 +86,16 @@ ssh 的端口，一般默认 22
 
 本地待上传的文件目录
 
-### 自动化部署
+## 自动化部署
 
 `@w6s/cli-deploy`支持多环境发布，使用`deploy`命令，传入 env 环境名字，一键自动发布。
 
 ```sh
 w6s-cli-deploy deploy --env <环境名称>
+```
+
+例如发布到上方 dev 环境，执行以下命令即可：
+
+```sh
+w6s-cli-deploy deploy --env dev
 ```
