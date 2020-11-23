@@ -14,8 +14,6 @@ function getPostFileList() {
   }
 }
 
-console.log(getPostFileList())
-
 module.exports = {
   title: 'FED',
   base: '/dev/',
@@ -28,7 +26,6 @@ module.exports = {
     nav: [
       { text: '项目创建', link: '/' },
       { text: 'DevOps', link: '/DevOps/' },
-      { text: 'w6s-cli', link: '/cli' },
       { text: '工具/库', link: '/packages' },
       { text: '文章', link: '/post/' },
       { text: '常见问题', link: '/qa' },
@@ -44,11 +41,12 @@ module.exports = {
     sidebar: {
       '/DevOps/': [
         {
-          title: '资源发布',
+          title: '开发与发布',
           collapsable: false,
           sidebarDepth: 2,
           children: [
             '',
+            'deploy',
           ]
         }, {
           title: '日志埋点',

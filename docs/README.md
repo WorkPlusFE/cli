@@ -6,18 +6,9 @@ sidebar: auto
 
 ## w6s-cli
 
-通过使用团队内部` @w6s/cli`工具，进行快速项目初始架构创建。
-
-<a href="https://www.npmjs.com/package/@w6s/cli"><img alt="npm" src="https://img.shields.io/npm/v/@w6s/cli.svg?style=flat-square"></a> 
+`@w6s/cli`是团队内部指定使用的 cli 工具，常用于快速创建项目初始架构。更多关于 w6s-cli 的详细介绍，可以查看[w6s-cli](./cli.html)栏目。
 
 ### 安装
-
-环境要求：
-
-* Node.js 版本 >=10
-* [Yarn](https://yarnpkg.com/) (推荐使用) / npm
-
-> 使用 Yarn 的理由：性能更好，使用更方便
 
 通过以下命令进行安装：
 
@@ -27,24 +18,7 @@ yarn global add @w6s/cli
 npm install -g @w6s/cli
 ```
 
-安装成功后，在 shell 中键入`w6s`，即可看到相关功能说明。 
-
-```bash
-Usage: w6s <command> [options]
-
-Options:
-  -V, --version    output the version number
-  -h, --help       display help for command
-
-Commands:
-  init <app-name>  create a new project
-  serve            http-server like, start a local static server
-  deploy           push static resources to the server
-  qrcode           draw QRcode in terminal window
-  mirror           set NPM mirrors to Taobao sources, such as electron, node-sass
-  env              print debugging information about your environment
-  help [command]   display help for command
-```
+安装成功后，在 shell 中键入`w6s`，即可查看所有功能说明。
 
 ### 通过 w6s init 创建
 
@@ -80,50 +54,6 @@ yarn
 # 安装成功后，启动服务
 yarn serve # yarn dev 同样可用
 ```
-
-### 其他功能
-
-#### w6s serve
-
-用于启动一个静态文件服务，常用于应用打包后的本地调试。
-
-详细使用方法，可通过输入`w6s serve --help`进行查看。
-
-#### w6s deoply
-
-wip.
-
-#### w6s mirror
-
-wip.
-
-#### w6s qrcode
-
-用于生成二维码，例如一个应用的访问地址，通过输入`ws6 qrcode <app-url>`，即可在 shell 上生成二维码，方便手机扫码调试。
-
-详细使用方法，可通过输入`w6s qrcode --help`进行查看。
-
-#### w6s env
-
-输出当前设备的一些软件或工具的版本信息，例如：
-
-```bash
-Environment Info:
-
-System:
-  OS: macOS 10.15.4
-  CPU: (4) x64 Intel(R) Core(TM) i5-5257U CPU @ 2.70GHz
-Binaries:
-  Node: 10.16.0 - ~/.nvm/versions/node/v10.16.0/bin/node
-  Yarn: 1.22.4 - ~/.nvm/versions/node/v10.16.0/bin/yarn
-  npm: 6.9.0 - ~/.nvm/versions/node/v10.16.0/bin/npm
-Browsers:
-  Chrome: 85.0.4183.102
-  Edge: Not Found
-  Firefox: 57.0
-  Safari: 13.1
-```
-
 ## 项目介绍
 
 ### 技术栈
@@ -147,15 +77,12 @@ Browsers:
   * browser@5.15.5
   * integrations@5.15.5
 * @w6s
-  * codash@1.1.2
-  * cordova-import@1.3.2
-
-> tips: 在 H5 sdk 出来后，codash 和 cordova-import 将会被取代。
+  * sdk
 
 UI库
 
-* [admin] element-ui@2.9.2
-* [H5] vant@2.8.1
+* `admin` element-ui@2.9.2
+* `H5` vant@2.8.1
 
 ### 目录说明
 
@@ -295,11 +222,11 @@ API 的模拟，默认放置在`/mock/index.js`里，`@w6s/mock-plugin`会监听
 
 ### Sentry
 
-Sentry 是一个实时的事件日志记录和聚合平台。当前我们也私有化部署了一套，可以通过[https://sentry.workplus.io/sentry/](https://sentry.workplus.io/sentry/)访问。
+Sentry 是一个实时的事件日志记录和聚合平台。当前我们团队也私有化部署了一套，可以通过[https://sentry.workplus.io/sentry/](https://sentry.workplus.io/sentry/)访问。
 
 而该插件的功能由`@w6s/sentry-plugin`插件提供，主要是用于在项目打包后，上传前端资源文件，例如 js 的`sourcemap`文件。
 
-想了解更多使用 Sentry 的知识，请访问 [使用 Sentry](/sentry.html)。
+想了解更多使用 Sentry 的知识，请访问 [使用 Sentry](/DevOps/sentry.html)。
 
 ### i18n
 

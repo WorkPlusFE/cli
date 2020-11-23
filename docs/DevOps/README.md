@@ -1,101 +1,83 @@
-# cli-deploy
+# w6s-cli
 
-项目发布是项目开发过程中，必不可少的一环。为了简化前端项目资源的部署步骤，避免繁琐的 shell 脚本编写及人为操作，`w6s-cli`根据常见的部署场景，提供了自动化部署的功能，支持开发、测试、生产多环境配置，一键即可自动完成部署。
+<a href="https://www.npmjs.com/package/@w6s/cli"><img alt="npm" src="https://img.shields.io/npm/v/@w6s/cli.svg?style=flat-square"></a> 
 
-[仓库地址](https://github.com/WorkPlusFE/cli/tree/master/packages/%40w6s/cli-deploy)
-
+`@w6s/cli`是团队内部指定使用的 cli 工具，除了用于快速创建项目初始架构，还包含一些常用的功能，例如启动静态文件服务、设置配置等。
 
 ## 安装
 
-要使用发布功能，可以单独安装`@w6s/cli-deploy`，或者使用`w6s-cli`提供的`deploy`命令。
+环境要求：
 
-安装`@w6s/cli-deploy`：
+* Node.js 版本 >=10
+* [Yarn](https://yarnpkg.com/) (推荐使用) / npm
+
+> 使用 Yarn 的理由：性能更好，使用更方便
+
+通过以下命令进行安装：
 
 ```bash
-yarn global add @w6s/cli-deploy
+yarn global add @w6s/cli
 # or
-npm install -g @w6s/cli-deploy
+npm install -g @w6s/cli
 ```
 
-## 初始化配置文件
+安装成功后，在 shell 中键入`w6s`，即可看到相关功能说明，如下：
 
-安装成功后，执行以下命令:
 
 ```bash
-w6s-cli-deploy init
+Usage: w6s <command> [options]
+
+Options:
+  -V, --version    output the version number
+  -h, --help       display help for command
+
+Commands:
+  init <app-name>  create a new project
+  serve            http-server like, start a local static server
+  deploy           push static resources to the server
+  qrcode           draw QRcode in terminal window
+  mirror           set NPM mirrors to Taobao sources, such as electron, node-sass
+  env              print debugging information about your environment
+  help [command]   display help for command
 ```
 
-执行初始化命令后，会在当前目录生成`deploy.config.js`配置文件，具体配置内容和说明如下：
+## 文件静态服务
 
-```js
-module.exports = {
-  envConfig: {
-    // 名为 dev 的环境配置
-    dev: {
-      host: "192.168.0.1",
-      port: 22,
-      username: "root",
-      password: "123456",
-      distPath: "dist",
-      uploadPath: "/home/workplus",
-      privateKey: "",
-      passphrase: "",
-      preCommand: "npm run build",
-    },
-  },
-};
-```
+用于启动一个静态文件服务，常用于应用打包后的本地调试。
 
-所有的环境配置，都应添加到`envConfig`中，你可以根据实际情况，添加多个不同的环境配置。
+详细使用方法，可通过输入`w6s serve --help`进行查看。
 
-以下为一个环境中可配置的所有字段的说明：
+## 资源发布
 
-- `host`
+w6s-cli 集成了`@w6s/cli-deploy`的功能，详细说明文档，请查看[cli-deploy](/DevOps/deploy.html)。
 
-服务器地址，如 192.168.0.1
+## 设置包管理器 mirror
 
-- `port`
+wip.
 
-ssh 的端口，一般默认 22
+## 生成二维码
 
-- `username`
+用于生成二维码，例如一个应用的访问地址，通过输入`ws6 qrcode <app-url>`，即可在 shell 上生成二维码，方便手机扫码调试。
 
-用户名，如 root
+详细使用方法，可通过输入`w6s qrcode --help`进行查看。
 
-- `password`
+## 显示环境配置
 
-服务器密码，非必须，执行部署命令可以手动输入以确保信息安全
+输出当前设备的一些软件或工具的版本信息，例如：
 
-- `uploadPath`
+```bash
+Environment Info:
 
-要部署到服务器的目录路径，应为绝对路径
-
-- `privateKey`
-
-本地私钥地址，应为绝对路径，非必填；若有值，将会带密钥的方式进行 ssh 链接，否则使用账号密码的方式
-
-- `passphrase`
-
-对应私钥的密码，非必须，可为空
-
-- `preCommand`
-
-发布前需执行的命令，非必须
-
-- `distPath`
-
-本地待上传的文件目录
-
-## 自动化部署
-
-`@w6s/cli-deploy`支持多环境发布，使用`deploy`命令，传入 env 环境名字，一键自动发布。
-
-```sh
-w6s-cli-deploy deploy --env <环境名称>
-```
-
-例如发布到上方 dev 环境，执行以下命令即可：
-
-```sh
-w6s-cli-deploy deploy --env dev
+System:
+  OS: macOS 10.15.4
+  CPU: (4) x64 Intel(R) Core(TM) i5-5257U CPU @ 2.70GHz
+Binaries:
+  Node: 10.16.0 - ~/.nvm/versions/node/v10.16.0/bin/node
+  Yarn: 1.22.4 - ~/.nvm/versions/node/v10.16.0/bin/yarn
+  npm: 6.9.0 - ~/.nvm/versions/node/v10.16.0/bin/npm
+Browsers:
+  Chrome: 85.0.4183.102
+  Edge: Not Found
+  Firefox: 57.0
+  Safari: 13.1
 ```
