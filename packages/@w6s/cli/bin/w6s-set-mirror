@@ -1,0 +1,112 @@
+#!/usr/bin/env node
+
+require('colors');
+
+const execa = require('execa');
+const inquirer = require('inquirer');
+const { hasYarn, logger } = require('@w6s/cli-shared-utils');
+const mirror = require('../lib/mirror');
+const cons = require('consolidate');
+
+const getPackageType = () => {
+  const message = '请选择包管理器';
+  const choices = [{ name: 'NPM', checked: false }];
+
+  if (hasYarn()) {
+    choices.unshift({ name: 'Yarn', checked: true });
+  } else {
+    choices[0].checked = true;
+    console.log('');
+    logger.info('亲，这边建议你使用 Yarn 包管理工具喔！:）\n');
+  }
+
+  return inquirer.prompt([{
+    type: 'checkbox',
+    message,
+    choices,
+    name: 'answer',
+    default: {
+      checked: true,
+    },
+    validate: function (input) {
+      const done = this.async();
+      if (input.length === 0) {
+        done('至少选择一种！');
+        return;
+      }
+      done(null, true);
+    }
+  }]).then((answers) => {
+    if (answers.answer) return answers.answer;
+    return process.exit(1);
+  });
+};
+
+const selectMirror = (packages) => {
+  const message = '请选择需要设置源的工具或库';
+  const mirrors = [
+    {
+      name: 'taobao-mirror',
+      checked: true,
+    },
+    {
+      name: 'node-sass',
+      checked: true,
+    },
+    'node-gyp',
+    'electron',
+    'puppeteer',
+    'chromedriver',
+    'operadriver',
+    'phantomjs',
+    'selenium',
+    'node-inspector'
+  ];
+
+  return inquirer.prompt([{
+    type: 'checkbox',
+    choices: mirrors,
+    name: 'answer',
+    message,
+    pageSize: 10,
+    validate: function (input) {
+      const done = this.async();
+      if (input.length === 0) {
+        done('至少选择一种！');
+        return;
+      }
+      done(null, true);
+    }
+  }]).then((answers) => {
+    if (answers.answer) return answers.answer;
+    return process.exit(1);
+  });
+};
+
+const setAllMirrors = (packages, mirrors) => {
+  packages.forEach(package => {
+    console.log('');
+    const shells = mirror.getMirrorByType(package, mirrors);
+    shells.forEach(shell => {
+      execa.command(shell);
+      console.log(`${shell}`.green);
+    });
+  });
+};
+
+try {
+  async function setMirror() {
+    const packages = await getPackageType();
+    const mirrors = await selectMirror();
+
+    setAllMirrors(packages, mirrors);
+
+    console.log('');
+    logger.done(`🚀 Done, enjoy the speed! \n`);
+  };
+
+  setMirror();
+} catch (error) {
+  console.log(error);
+  process.exit(1);
+}

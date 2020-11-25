@@ -2,7 +2,7 @@
 
 const execa = require('execa');
 
-const binPath = require.resolve('qrcode/bin/qrcode');
+const binPath = require.resolve('@w6s/cli-deploy/bin/index.js');
 const argv = process.argv.slice(2);
 
 execa(
