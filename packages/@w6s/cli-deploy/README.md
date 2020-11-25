@@ -1,21 +1,9 @@
 ## @w6s/cli-deploy
 
-### 安装
+[![npm version](https://badge.fury.io/js/%40w6s%2Fcli-deploy.svg)](https://badge.fury.io/js/%40w6s%2Fcli-deploy) 
 
-```bash
-yarn global add @w6s/cli-deploy
-# or
-npm install -g @w6s/cli-deploy
-```
+[查看详细使用文档](https://open.workplus.io/dev/DevOps/deploy.html)
 
-### 初始化配置文件
+### license
 
-```sh
-w6s-cli-deploy init
-```
-
-### 执行部署操作
-
-```sh
-w6s-cli-deploy deploy --env <部署环境的名字>
-```
+MIT
