@@ -1,6 +1,6 @@
 {
   "name": "@w6s/cli-script",
-  "version": "1.0.19-alpha.0",
+  "version": "1.0.20-alpha.0",
   "main": "index.js",
   "license": "MIT",
   "bin": {
@@ -25,7 +25,7 @@
     "@w6s/cli-shared-utils": "^1.0.11-alpha.0",
     "@w6s/eslint-config": "^1.1.1",
     "@w6s/mock-plugin": "^1.0.11-alpha.0",
-    "@w6s/sentry-plugin": "^1.0.13-alpha.0",
+    "@w6s/sentry-plugin": "^1.0.14-alpha.0",
     "@w6s/style-resources-loader-plugin": "^1.0.8-alpha.0",
     "@w6s/stylelint-config": "^1.1.0",
     "@w6s/stylelint-plugin": "^1.0.7-alpha.0",
