@@ -5,6 +5,10 @@ const execa = require('execa');
 const binPath = require.resolve('@w6s/cli-deploy/bin/index.js');
 const argv = process.argv.slice(2);
 
+if (argv.length > 0 && argv[0] === '--env') {
+  argv.unshift('deploy');
+}
+
 execa(
   binPath,
   argv,
