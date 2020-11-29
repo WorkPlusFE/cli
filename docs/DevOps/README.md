@@ -34,26 +34,55 @@ Options:
 Commands:
   init <app-name>  create a new project
   serve            http-server like, start a local static server
-  deploy           push static resources to the server
+  deploy           automatically publish front-end resources
+  set-mirror       set NPM or Yarn mirrors to Taobao sources, such as electron, node-sass
   qrcode           draw QRcode in terminal window
-  mirror           set NPM mirrors to Taobao sources, such as electron, node-sass
   env              print debugging information about your environment
   help [command]   display help for command
 ```
+
+## 项目创建
+
+通过`w6s init`命令，可快速创建内置项目架构，包括轻应用的`移动端H5轻应用项目`及通用的管理后台`管理后台项目`：
+
+```bash
+? 请选择项目类型  (Use arrow keys)
+❯ 管理后台项目 
+  移动端H5轻应用项目 
+```
+
+项目模版的详细说明，请查看[项目创建](/)栏目。
 
 ## 文件静态服务
 
 用于启动一个静态文件服务，常用于应用打包后的本地调试。
 
-详细使用方法，可通过输入`w6s serve --help`进行查看。
+该功能是集成了[serve](https://github.com/vercel/serve#readme)模块，详细使用方法，可通过输入`w6s serve --help`进行查看。
 
 ## 资源发布
 
 w6s-cli 集成了`@w6s/cli-deploy`的功能，详细说明文档，请查看[cli-deploy](/DevOps/deploy.html)。
 
-## 设置包管理器 mirror
+## 设置源
 
-wip.
+通过使用`w6s set-mirror`命令，可以对`Yarn`和`NPM`包管理器设置 mirror，如下：
+
+```bash
+? 请选择包管理器 Yarn
+? 请选择需要设置源的工具或库 (Press <space> to select, <a> to toggle all, <i> to invert selection)
+❯◉ taobao-mirror
+ ◉ node-sass
+ ◯ node-gyp
+ ◯ electron
+ ◯ puppeteer
+ ◯ chromedriver
+ ◯ operadriver
+ ◯ phantomjs
+ ◯ selenium
+ ◯ node-inspector
+```
+
+可以重复设置，若需要删除，请自行在相关配置文件编辑处理。
 
 ## 生成二维码
 
