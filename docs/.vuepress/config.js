@@ -20,7 +20,9 @@ module.exports = {
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
+  theme: 'default-prefers-color-scheme',
   themeConfig: {
+    overrideTheme: { light: [6, 18], dark: [18, 6] },
     logo: '/logo.png',
     displayAllHeaders: true,
     nav: [

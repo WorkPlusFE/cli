@@ -39,7 +39,8 @@
   },
   "dependencies": {
     "vue": "2.6.12",
-    "vue-server-renderer": "2.6.12"
+    "vue-server-renderer": "2.6.12",
+    "vuepress-theme-default-prefers-color-scheme": "^2.0.0"
   },
   "devDependencies": {
     "chalk": "^4.0.0",
