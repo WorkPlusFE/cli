@@ -38,8 +38,7 @@
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
       "w6s-cli-script lint",
-      "w6s-cli-script lint:style",
-      "git add"
+      "w6s-cli-script lint:style"
     ]
   },
   "engines": {
