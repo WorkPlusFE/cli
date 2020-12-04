@@ -40,15 +40,17 @@ class Deploy {
   checkEnvConfig(env) {
     this.config = require(this.configPath).envConfig;
     const currentEnv = this.config[env];
+    const necessaryConfig = ["host", "username", "uploadPath", "preCommand", "distPath"];
+
     if (!currentEnv) {
       errorLog(`未能找到部署环境 ${env} 的配置信息，请检查配置文件.`);
       process.exit(1);
     }
-    const keys = Object.keys(currentEnv);
-    keys.forEach((key) => {
-      if (key === "password" || key === "privateKey" || key === "passphrase") return;
-      if (!currentEnv[key]) {
-        errorLog(`${key} 配置不正确.`);
+
+    necessaryConfig.forEach((config) => {
+      const checkConfig = !(config in currentEnv) || !currentEnv[config];
+      if (checkConfig) {
+        errorLog(`${config} 未配置或为空`);
         process.exit(1);
       }
     });
@@ -110,7 +112,7 @@ class Deploy {
         },
       };
 
-      spinner = ora("正在上传文件...").start();
+      spinner = ora("正在上传文件...\n").start();
       await ssh.putDirectory(`${this.cwd}/${distPath}/`, uploadPath, options);
       spinner.stop();
       successLog("部署完成.");

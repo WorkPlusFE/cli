@@ -8,7 +8,7 @@ const templateConfig = `module.exports = {
       passphrase: "",
       // 服务器地址，如192.168.0.1
       host: "192.168.0.1",
-      // ssh的端口，一般默认22
+      // ssh的端口，非必填，默认22
       port: "22",
       // 用户名，如root
       username: "root",
