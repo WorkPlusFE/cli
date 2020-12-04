@@ -59,10 +59,10 @@ class Deploy {
   // 打包项目
   async buildSource(env) {
     try {
-      const spinner = ora("正在打包项目...").start();
+      const spinner = ora("开始执行前置脚本...").start();
       await execa.command(this.config[env].preCommand);
       spinner.stop();
-      successLog(`打包完成.`);
+      successLog(`脚本执行完成.`);
     } catch (error) {
       errorLog(error.message);
       process.exit(1);
