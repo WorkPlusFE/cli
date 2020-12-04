@@ -74,7 +74,8 @@ class Deploy {
       const { privateKey, passphrase, host, port, username, distPath, uploadPath } = this.config[env];
       let { password } = this.config[env];
 
-      if (!password) {
+      // 若没有privateKey，即通过密码连接
+      if (!privateKey && !password) {
         const res = await inquirer.prompt([
           {
             type: "password",
@@ -88,7 +89,7 @@ class Deploy {
       let spinner = ora(`正在连接远程服务器${host}...\n`).start();
 
       if (privateKey) {
-        await ssh.connect({ privateKey, passphrase, host, port, username, password });
+        await ssh.connect({ privateKey, passphrase, host, port, username });
       } else {
         await ssh.connect({ host, port, username, password });
       }
