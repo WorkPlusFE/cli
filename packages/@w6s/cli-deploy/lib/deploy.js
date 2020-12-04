@@ -73,10 +73,9 @@ class Deploy {
   async uploadDirectory(env) {
     try {
       const ssh = new NodeSSH();
-      const { privateKey, passphrase, host, port, username, distPath, uploadPath } = this.config[env];
-      let { password } = this.config[env];
+      const { privateKey, host, port, username, distPath, uploadPath } = this.config[env];
+      let { passphrase, password } = this.config[env];
 
-      // 若没有privateKey，即通过密码连接
       if (!privateKey && !password) {
         const res = await inquirer.prompt([
           {
@@ -86,6 +85,17 @@ class Deploy {
           },
         ]);
         password = res.password;
+      }
+
+      if (privateKey && !passphrase) {
+        const res = await inquirer.prompt([
+          {
+            type: "password",
+            message: "请输入私钥密码:",
+            name: "passphrase",
+          },
+        ]);
+        passphrase = res.passphrase;
       }
 
       let spinner = ora(`正在连接远程服务器${host}...\n`).start();
