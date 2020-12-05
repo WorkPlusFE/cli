@@ -1,6 +1,6 @@
 {
   "name": "@w6s/cli-deploy",
-  "version": "1.0.3-alpha.0",
+  "version": "1.0.4-alpha.0",
   "main": "./bin/index.js",
   "publishConfig": {
     "access": "public"
