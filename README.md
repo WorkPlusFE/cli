@@ -1,10 +1,10 @@
 # @w6s/cli 
 
-[![npm version](https://badge.fury.io/js/%40w6s%2Fcli.svg)](https://badge.fury.io/js/%40w6s%2Fcli) [![Build Status](https://travis-ci.org/WorkPlusFE/w6s-cli.svg?branch=master)](https://travis-ci.org/WorkPlusFE/w6s-cli)
+[![npm version](https://badge.fury.io/js/%40w6s%2Fcli.svg)](https://badge.fury.io/js/%40w6s%2Fcli) [![Build Status](https://travis-ci.org/WorkPlusFE/cli.svg?branch=master)](https://travis-ci.org/WorkPlusFE/cli)
 
 A CLI for scaffolding starter projects.
 
-👉 [查看 CLI 使用文档](https://open.workplus.io/cli/)
+👉 [查看 CLI 使用文档](https://open.workplus.io/dev/)
 
 ## 安装
 
