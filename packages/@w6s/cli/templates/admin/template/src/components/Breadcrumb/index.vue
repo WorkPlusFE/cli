@@ -3,7 +3,9 @@
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="(item, index) in breadcrumbs" :key="item.path">
         <span
-          v-if="item.redirect === 'noredirect' || index === breadcrumbs.length - 1"
+          v-if="
+            item.redirect === 'noredirect' || index === breadcrumbs.length - 1
+          "
           class="no-redirect"
         >
           {{ item.meta.title }}
@@ -15,20 +17,20 @@
 </template>
 
 <script lang="ts">
-import { compile } from "path-to-regexp";
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { RouteRecord, Route } from "vue-router";
+import { compile } from 'path-to-regexp';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { RouteRecord, Route } from 'vue-router';
 
 @Component({
-  name: "Breadcrumb",
+  name: 'Breadcrumb',
 })
 export default class extends Vue {
   private breadcrumbs: RouteRecord[] = [];
 
-  @Watch("$route")
+  @Watch('$route')
   private onRouteChange(route: Route) {
     // if you go to the redirect page, do not update the breadcrumbs
-    if (route.path.startsWith("/redirect/")) {
+    if (route.path.startsWith('/redirect/')) {
       return;
     }
     this.getBreadcrumb();
@@ -39,21 +41,23 @@ export default class extends Vue {
   }
 
   private getBreadcrumb() {
-    let matched = this.$route.matched.filter((item) => item.meta && item.meta.title);
+    let matched = this.$route.matched.filter(
+      (item) => item.meta && item.meta.title,
+    );
     const first = matched[0];
     if (!this.isDashboard(first)) {
-      matched = [{ path: "/dashboard", meta: { title: "Dashboard" } } as RouteRecord].concat(
-        matched
-      );
+      matched = [
+        { path: '/dashboard', meta: { title: 'Dashboard' } } as RouteRecord,
+      ].concat(matched);
     }
     this.breadcrumbs = matched.filter(
-      (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false
+      (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false,
     );
   }
 
   private isDashboard(route: RouteRecord) {
     const name = route && route.meta && route.meta.title;
-    return name === "Dashboard";
+    return name === 'Dashboard';
   }
 
   private pathCompile(path: string) {

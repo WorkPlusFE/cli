@@ -1,13 +1,13 @@
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 
 // App
-const sidebarStatusKey = "sidebar_status";
+const sidebarStatusKey = 'sidebar_status';
 export const getSidebarStatus = () => Cookies.get(sidebarStatusKey);
 export const setSidebarStatus = (sidebarStatus: string) =>
   Cookies.set(sidebarStatusKey, sidebarStatus);
 
 // User
-const tokenKey = "v_admin_token";
+const tokenKey = 'v_admin_token';
 export const getToken = () => Cookies.get(tokenKey);
 export const setToken = (token: string) => Cookies.set(tokenKey, token);
 export const removeToken = () => Cookies.remove(tokenKey);

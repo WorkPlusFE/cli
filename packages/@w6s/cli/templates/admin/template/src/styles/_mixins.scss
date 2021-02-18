@@ -1,7 +1,7 @@
-/* Mixins */
+/* stylelint-disable at-rule-no-unknown */
 @mixin clearfix {
-  &:after {
-    content: "";
+  &::after {
+    content: '';
     display: table;
     clear: both;
   }

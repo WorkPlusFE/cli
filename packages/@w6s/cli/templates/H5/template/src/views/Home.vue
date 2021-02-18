@@ -10,10 +10,10 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     HelloWorld,
   },
@@ -22,9 +22,9 @@ export default {
 
 <style lang="scss">
 .logo {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 </style>

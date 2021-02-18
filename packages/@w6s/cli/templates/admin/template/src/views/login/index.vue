@@ -40,14 +40,16 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon :name="passwordType === 'password' ? 'eye-off' : 'eye-on'" />
+          <svg-icon
+            :name="passwordType === 'password' ? 'eye-off' : 'eye-on'"
+          />
         </span>
       </el-form-item>
 
       <el-button
         :loading="loading"
         type="primary"
-        style="width: 100%; margin-bottom: 30px"
+        style="margin-bottom: 30px; width: 100%"
         @click.native.prevent="handleLogin"
       >
         Sign in
@@ -64,22 +66,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { Route } from "vue-router";
-import { Dictionary } from "vue-router/types/router";
-import { Form as ElForm, Input } from "element-ui";
-import { UserModule } from "@/store/modules/user";
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Route } from 'vue-router';
+import { Dictionary } from 'vue-router/types/router';
+import { Form as ElForm, Input } from 'element-ui';
+import { UserModule } from '@/store/modules/user';
 
 @Component({
-  name: "Login",
+  name: 'Login',
 })
 export default class extends Vue {
   private loginForm = {
-    username: "admin",
-    password: "111111",
+    username: 'admin',
+    password: '111111',
   };
 
-  private passwordType = "password";
+  private passwordType = 'password';
 
   private loading = false;
 
@@ -89,7 +91,7 @@ export default class extends Vue {
 
   private otherQuery: Dictionary<string> = {};
 
-  @Watch("$route", { immediate: true })
+  @Watch('$route', { immediate: true })
   private onRouteChange(route: Route) {
     const query = route.query as Dictionary<string>;
     if (query) {
@@ -99,18 +101,18 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.loginForm.username === "") {
+    if (this.loginForm.username === '') {
       (this.$refs.username as Input).focus();
-    } else if (this.loginForm.password === "") {
+    } else if (this.loginForm.password === '') {
       (this.$refs.password as Input).focus();
     }
   }
 
   private showPwd() {
-    if (this.passwordType === "password") {
-      this.passwordType = "";
+    if (this.passwordType === 'password') {
+      this.passwordType = '';
     } else {
-      this.passwordType = "password";
+      this.passwordType = 'password';
     }
     this.$nextTick(() => {
       (this.$refs.password as Input).focus();
@@ -123,7 +125,7 @@ export default class extends Vue {
         this.loading = true;
         await UserModule.Login(this.loginForm);
         this.$router.push({
-          path: this.redirect || "/",
+          path: this.redirect || '/',
           query: this.otherQuery,
         });
         setTimeout(() => {
@@ -137,7 +139,7 @@ export default class extends Vue {
 
   private getOtherQuery(query: Dictionary<string>) {
     return Object.keys(query).reduce((acc, cur) => {
-      if (cur !== "redirect") {
+      if (cur !== 'redirect') {
         acc[cur] = query[cur];
       }
       return acc;
@@ -165,25 +167,25 @@ export default class extends Vue {
     width: 85%;
 
     input {
-      height: 47px;
+      appearance: none;
       background: transparent;
-      border: 0px;
-      border-radius: 0px;
-      padding: 12px 5px 12px 15px;
-      color: $lightGray;
+      border: 0;
+      border-radius: 0;
       caret-color: $loginCursorColor;
-      -webkit-appearance: none;
+      color: $lightGray;
+      height: 47px;
+      padding: 12px 5px 12px 15px;
+    }
 
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $loginBg inset !important;
-        -webkit-text-fill-color: #fff !important;
-      }
+    input:-webkit-autofill {
+      box-shadow: 0 0 0 1000px $loginBg inset !important;
+      -webkit-text-fill-color: #fff !important;
     }
   }
 
   .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     color: #454545;
   }
@@ -192,59 +194,57 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .login-container {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
   background-color: $loginBg;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
 
   .login-form {
+    margin: 0 auto;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 160px 35px 0;
     position: relative;
     width: 520px;
-    max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
-    overflow: hidden;
   }
 
   .tips {
-    font-size: 14px;
     color: #fff;
+    font-size: 14px;
     margin-bottom: 10px;
 
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
+    span :first-of-type {
+      margin-right: 16px;
     }
   }
 
   .svg-container {
-    padding: 6px 5px 6px 15px;
     color: $darkGray;
+    display: inline-block;
+    padding: 6px 5px 6px 15px;
     vertical-align: middle;
     width: 30px;
-    display: inline-block;
   }
 
   .title-container {
     position: relative;
 
     .title {
-      font-size: 26px;
       color: $lightGray;
-      margin: 0px auto 40px auto;
-      text-align: center;
+      font-size: 26px;
       font-weight: bold;
+      margin: 0 auto 40px;
+      text-align: center;
     }
   }
 
   .show-pwd {
+    color: $darkGray;
+    cursor: pointer;
+    font-size: 16px;
     position: absolute;
     right: 10px;
     top: 7px;
-    font-size: 16px;
-    color: $darkGray;
-    cursor: pointer;
     user-select: none;
   }
 }

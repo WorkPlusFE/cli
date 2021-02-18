@@ -1,6 +1,6 @@
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
-    <div class="logo">{{ $t("app.title") }}</div>
+    <div class="logo">{{ $t('app.title') }}</div>
     <el-menu
       :collapse="isCollapse"
       :background-color="variables.menuBg"
@@ -23,13 +23,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { AppModule } from "@/store/modules/app";
-import SidebarItem from "./SidebarItem.vue";
-import variables from "@/styles/_variables.scss";
+import { Component, Vue } from 'vue-property-decorator';
+import { AppModule } from '@/store/modules/app';
+import variables from '@/styles/_variables.scss';
+import SidebarItem from './SidebarItem.vue';
 
 @Component({
-  name: "SideBar",
+  name: 'SideBar',
   components: {
     SidebarItem,
   },
@@ -74,7 +74,7 @@ export default class extends Vue {
 
   .el-scrollbar__bar {
     &.is-vertical {
-      right: 0px;
+      right: 0;
     }
 
     &.is-horizontal {

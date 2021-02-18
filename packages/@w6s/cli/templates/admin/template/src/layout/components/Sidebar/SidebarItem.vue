@@ -41,15 +41,15 @@
 </template>
 
 <script lang="ts">
-import path from "path";
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { RouteConfig } from "vue-router";
-import SidebarItemLink from "./SidebarItemLink.vue";
+import path from 'path';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { RouteConfig } from 'vue-router';
+import SidebarItemLink from './SidebarItemLink.vue';
 
 @Component({
   // Set 'name' here to prevent uglifyjs from causing recursive component not work
   // See https://medium.com/haiiro-io/element-component-name-with-vue-class-component-f3b435656561 for detail
-  name: "SidebarItem",
+  name: 'SidebarItem',
   components: {
     SidebarItemLink,
   },
@@ -61,7 +61,7 @@ export default class extends Vue {
 
   @Prop({ default: true }) private isFirstLevel!: boolean;
 
-  @Prop({ default: "" }) private basePath!: string;
+  @Prop({ default: '' }) private basePath!: string;
 
   get showingChildNumber() {
     if (this.item.children) {
@@ -89,7 +89,7 @@ export default class extends Vue {
     }
     // If there is no children, return itself with path removed,
     // because this.basePath already conatins item's path information
-    return { ...this.item, path: "" };
+    return { ...this.item, path: '' };
   }
 
   private resolvePath(routePath: string) {
@@ -106,8 +106,8 @@ export default class extends Vue {
 .full-mode {
   .nest-menu .el-submenu > .el-submenu__title,
   .el-submenu .el-menu-item {
-    min-width: $sideBarWidth !important;
     background-color: $subMenuBg !important;
+    min-width: $sideBarWidth !important;
 
     &:hover {
       background-color: $subMenuHover !important;
@@ -130,7 +130,7 @@ export default class extends Vue {
       overflow: hidden;
 
       & > .el-submenu__title {
-        padding: 0px !important;
+        padding: 0 !important;
 
         .el-submenu__icon-arrow {
           display: none;

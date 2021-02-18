@@ -1,6 +1,12 @@
-import { VuexModule, Module, Mutation, Action, getModule } from "vuex-module-decorators";
-import { getSidebarStatus, setSidebarStatus } from "@/utils/cookies";
-import store from "@/store";
+import {
+  VuexModule,
+  Module,
+  Mutation,
+  Action,
+  getModule,
+} from 'vuex-module-decorators';
+import { getSidebarStatus, setSidebarStatus } from '@/utils/cookies';
+import store from '@/store';
 
 export enum DeviceType {
   Mobile,
@@ -15,10 +21,10 @@ export interface AppState {
   };
 }
 
-@Module({ dynamic: true, store, name: "app" })
+@Module({ dynamic: true, store, name: 'app' })
 class App extends VuexModule implements AppState {
   public sidebar = {
-    opened: getSidebarStatus() !== "closed",
+    opened: getSidebarStatus() !== 'closed',
     withoutAnimation: false,
   };
 
@@ -29,9 +35,9 @@ class App extends VuexModule implements AppState {
     this.sidebar.opened = !this.sidebar.opened;
     this.sidebar.withoutAnimation = withoutAnimation;
     if (this.sidebar.opened) {
-      setSidebarStatus("opened");
+      setSidebarStatus('opened');
     } else {
-      setSidebarStatus("closed");
+      setSidebarStatus('closed');
     }
   }
 
@@ -39,7 +45,7 @@ class App extends VuexModule implements AppState {
   private CLOSE_SIDEBAR(withoutAnimation: boolean) {
     this.sidebar.opened = false;
     this.sidebar.withoutAnimation = withoutAnimation;
-    setSidebarStatus("closed");
+    setSidebarStatus('closed');
   }
 
   @Mutation

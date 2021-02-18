@@ -1,18 +1,25 @@
-import { Module, VuexModule, Action, Mutation, getModule } from "vuex-module-decorators";
-import store from "@/store";
-import { getToken, setToken } from "@/utils/cookies";
-import { login } from "@/api/user";
+import {
+  Module,
+  VuexModule,
+  Action,
+  Mutation,
+  getModule,
+} from 'vuex-module-decorators';
+
+import store from '@/store';
+import { getToken, setToken } from '@/utils/cookies';
+import { login } from '@/api/user';
 
 export interface UserState {
   token: string;
   name: string;
 }
 
-@Module({ dynamic: true, name: "user", store })
+@Module({ dynamic: true, name: 'user', store })
 class User extends VuexModule implements UserState {
-  token = getToken() || "";
+  token = getToken() || '';
 
-  name = "";
+  name = '';
 
   @Mutation
   SET_TOKEN(token: string) {

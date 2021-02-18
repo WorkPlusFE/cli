@@ -1,19 +1,19 @@
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
-import { Route } from "vue-router";
-import router from "./router";
-import { UserModule } from "./store/modules/user";
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+import { Route } from 'vue-router';
+import router from './router';
+import { UserModule } from './store/modules/user';
 
 NProgress.configure({ showSpinner: false });
 
-const whiteList = ["/login"];
+const whiteList = ['/login'];
 
 router.beforeEach(async (to: Route, _: Route, next: any) => {
   // Start progress bar
   NProgress.start();
   if (UserModule.token) {
-    if (to.path === "/login") {
-      next({ path: "/" });
+    if (to.path === '/login') {
+      next({ path: '/' });
       NProgress.done();
     } else {
       next();

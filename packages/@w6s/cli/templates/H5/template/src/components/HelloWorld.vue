@@ -23,8 +23,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { Cell, CellGroup } from "vant";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Cell, CellGroup } from 'vant';
 
 @Component({
   components: {
@@ -49,8 +49,8 @@ h4 {
 }
 
 ul {
-  padding: 0;
   list-style-type: none;
+  padding: 0;
 }
 
 li {
