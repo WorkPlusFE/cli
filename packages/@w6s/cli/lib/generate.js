@@ -1,13 +1,17 @@
 const async = require('async');
 const Metalsmith = require('metalsmith');
 const inquirer = require('inquirer');
-const { render } = require('consolidate').underscore;
+const {
+  render
+} = require('consolidate').underscore;
 const path = require('path');
 const metadata = require('read-metadata');
 const exists = require('fs').existsSync;
 const validateName = require('validate-npm-package-name');
 
 const gituser = require('./git-user');
+const { getCliScriptLastVersion, getJsSdkLastVersion } = require('./get-last-version.js');
+
 const cons = require('consolidate');
 
 let projectName;
@@ -25,7 +29,7 @@ const ask = (opts) => (files, metalsmith, done) => {
     name: 'name',
     message: '请输入项目名称',
     default: opts.name,
-    validate(name){
+    validate(name) {
       const its = validateName(name)
       if (!its.validForNewPackages) {
         const errors = (its.errors || []).concat(its.warnings || []);
@@ -34,7 +38,7 @@ const ask = (opts) => (files, metalsmith, done) => {
       projectName = name;
       return true;
     }
-  },{
+  }, {
     type: 'input',
     name: 'description',
     message: '请输入项目描述',
@@ -49,7 +53,7 @@ const ask = (opts) => (files, metalsmith, done) => {
       }
       return true;
     },
-  },{
+  }, {
     type: 'input',
     name: 'author',
     message: '请输入项目创建者',
@@ -68,10 +72,21 @@ const ask = (opts) => (files, metalsmith, done) => {
   const metadata = metalsmith.metadata();
 
   inquirer.prompt(questions)
-    .then((answers) => {
-      questions.forEach((item)=>{
+    .then(async (answers) => {
+      questions.forEach((item) => {
         metadata[item.name] = answers[item.name];
-      })
+      });
+
+      // 动态获取 cli-script 最新版本
+      const cliScriptVersion = await getCliScriptLastVersion();
+      metadata['cliScriptVersion'] = cliScriptVersion;
+
+      // 动态获取 js-sdk 最新版本（仅 h5）
+      if (global._TEMLATE_SELECTED_ && global._TEMLATE_SELECTED_.id === 'h5') {
+        const SDKVersion = await getJsSdkLastVersion();
+        metadata['SDKVersion'] = SDKVersion;
+      }
+
       done();
     });
 };
@@ -83,11 +98,11 @@ const ask = (opts) => (files, metalsmith, done) => {
  * @param {Metalsmith} metalsmith
  * @param {Function} done
  */
-function template(files, metalsmith, done){
+function template(files, metalsmith, done) {
   const keys = Object.keys(files);
   const metadata = metalsmith.metadata();
 
-  function run(file, done){
+  function run(file, done) {
     const currentFile = files[file];
     const str = currentFile.contents.toString();
 
@@ -125,7 +140,7 @@ const generate = (name, src, dest) => new Promise((resolve, reject) => {
   if (!opts.name) {
     opts.name = name;
   }
-  
+
   Metalsmith(templateSrc)
     .use(ask(opts))
     .use(template)

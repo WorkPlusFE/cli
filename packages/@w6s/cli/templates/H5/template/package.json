@@ -14,7 +14,7 @@
     "inspect": "w6s-cli-script inspect"
   },
   "dependencies": {
-    "@w6s/sdk": "^1.0.0",
+    "@w6s/sdk": "^<%= SDKVersion %>",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "vant": "^2.8.1",
@@ -27,7 +27,7 @@
     "vuex-module-decorators": "^0.17.0"
   },
   "devDependencies": {
-    "@w6s/cli-script": "^1.0.19-alpha.0"
+    "@w6s/cli-script": "^<%= cliScriptVersion %>"
   },
   "husky": {
     "hooks": {

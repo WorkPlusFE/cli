@@ -14,6 +14,7 @@ const prompt = require('../lib/prompt');
 const clone = require('../lib/clone');
 const { logCompleteMsg } = require('../lib/logCompleteMsg');
 const { executeCommand } = require('../lib/executeCommand');
+
 const cons = require('consolidate');
 
 // check node version
@@ -104,6 +105,8 @@ const getTemplate = () => {
   return prompt(message, tmeplatePrompt)
     .then((answer) => {
       const selected = getSelectedTplByAnswer(answer);
+
+      global._TEMLATE_SELECTED_ = selected;
       return selected;
     });
 };
