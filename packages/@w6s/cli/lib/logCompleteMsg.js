@@ -12,7 +12,7 @@ const logCompleteMsg = (opts, currentFolder) => {
   console.log(`    yarn && yarn serve`);
   
   console.log(`\n  需了解更多，请查看开发文档：`);
-  console.log('  https://open.workplus.io/w6s-cli/'.green);
+  console.log('  https://open.workplus.io/dev/start/'.green);
   console.log('\n  🖖 Happy coding, Good luck!');
 };
 
