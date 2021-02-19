@@ -1,3 +1,3 @@
-const styleLintPlugin = require('@ascendancyy/vue-cli-plugin-stylelint');
+const styleLintPlugin = require('@w6s/vue-cli-plugin-stylelint');
 
 module.exports = styleLintPlugin;
