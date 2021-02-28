@@ -11,6 +11,7 @@ const sentryPlugin = toPlugin('@w6s/sentry-plugin');
 const mockPlugin = toPlugin('@w6s/mock-plugin');
 const stylelintPlugin = toPlugin('@w6s/stylelint-plugin');
 const i18nPlugin = toPlugin('vue-cli-plugin-i18n');
+const createFilePlugin = toPlugin('@w6s/create-file-plugin');
 
 const context = process.cwd();
 
@@ -32,6 +33,7 @@ const createService = (command) => {
     stylelintPlugin,
     i18nPlugin,
     eslintPlugin,
+    createFilePlugin,
     ...projectPlugins,
   ];
 

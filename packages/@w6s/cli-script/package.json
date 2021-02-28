@@ -30,6 +30,7 @@
     "@w6s/stylelint-config": "^1.1.0",
     "@w6s/stylelint-plugin": "^1.0.10-alpha.0",
     "@w6s/vconsole-plugin": "^1.0.10-alpha.0",
+    "@w6s/create-file-plugin": "^0.0.1",
     "babel-plugin-component": "^1.1.1",
     "babel-plugin-import": "^1.13.0",
     "eslint": "^6.8.0",

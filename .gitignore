@@ -41,3 +41,5 @@ demos
 packages/test/**
 
 dist
+
+.DS_Store

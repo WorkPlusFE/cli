@@ -1,0 +1,11 @@
+{
+  "name": "@w6s/create-file-plugin",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "copy-webpack-plugin": "5.1.1",
+    "create-file-webpack": "^1.0.2",
+    "git-revision-webpack-plugin": "^3.0.6"
+  }
+}
