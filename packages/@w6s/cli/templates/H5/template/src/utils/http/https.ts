@@ -51,10 +51,10 @@ export function apiGet<T>(
   // handleHeader
   let param = '?';
   Object.keys(handleData(params)).forEach((key) => {
-    param += handleData(params)[key];
+    param += `${key}=${handleData(params)[key]}&`;
   });
   return service
-    .get(`${url}${param}`, { headers })
+    .get(`${url}${param.substr(0, param.length - 1)}`, { headers })
     .then((res) => res)
     .catch((err) => {
       throw err;
