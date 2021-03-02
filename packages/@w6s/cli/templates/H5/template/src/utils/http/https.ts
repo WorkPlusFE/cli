@@ -34,6 +34,19 @@ export function handleData<T extends Common.PlainObject>(params: T): T {
 }
 
 /**
+ * get请求参数拼接
+ * @param params 请求接口的传参
+ */
+export function changeParamsToString<T extends Common.PlainObject>(params: T): string {
+  let param = '?';
+  Object.keys(handleData(params)).forEach((key) => {
+    param += `${key}=${handleData(params)[key]}&`;
+  });
+  if (param.length !== 1) param = param.slice(0, param.length - 1);
+  return param;
+}
+
+/**
  * Get请求
  * @export
  * @template T
@@ -47,13 +60,8 @@ export function apiGet<T>(
   params: Common.PlainObject = {},
   headers: Common.PlainObject = {},
 ): Promise<AxiosResponse<T>> {
-  // handleHeader
-  let param = '?';
-  Object.keys(handleData(params)).forEach((key) => {
-    param += handleData(params)[key];
-  });
   return service
-    .get(`${url}${param}`, { headers })
+    .get(`${url}${changeParamsToString(params)}`, { headers })
     .then((res) => res)
     .catch((err) => {
       throw err;
