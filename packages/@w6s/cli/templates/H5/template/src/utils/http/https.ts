@@ -48,13 +48,8 @@ export function apiGet<T>(
   params: Common.PlainObject = {},
   headers: Common.PlainObject = {},
 ): Promise<AxiosResponse<T>> {
-  // handleHeader
-  let param = '?';
-  Object.keys(handleData(params)).forEach((key) => {
-    param += handleData(params)[key];
-  });
   return service
-    .get(`${url}${param}`, { headers })
+    .get(url, { params, headers })
     .then((res) => res)
     .catch((err) => {
       throw err;
