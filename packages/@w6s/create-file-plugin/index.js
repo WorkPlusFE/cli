@@ -8,7 +8,7 @@ const brachName = gitRevision.branch();
 const commitHash = gitRevision.commithash();
 const rootPath = process.cwd();
 
-const setupCreateFilePlugin = (envObj, path, fileName) => {
+const setupCreateFilePlugin = (envObj, fileName) => {
   const baseConfigInfo = {
     BRANCH_NAME: brachName,
     COMMIT_HASH: commitHash,
@@ -23,7 +23,7 @@ const setupCreateFilePlugin = (envObj, path, fileName) => {
   }
 
   return new CreateFileWebpack({
-    path,
+    path: "dist",
     fileName,
     content: JSON.stringify({ ...baseConfigInfo, ...vueEnvObj }),
   });
@@ -31,17 +31,16 @@ const setupCreateFilePlugin = (envObj, path, fileName) => {
 
 module.exports = (api, projectOptions) => {
   const opts = projectOptions.pluginOptions.outputConfigFile || {};
-  const path = opts.path || "dist";
   const fileName = opts.fileName || "config.json";
   const copyFileName = opts.copyFileName || "README.md";
 
   api.configureWebpack((webpackConfig) => {
     webpackConfig.plugins.push(
-      setupCreateFilePlugin(process.env, path, fileName),
+      setupCreateFilePlugin(process.env, fileName),
       new CopyFilePlugin([
         {
           from: `${rootPath}/${copyFileName}`,
-          to: `${rootPath}/${path}/${copyFileName}`,
+          to: `${rootPath}/${copyFileName}`,
         },
       ])
     );
