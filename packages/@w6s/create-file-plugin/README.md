@@ -10,7 +10,7 @@ create-file-plugin 主要功能有：
 
 ## 使用方法
 
-create-file-plugin 是可配置的，它暴露了 fileName 和 copyFileName 两个配置项，如果你想配置它们，在 w6s.config.js 中可以这样:
+create-file-plugin 是可配置的，它暴露了 fileName 和 descriptionFile 两个配置项，如果你想配置它们，在 w6s.config.js 中可以这样:
 
 ```js
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
       // 默认 config.json
       fileName: "serverConfig.json",
       // 默认项目更目录下的README.md
-      copyFileName: "docs/项目文档.xlsx",
+      descriptionFile: "docs/项目文档.xlsx",
     },
   },
 };

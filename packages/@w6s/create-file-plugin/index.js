@@ -32,15 +32,15 @@ const setupCreateFilePlugin = (envObj, fileName) => {
 module.exports = (api, projectOptions) => {
   const opts = projectOptions.pluginOptions.outputConfigFile || {};
   const fileName = opts.fileName || "config.json";
-  const copyFileName = opts.copyFileName || "README.md";
+  const descriptionFile = opts.descriptionFile || "README.md";
 
   api.configureWebpack((webpackConfig) => {
     webpackConfig.plugins.push(
       setupCreateFilePlugin(process.env, fileName),
       new CopyFilePlugin([
         {
-          from: `${rootPath}/${copyFileName}`,
-          to: `${rootPath}/${copyFileName}`,
+          from: `${rootPath}/${descriptionFile}`,
+          to: `${rootPath}/${descriptionFile}`,
         },
       ])
     );
