@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@w6s/sdk": "^<%= SDKVersion %>",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "vant": "^2.8.1",
     "vue": "^2.6.12",
