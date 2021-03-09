@@ -8,7 +8,8 @@ const isGit = require('is-git-repository');
 const getGitMessage = () => {
   try {
     if (!isGit()) {
-      logger.info('当前为非 Git 项目！');
+      console.log('');
+      logger.info(' 当前为非 Git 项目！');
       return {};
     };
 
