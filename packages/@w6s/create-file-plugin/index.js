@@ -1,18 +1,29 @@
 const CreateFileWebpack = require("create-file-webpack");
 const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const CopyFilePlugin = require("copy-webpack-plugin");
+const { logger } = require("@w6s/cli-shared-utils");
 
-const gitRevision = new GitRevisionPlugin();
+const getGitMessage = () => {
+  try {
+    const gitRevision = new GitRevisionPlugin();
 
-const brachName = gitRevision.branch();
-const commitHash = gitRevision.commithash();
+    const BRANCH_NAME = gitRevision.branch();
+    const COMMIT_HASH = gitRevision.commithash();
+
+    return { BRANCH_NAME, COMMIT_HASH };
+  } catch (error) {
+    logger.error(error);
+    return {};
+  }
+};
+
 const rootPath = process.cwd();
 
 const setupCreateFilePlugin = (envObj, fileName) => {
+  const gitMessage = getGitMessage();
   const baseConfigInfo = {
-    BRANCH_NAME: brachName,
-    COMMIT_HASH: commitHash,
     PACK_TIME: new Date().toLocaleString(),
+    ...gitMessage,
   };
 
   const vueEnvObj = {};
@@ -32,7 +43,7 @@ const setupCreateFilePlugin = (envObj, fileName) => {
 module.exports = (api, projectOptions) => {
   const opts = projectOptions.pluginOptions.outputConfigFile || {};
   const fileName = opts.fileName || "config.json";
-  const descriptionFile = opts.descriptionFile || "README.md";
+  const descriptionFile = opts.descriptionFile || "DEPLOY.md";
 
   api.configureWebpack((webpackConfig) => {
     webpackConfig.plugins.push(
