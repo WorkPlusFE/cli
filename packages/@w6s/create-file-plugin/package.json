@@ -1,13 +1,13 @@
 {
   "name": "@w6s/create-file-plugin",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "main": "index.js",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@w6s/cli-shared-utils": "^1.2.1",
+    "@w6s/cli-shared-utils": "^1.2.2",
     "copy-webpack-plugin": "5.1.1",
     "create-file-webpack": "^1.0.2",
     "git-revision-webpack-plugin": "^3.0.6",

@@ -1,6 +1,6 @@
 {
   "name": "@w6s/cli",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "@w6s/cli",
   "main": "index.js",
   "bin": {
@@ -13,7 +13,7 @@
   "author": "WorkPlusFE",
   "dependencies": {
     "@w6s/cli-deploy": "^1.1.0",
-    "@w6s/cli-shared-utils": "^1.2.1",
+    "@w6s/cli-shared-utils": "^1.2.2",
     "async": "^3.2.0",
     "colors": "^1.4.0",
     "commander": "^5.1.0",
