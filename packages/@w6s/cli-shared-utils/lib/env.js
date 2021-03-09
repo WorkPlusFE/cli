@@ -20,3 +20,6 @@ exports.hasYarn = () => {
 exports.isWindows = process.platform === 'win32';
 exports.isMac = process.platform === 'darwin';
 exports.isLinux = process.platform === 'linux';
+
+// node env
+exports.isProd = process.env.NODE_ENV === 'production';

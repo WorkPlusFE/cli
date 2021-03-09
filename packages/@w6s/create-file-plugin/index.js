@@ -1,7 +1,7 @@
 const CreateFileWebpack = require("create-file-webpack");
 const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const CopyFilePlugin = require("copy-webpack-plugin");
-const { logger } = require("@w6s/cli-shared-utils");
+const { logger, isProd } = require("@w6s/cli-shared-utils");
 
 const getGitMessage = () => {
   try {
@@ -41,6 +41,8 @@ const setupCreateFilePlugin = (envObj, fileName) => {
 };
 
 module.exports = (api, projectOptions) => {
+  if (!isProd) return;
+
   const opts = projectOptions.pluginOptions.outputConfigFile || {};
   const fileName = opts.fileName || "config.json";
   const descriptionFile = opts.descriptionFile || "DEPLOY.md";
