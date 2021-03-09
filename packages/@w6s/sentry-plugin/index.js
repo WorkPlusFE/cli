@@ -1,5 +1,6 @@
 const SentryPlugin = require('webpack-sentry-plugin');
-const { getGitSha, isLegalOptions, isProdEnv } = require('./utils');
+const { isProd } = require('@w6s/cli-shared-utils');
+const { getGitSha, isLegalOptions } = require('./utils');
 
 const defaultPluginOptions = {
   deleteAfterCompile: true,
@@ -10,7 +11,7 @@ const defaultPluginOptions = {
 };
 
 module.exports = (api, projectOptions) => {
-  if (!isProdEnv()) return;
+  if (!isProd()) return;
 
   const receivedOptions = projectOptions.pluginOptions.sentry || {};
   if (!receivedOptions.enable) return;

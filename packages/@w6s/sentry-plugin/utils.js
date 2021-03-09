@@ -34,10 +34,7 @@ const isLegalOptions = (options) => {
   return true;
 };
 
-const isProdEnv = () => process.env.NODE_ENV === 'production'; 
-
 module.exports = {
   getGitSha,
   isLegalOptions,
-  isProdEnv,
 };

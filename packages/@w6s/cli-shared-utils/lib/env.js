@@ -22,4 +22,4 @@ exports.isMac = process.platform === 'darwin';
 exports.isLinux = process.platform === 'linux';
 
 // node env
-exports.isProd = process.env.NODE_ENV === 'production';
+exports.isProd = () => process.env.NODE_ENV === 'production';

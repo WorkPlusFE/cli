@@ -1,12 +1,18 @@
-const CreateFileWebpack = require("create-file-webpack");
-const GitRevisionPlugin = require("git-revision-webpack-plugin");
-const CopyFilePlugin = require("copy-webpack-plugin");
-const { logger, isProd } = require("@w6s/cli-shared-utils");
+const path = require('path');
+const CreateFileWebpack = require('create-file-webpack');
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const CopyFilePlugin = require('copy-webpack-plugin');
+const { logger, isProd } = require('@w6s/cli-shared-utils');
+const isGit = require('is-git-repository');
 
 const getGitMessage = () => {
   try {
-    const gitRevision = new GitRevisionPlugin();
+    if (!isGit()) {
+      logger.info('当前为非 Git 项目！');
+      return {};
+    };
 
+    const gitRevision = new GitRevisionPlugin();
     const BRANCH_NAME = gitRevision.branch();
     const COMMIT_HASH = gitRevision.commithash();
 
@@ -19,7 +25,7 @@ const getGitMessage = () => {
 
 const rootPath = process.cwd();
 
-const setupCreateFilePlugin = (envObj, fileName) => {
+const setupCreateFilePlugin = (envObj, fileName, outputDir) => {
   const gitMessage = getGitMessage();
   const baseConfigInfo = {
     PACK_TIME: new Date().toLocaleString(),
@@ -28,32 +34,33 @@ const setupCreateFilePlugin = (envObj, fileName) => {
 
   const vueEnvObj = {};
   for (const prop in envObj) {
-    if (prop.includes("VUE_APP_")) {
+    if (prop.includes('VUE_APP_')) {
       vueEnvObj[prop] = envObj[prop];
     }
   }
 
   return new CreateFileWebpack({
-    path: "dist",
+    path: outputDir,
     fileName,
     content: JSON.stringify({ ...baseConfigInfo, ...vueEnvObj }),
   });
 };
 
 module.exports = (api, projectOptions) => {
-  if (!isProd) return;
+  if (!isProd()) return;
 
+  const outputDir = projectOptions.outputDir || 'dist';
   const opts = projectOptions.pluginOptions.outputConfigFile || {};
-  const fileName = opts.fileName || "config.json";
-  const descriptionFile = opts.descriptionFile || "DEPLOY.md";
+  const fileName = opts.fileName || 'config.json';
+  const descriptionFile = opts.descriptionFile || 'DEPLOY.md';
 
   api.configureWebpack((webpackConfig) => {
     webpackConfig.plugins.push(
-      setupCreateFilePlugin(process.env, fileName),
+      setupCreateFilePlugin(process.env, fileName, outputDir),
+      // 文件默认输出到 output 目录
       new CopyFilePlugin([
         {
-          from: `${rootPath}/${descriptionFile}`,
-          to: `${rootPath}/${descriptionFile}`,
+          from: `${descriptionFile}`,
         },
       ])
     );
