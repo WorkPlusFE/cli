@@ -15,5 +15,5 @@ yarn dev
 yarn build
 ```
 
-更多使用说明，请查看[WorkPlusFE 开发手册](https://open.workplus.io/dev/)。
+更多使用说明，请查看[WorkPlusFE 开发手册](https://open.workplus.io/dev/start/)。
 
