@@ -1,6 +1,6 @@
 {
   "name": "@w6s/cli",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "description": "@w6s/cli",
   "main": "index.js",
   "bin": {
